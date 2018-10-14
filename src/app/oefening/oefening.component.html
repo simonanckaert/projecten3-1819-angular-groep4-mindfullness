@@ -1,0 +1,10 @@
+<p>
+  Dit is oefening : {{name}}
+</p>
+
+Delen:
+<ul>
+  <li *ngFor="let deel of delen">
+    <app-sessie [name]="deel"></app-sessie>
+  </li>
+</ul>
