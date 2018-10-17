@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Oefening } from './oefening/oefening.model';
 import { OefeningDataService } from './oefening-data.service';
 
 
