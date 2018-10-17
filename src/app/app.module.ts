@@ -16,10 +16,12 @@ import { OefeningenLijstComponent } from './oefeningen-lijst/oefeningen-lijst.co
 import { SessieLijstComponent } from './sessie-lijst/sessie-lijst.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { BerichtenComponent } from './berichten/berichten.component';
+import { SessieoverzichtComponent } from './sessieoverzicht/sessieoverzicht.component';
 
 const appRoutes: Routes = [
   { path: '', component: OefeningComponent },
   { path: 'berichten', component: BerichtenComponent },
+  { path: 'sessieoverzicht', component: SessieoverzichtComponent },
   { path: '**', component: PagenotfoundComponent }
 ];
 
@@ -32,7 +34,8 @@ const appRoutes: Routes = [
     OefeningenLijstComponent,
     SessieLijstComponent,
     PagenotfoundComponent,
-    BerichtenComponent
+    BerichtenComponent,
+    SessieoverzichtComponent
   ],
   imports: [
     BrowserModule,
