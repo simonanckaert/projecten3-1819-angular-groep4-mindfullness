@@ -6,6 +6,7 @@ import {MatButtonModule, MatCheckboxModule, MatSidenavModule,
    MatGridListModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { OefeningComponent } from './oefening/oefening.component';
 import { SessieComponent } from './sessie/sessie.component';
@@ -13,6 +14,14 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { OefeningenLijstComponent } from './oefeningen-lijst/oefeningen-lijst.component';
 import { SessieLijstComponent } from './sessie-lijst/sessie-lijst.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { BerichtenComponent } from './berichten/berichten.component';
+
+const appRoutes: Routes = [
+  { path: '', component: OefeningComponent },
+  { path: 'berichten', component: BerichtenComponent },
+  { path: '**', component: PagenotfoundComponent }
+];
 
 @NgModule({
   declarations: [
@@ -21,7 +30,9 @@ import { SessieLijstComponent } from './sessie-lijst/sessie-lijst.component';
     SessieComponent,
     MainNavComponent,
     OefeningenLijstComponent,
-    SessieLijstComponent
+    SessieLijstComponent,
+    PagenotfoundComponent,
+    BerichtenComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +48,11 @@ import { SessieLijstComponent } from './sessie-lijst/sessie-lijst.component';
     MatGridListModule,
     MatFormFieldModule,
     MatInputModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]
