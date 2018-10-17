@@ -1,10 +1,11 @@
-<p>
-  Dit is oefening : {{name}}
-</p>
-
-Delen:
-<ul>
-  <li *ngFor="let deel of delen">
-    <app-sessie [name]="deel"></app-sessie>
-  </li>
-</ul>
+<div class="card text-white bg-info mb-3" style="width: 18rem;">
+    <div class="card-header">
+      {{oefening.naam}}
+      <i class="material-icons">
+          create
+      </i>
+    </div>
+    <div class="card-body">
+      <p class="card-text">{{oefening.beschrijving}}</p>
+    </div>
+  </div>

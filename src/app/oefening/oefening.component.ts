@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
+import { Oefening } from './oefening.model';
 
 @Component({
   selector: 'app-oefening',
@@ -6,16 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./oefening.component.css']
 })
 export class OefeningComponent implements OnInit {
-
-  name: string;
-  delen: string[];
+  @Input() public oefening: Oefening;
 
   constructor() {
-    this.name = 'eerste oefening';
-    this.delen = ['deel 1', 'deel 2', 'deel 3'];
    }
 
   ngOnInit() {
   }
-
 }

@@ -1,0 +1,12 @@
+.card {
+  max-width: 20%;
+  max-height: 20em;
+  display: inline-block;
+  margin: 2%;
+}
+
+.material-icons{
+  float: right;
+  font-size: 18px;
+}
+
