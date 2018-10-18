@@ -17,9 +17,10 @@ import { SessieLijstComponent } from './sessie-lijst/sessie-lijst.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { BerichtenComponent } from './berichten/berichten.component';
 import { SessieoverzichtComponent } from './sessieoverzicht/sessieoverzicht.component';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
-  { path: '', component: OefeningComponent },
+  { path: '', component: HomeComponent },
   { path: 'berichten', component: BerichtenComponent },
   { path: 'sessieoverzicht', component: SessieoverzichtComponent },
   { path: '**', component: PagenotfoundComponent }
@@ -35,7 +36,8 @@ const appRoutes: Routes = [
     SessieLijstComponent,
     PagenotfoundComponent,
     BerichtenComponent,
-    SessieoverzichtComponent
+    SessieoverzichtComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
