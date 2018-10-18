@@ -2,26 +2,23 @@
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\paperw11900\paperh16840\margl1440\margr1440\vieww14020\viewh8400\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 ### STAGE 1: Build ###\
 \
-# We label our stage as 'builder'\
 FROM node:9-alpine as builder\
 \
 COPY package.json package-lock.json ./\
 \
 RUN npm set progress=false && npm config set depth 0 && npm cache clean --force\
 \
-## Storing node modules on a separate layer will prevent unnecessary npm installs at each build\
 RUN npm i && mkdir /ng-app && cp -R ./node_modules ./ng-app\
 \
-WORKDIR /ng-app\
+WORKDIR /projecten3-1819-angular-groep4-mindfullness\
 \
 COPY . .\
 \
-## Build the angular app in production mode and store the artifacts in dist folder\
 RUN $(npm bin)/ng build --prod\
 \
 \
