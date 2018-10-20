@@ -19,3 +19,21 @@ table {
     margin-right: auto;
 
 }
+
+h2 {
+    padding-top: 20px;
+}
+
+.container-inline {
+    margin-top: -20px;
+}
+
+th {
+    background-color: rgb(175,219,206);
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
