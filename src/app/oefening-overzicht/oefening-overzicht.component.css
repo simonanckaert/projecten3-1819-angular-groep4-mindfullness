@@ -21,8 +21,13 @@
 
 h1 {
     text-align: center;
+    padding-top: 20px;
 }
 
 .row {
+    text-align: center;
+}
+
+.midden {
     text-align: center;
 }
