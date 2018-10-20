@@ -41,7 +41,7 @@ const appRoutes: Routes = [
     BerichtenComponent,
     SessieoverzichtComponent,
     KlantComponent,
-    KlantenLijstComponent
+    KlantenLijstComponent,
     HomeComponent
   ],
   imports: [
