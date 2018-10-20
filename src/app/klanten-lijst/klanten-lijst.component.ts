@@ -18,8 +18,4 @@ export class KlantenLijstComponent implements OnInit {
     return this._klantenDataService.klanten;
   }
 
-  voegKlantToe(klant : Klant) {
-    this._klantenDataService.voegNieuweKlantToe(klant);
-  }
-
 }

@@ -19,6 +19,7 @@ import { SessieoverzichtComponent } from './sessieoverzicht/sessieoverzicht.comp
 import { KlantComponent } from './klant/klant.component';
 import { KlantenLijstComponent } from './klanten-lijst/klanten-lijst.component';
 import { HomeComponent } from './home/home.component';
+import { OefeningOverzichtComponent } from './oefening-overzicht/oefening-overzicht.component';
 
 
 const appRoutes: Routes = [
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
   { path: 'berichten', component: BerichtenComponent },
   { path: 'sessieoverzicht', component: SessieoverzichtComponent },
   { path: 'klanten', component: KlantenLijstComponent},
+  { path: 'oefeningen', component: OefeningOverzichtComponent },
   { path: '**', component: PagenotfoundComponent }
 ];
 
@@ -42,7 +44,8 @@ const appRoutes: Routes = [
     SessieoverzichtComponent,
     KlantComponent,
     KlantenLijstComponent,
-    HomeComponent
+    HomeComponent,
+    OefeningOverzichtComponent
   ],
   imports: [
     BrowserModule,
