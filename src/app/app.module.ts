@@ -18,9 +18,11 @@ import { BerichtenComponent } from './berichten/berichten.component';
 import { SessieoverzichtComponent } from './sessieoverzicht/sessieoverzicht.component';
 import { KlantComponent } from './klant/klant.component';
 import { KlantenLijstComponent } from './klanten-lijst/klanten-lijst.component';
+import { HomeComponent } from './home/home.component';
+
 
 const appRoutes: Routes = [
-  { path: '', component: OefeningComponent },
+  { path: '', component: HomeComponent },
   { path: 'berichten', component: BerichtenComponent },
   { path: 'sessieoverzicht', component: SessieoverzichtComponent },
   { path: 'klanten', component: KlantenLijstComponent},
@@ -40,6 +42,7 @@ const appRoutes: Routes = [
     SessieoverzichtComponent,
     KlantComponent,
     KlantenLijstComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,
