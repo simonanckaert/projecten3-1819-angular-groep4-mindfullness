@@ -26,6 +26,9 @@ export class HomeComponent implements OnInit {
     return this._uur;
   }
 
+
+
+  /* Groet functie die naargelang de tijd de gebruiker begroet*/
   get berekenGroet(): string {
     if (this.uur < 6) {
       return 'Goeienacht ';
