@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatSidenavModule,
    MatToolbarModule, MatIconModule, MatListModule, MatCardModule,
    MatGridListModule, MatFormFieldModule, MatInputModule } from '@angular/material';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -17,12 +16,18 @@ import { SessieLijstComponent } from './sessie-lijst/sessie-lijst.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { BerichtenComponent } from './berichten/berichten.component';
 import { SessieoverzichtComponent } from './sessieoverzicht/sessieoverzicht.component';
+import { KlantComponent } from './klant/klant.component';
+import { KlantenLijstComponent } from './klanten-lijst/klanten-lijst.component';
 import { HomeComponent } from './home/home.component';
+import { OefeningOverzichtComponent } from './oefening-overzicht/oefening-overzicht.component';
+
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'berichten', component: BerichtenComponent },
   { path: 'sessieoverzicht', component: SessieoverzichtComponent },
+  { path: 'klanten', component: KlantenLijstComponent},
+  { path: 'oefeningen', component: OefeningOverzichtComponent },
   { path: '**', component: PagenotfoundComponent }
 ];
 
@@ -37,7 +42,10 @@ const appRoutes: Routes = [
     PagenotfoundComponent,
     BerichtenComponent,
     SessieoverzichtComponent,
-    HomeComponent
+    KlantComponent,
+    KlantenLijstComponent,
+    HomeComponent,
+    OefeningOverzichtComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +61,6 @@ const appRoutes: Routes = [
     MatGridListModule,
     MatFormFieldModule,
     MatInputModule,
-    FlexLayoutModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
