@@ -1,20 +1,18 @@
 <div class="container-inline">
 <h2 id="titel">Overzicht klanten</h2>
 <div class="filter">
-  <p>Filter hier op naam, wachtwoord of mailadres:</p>  
+  <p>Filter hier op naam of mailadres:</p>  
   <input class="form-control" id="myInput" type="text" placeholder="Zoek..">
   <br>
 </div>
 <table class="table table-bordered table-striped">
   <tr>
     <th>Gebruikersnaam</th>
-    <th>Wachtwoord</th>
     <th>Mailadres</th>
   </tr>
   <tbody id="myTable">
     <tr *ngFor="let klant of klanten">
       <td>{{klant.gebruikersnaam}}</td>
-      <td>{{klant.wachtwoord}}</td>
       <td>{{klant.mailadres}}</td>
     </tr>
 </tbody>
