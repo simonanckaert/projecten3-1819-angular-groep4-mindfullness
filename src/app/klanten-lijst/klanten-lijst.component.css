@@ -1,0 +1,39 @@
+#titel {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    text-decoration-line: underline;
+    text-decoration-color: black;
+}
+
+.filter {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+table {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+h2 {
+    padding-top: 20px;
+}
+
+.container-inline {
+    margin-top: -20px;
+}
+
+th {
+    background-color: rgb(175,219,206);
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+

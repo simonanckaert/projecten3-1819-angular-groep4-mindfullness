@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { Oefening } from './oefening/oefening.model';
 import { OefeningDataService } from './oefening-data.service';
+import { KlantDataService } from './klant-data.service';
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [OefeningDataService]
+  providers: [OefeningDataService, KlantDataService]
 })
 export class AppComponent {
 }

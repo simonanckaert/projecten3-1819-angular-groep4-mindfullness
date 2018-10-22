@@ -1,0 +1,19 @@
+<div class="container-inline">
+  <div class="col-16">
+    <div class="tab-content" id="nav-tabContent">
+      <h1>Overzicht oefeningen</h1>
+    </div>
+    <div class="tab-content row cards" id="nav-tabContent">
+      <div class="tab-pane fade show col-4" id="list-home" role="tabpanel" aria-labelledby="list-home-list" *ngFor="let oef of oefeningen"
+        class="content">
+        <div class="card" style="width: 16rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{oef.naam}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{oef.id}}</h6>
+            <p class="card-text">{{oef.beschrijving}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
