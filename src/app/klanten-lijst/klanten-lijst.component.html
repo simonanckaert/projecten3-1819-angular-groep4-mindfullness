@@ -9,11 +9,15 @@
   <tr>
     <th>Gebruikersnaam</th>
     <th>Mailadres</th>
+    <th>Geblokkeerd</th>
   </tr>
   <tbody id="myTable">
     <tr *ngFor="let klant of klanten">
       <td>{{klant.gebruikersnaam}}</td>
       <td>{{klant.mailadres}}</td>
+      <td>
+          <input type="checkbox" checked data-toggle="toggle" data-on="Nee" data-off="Ja" data-onstyle="success" data-offstyle="danger">
+      </td>
     </tr>
 </tbody>
 </table>
