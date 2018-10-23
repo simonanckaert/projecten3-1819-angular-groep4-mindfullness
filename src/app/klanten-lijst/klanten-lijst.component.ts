@@ -15,7 +15,14 @@ export class KlantenLijstComponent implements OnInit {
   }
 
   get klanten() : Klant[] {
+    console.log(this._klantenDataService.klanten);
     return this._klantenDataService.klanten;
+  }
+
+  veranderen(klant: Klant) {
+    console.log("hallo");
+    this._klantenDataService.klanten.find(k => k.id === klant.id).geblokkeerd();
+    //location.reload();
   }
 
 }

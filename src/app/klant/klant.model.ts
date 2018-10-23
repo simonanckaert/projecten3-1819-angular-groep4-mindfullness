@@ -3,11 +3,13 @@ export class Klant {
     private _gebruikersnaam: string;
     private _wachtwoord: string;
     private _mailadres : string;
+    private _geblokkeerd : boolean;
 
     constructor(naam:string, ww:string, email:string) {
         this._gebruikersnaam = naam;
         this._wachtwoord = ww;
         this._mailadres = email;
+        this._geblokkeerd = false;
     }
 
     get id() : number {
@@ -28,6 +30,17 @@ export class Klant {
 
     set gebruikersnaam(nieuw : string) {
         this._gebruikersnaam = nieuw;
+    }
+
+    geblokkeerd() {
+        console.log("we zitten in geblokkeerd");
+        console.log(this._geblokkeerd);
+        this._geblokkeerd = !this._geblokkeerd;
+        console.log(this._geblokkeerd);
+    }
+
+    isGeblokkeerd() {
+        return this._geblokkeerd;
     }
 
     set wachtwoord(nieuw : string) {
