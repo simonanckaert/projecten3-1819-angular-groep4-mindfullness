@@ -7,6 +7,7 @@ export class KlantDataService {
 
   constructor() { 
     const klant1 = new Klant('Simon', 'jklm', 'jklsf');
+    klant1.geblokkeerd();
     const klant2 = new Klant('Arno', 'dfsdf', 'jklsf');
     const klant3 = new Klant('Angelo', 'sdfgdsf', 'jklsf');
     const klant4 = new Klant('Jolan', 'dfsgsd', 'jklsf');
@@ -19,9 +20,5 @@ export class KlantDataService {
 
   get klanten() :Klant[] {
     return this._klanten;
-  }
-
-  voegNieuweKlantToe(klant : Klant) {
-    this._klanten.push(klant);
   }
 }

@@ -1,25 +1,28 @@
 <div class="container-inline">
-<h2 id="titel">Overzicht klanten</h2>
-<div class="filter">
-  <p>Filter hier op naam of mailadres:</p>  
-  <input class="form-control" id="myInput" type="text" placeholder="Zoek..">
-  <br>
-</div>
-<table class="table table-bordered table-striped">
-  <tr>
-    <th>Gebruikersnaam</th>
-    <th>Mailadres</th>
-    <th>Geblokkeerd</th>
-  </tr>
-  <tbody id="myTable">
-    <tr *ngFor="let klant of klanten">
-      <td>{{klant.gebruikersnaam}}</td>
-      <td>{{klant.mailadres}}</td>
-      <td>
-          <input type="checkbox" checked data-toggle="toggle" data-on="Nee" data-off="Ja" data-onstyle="success" data-offstyle="danger">
-      </td>
+  <h2 id="titel">Overzicht klanten</h2>
+  <div class="filter">
+    <p>Filter hier op naam of mailadres:</p>  
+    <input class="form-control" id="myInput" type="text" placeholder="Zoek..">
+    <br>
+  </div>
+  <table class="table table-bordered table-striped">
+    <tr>
+      <th>Gebruikersnaam</th>
+      <th>Mailadres</th>
+      <th>Geblokkeerd</th>
     </tr>
-</tbody>
-</table>
+    <tbody id="myTable">
+      <tr *ngFor="let klant of klanten">
+        <td>{{klant.gebruikersnaam}}</td>
+        <td>{{klant.mailadres}}</td>
+        <td>
+            <a (click)="veranderen(klant)">
+              <input *ngIf="klant.isGeblokkeerd()" type="checkbox" data-toggle="toggle" data-on="Nee" data-off="Ja" data-onstyle="success" data-offstyle="danger">
+              <input *ngIf="!klant.isGeblokkeerd()" type="checkbox" checked data-toggle="toggle" data-on="Nee" data-off="Ja" data-onstyle="success" data-offstyle="danger">
+            </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
