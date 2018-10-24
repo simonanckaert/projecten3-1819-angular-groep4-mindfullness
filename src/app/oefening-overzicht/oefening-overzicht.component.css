@@ -31,3 +31,7 @@ h1 {
 .midden {
     text-align: center;
 }
+
+.toevoegKnop {
+  float: right;
+}

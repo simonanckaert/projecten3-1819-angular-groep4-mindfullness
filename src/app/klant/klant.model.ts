@@ -1,40 +1,50 @@
 export class Klant {
     private _id: number;
-    private _gebruikersnaam: string;
-    private _wachtwoord: string;
-    private _mailadres : string;
+    private _voornaam: string;
+    private _achternaam: string;
+    private _geboorteDatum: Date;
+    private _mailadres: string;
 
-    constructor(naam:string, ww:string, email:string) {
-        this._gebruikersnaam = naam;
-        this._wachtwoord = ww;
+    constructor(vnaam: string, anaam: string, gDatum: Date, email: string) {
+        this._voornaam = vnaam;
+        this._achternaam = anaam;
+        this._geboorteDatum = gDatum;
         this._mailadres = email;
     }
 
-    get id() : number {
+    get id(): number {
         return this._id;
     }
 
-    get gebruikersnaam(): string {
-        return this._gebruikersnaam;
+    get voornaam(): string {
+        return this._voornaam;
     }
 
-    get wachtwoord() : string {
-        return this._wachtwoord;
+    get achternaam(): string {
+      return this._achternaam;
+  }
+
+    get geboorteDatum(): Date {
+        return this._geboorteDatum;
     }
 
-    get mailadres() : string {
+    get mailadres(): string {
         return this._mailadres;
     }
 
-    set gebruikersnaam(nieuw : string) {
-        this._gebruikersnaam = nieuw;
+    set voornaam(nieuw: string) {
+        this._voornaam = nieuw;
     }
 
-    set wachtwoord(nieuw : string) {
-        this._wachtwoord = nieuw;
+    set achternaam(nieuw: string) {
+      this._achternaam = nieuw;
+  }
+
+    set geboorteDatum(nieuw: Date) {
+        this._geboorteDatum = nieuw;
     }
 
-    set mailadres(nieuw : string) {
+    set mailadres(nieuw: string) {
         this._mailadres = nieuw;
     }
 }

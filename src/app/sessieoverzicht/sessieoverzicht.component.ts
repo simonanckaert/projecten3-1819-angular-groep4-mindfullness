@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SessieDataService } from '../sessie-data.service';
+import { Sessie } from '../sessie/sessie.model';
 
 @Component({
   selector: 'app-sessieoverzicht',
@@ -12,6 +13,14 @@ export class SessieoverzichtComponent implements OnInit {
    }
 
   ngOnInit() {
+  }
+
+  get sessies(): Sessie[] {
+    return this._sessieDataService.sessies;
+  }
+
+  toonSessieInfo() {
+
   }
 
 }
