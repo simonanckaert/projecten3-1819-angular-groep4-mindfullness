@@ -1,4 +1,7 @@
-.container-inline {
-  border: solid black 1px;
-  min-height: 200px;
+.row {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 20px; 
 }
+
