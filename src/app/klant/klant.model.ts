@@ -6,13 +6,13 @@ export class Klant {
     private _mailadres: string;
     private _geblokkeerd: boolean;
 
-    constructor(vnaam: string, anaam: string, gDatum: Date, email: string) {
+    constructor(vnaam: string, anaam: string, gDatum: Date, email: string, id: number) {
         this._voornaam = vnaam;
         this._achternaam = anaam;
         this._geboorteDatum = gDatum;
         this._mailadres = email;
         this._geblokkeerd = false;
-
+        this._id = id;
     }
 
     get id(): number {
@@ -48,11 +48,14 @@ export class Klant {
         this._geboorteDatum = nieuw;
     }
 
+    set id(id: number) {
+      this._id = id;
+    }
+
     geblokkeerd() {
-        console.log('we zitten in geblokkeerd');
-        console.log(this._geblokkeerd);
-        this._geblokkeerd = !this._geblokkeerd;
-        console.log(this._geblokkeerd);
+      console.log('ervoor ' + this.isGeblokkeerd());
+       this._geblokkeerd = !this._geblokkeerd;
+       console.log('erna ' + this.isGeblokkeerd());
     }
 
     isGeblokkeerd() {

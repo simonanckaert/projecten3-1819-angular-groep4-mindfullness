@@ -9,21 +9,21 @@ import { Klant } from '../klant/klant.model';
 })
 export class KlantenLijstComponent implements OnInit {
 
-  constructor(private _klantenDataService : KlantDataService) { }
+  constructor(private _klantenDataService: KlantDataService) { }
 
   ngOnInit() {
   }
 
 
-  get klanten() : Klant[] {
-    console.log(this._klantenDataService.klanten);
+  get klanten(): Klant[] {
     return this._klantenDataService.klanten;
   }
 
   veranderen(klant: Klant) {
-    console.log("hallo");
+   // console.log('veranderen is gebruikt');
     this._klantenDataService.klanten.find(k => k.id === klant.id).geblokkeerd();
-    //location.reload();
+    console.log(this._klantenDataService.klanten.find(k => k.id === klant.id).achternaam);
+    // location.reload();
   }
 
 }
