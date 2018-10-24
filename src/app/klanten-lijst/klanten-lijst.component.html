@@ -11,6 +11,7 @@
     <th>Achternaam</th>
     <th>Geboortedatum</th>
     <th>Emailadres</th>
+    <th>Geblokkeerd</th>
   </tr>
   <tbody id="myTable">
     <tr *ngFor="let klant of klanten">
@@ -19,7 +20,13 @@
       <td>{{klant.geboorteDatum | date: 'dd/MM/yyyy'}}</td>
       <td>{{klant.mailadres}}</td>
     </tr>
-</tbody>
-</table>
+            <a (click)="veranderen(klant)">
+              <input *ngIf="klant.isGeblokkeerd()" type="checkbox" data-toggle="toggle" data-on="Nee" data-off="Ja" data-onstyle="success" data-offstyle="danger">
+              <input *ngIf="!klant.isGeblokkeerd()" type="checkbox" checked data-toggle="toggle" data-on="Nee" data-off="Ja" data-onstyle="success" data-offstyle="danger">
+            </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
