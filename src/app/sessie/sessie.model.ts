@@ -4,8 +4,9 @@ export class Sessie {
   private _beschrijving: string;
   private _oefeningen = new Array<String>();
 
-  constructor(naam: string) {
+  constructor(naam: string, beschrijving: string) {
     this._naam = naam;
+    this._beschrijving = beschrijving;
   }
 
   get naam(): string {

@@ -14,6 +14,7 @@ export class KlantenLijstComponent implements OnInit {
   ngOnInit() {
   }
 
+
   get klanten() : Klant[] {
     console.log(this._klantenDataService.klanten);
     return this._klantenDataService.klanten;
