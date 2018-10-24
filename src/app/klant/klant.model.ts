@@ -11,7 +11,7 @@ export class Klant {
         this._achternaam = anaam;
         this._geboorteDatum = gDatum;
         this._mailadres = email;
-        this._geblokeerd = false;
+        this._geblokkeerd = false;
 
     }
 
@@ -42,10 +42,11 @@ export class Klant {
 
     set achternaam(nieuw: string) {
       this._achternaam = nieuw;
-  }
+    }
 
     set geboorteDatum(nieuw: Date) {
         this._geboorteDatum = nieuw;
+    }
 
     geblokkeerd() {
         console.log("we zitten in geblokkeerd");
@@ -56,8 +57,6 @@ export class Klant {
 
     isGeblokkeerd() {
         return this._geblokkeerd;
-    }
-
     }
 
     set mailadres(nieuw: string) {
