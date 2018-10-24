@@ -13,6 +13,7 @@ export class Klant {
         this._mailadres = email;
         this._geblokkeerd = false;
         this._id = id;
+
     }
 
     get id(): number {
@@ -42,7 +43,7 @@ export class Klant {
 
     set achternaam(nieuw: string) {
       this._achternaam = nieuw;
-  }
+    }
 
     set geboorteDatum(nieuw: Date) {
         this._geboorteDatum = nieuw;
@@ -51,6 +52,7 @@ export class Klant {
     set id(id: number) {
       this._id = id;
     }
+
 
     geblokkeerd() {
       console.log('ervoor ' + this.isGeblokkeerd());

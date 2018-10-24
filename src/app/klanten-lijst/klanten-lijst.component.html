@@ -19,7 +19,6 @@
       <td>{{klant.achternaam}}</td>
       <td>{{klant.geboorteDatum | date: 'dd/MM/yyyy'}}</td>
       <td>{{klant.mailadres}}</td>
-
            <td> <a (click)="veranderen(klant)">
              <button type="button" class="btn btn-success" *ngIf="!klant.isGeblokkeerd()">Nee</button>
              <button type="button" class="btn btn-danger" *ngIf="klant.isGeblokkeerd()">Ja</button>
