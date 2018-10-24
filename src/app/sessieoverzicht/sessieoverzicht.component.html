@@ -17,7 +17,7 @@
         </i>
       </button>
     </div>
-    <div class="col-8">
+    <div *ngIf="sessieGekozen()" class="col-8">
       <div class="tab-content" id="nav-tabContent">
         <div class="">
           <h1>{{_sessie.naam}}</h1>
