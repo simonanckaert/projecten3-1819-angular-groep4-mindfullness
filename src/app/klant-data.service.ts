@@ -5,7 +5,7 @@ import { Klant } from './klant/klant.model';
 export class KlantDataService {
   private _klanten = new Array<Klant>();
 
-  constructor() { 
+  constructor() {
     const klant1 = new Klant('Simon', 'Anckaert', new Date('03/20/1996'), 'simon.anckaert@hotmail.com');
     klant1.geblokkeerd();
     const klant2 = new Klant('Arno', 'Coorevits', new Date('03/08/1996'), 'arno.coorevits@hotmail.com');
@@ -15,7 +15,7 @@ export class KlantDataService {
     const klant6 = new Klant('Stijn', 'De Raeve', new Date('03/08/1996'), 'stijn.deraeve@hotmail.com');
     const klant7 = new Klant('Bart', 'Cannaerts', new Date('03/08/1996'), 'bart.cannaerts@hotmail.com');
     const klant8 = new Klant('Sjaak', 'Choco', new Date('03/08/1996'), 'sjaak.choco@hotmail.com');
-    this._klanten.push(klant1,klant2,klant3,klant4,klant5,klant6,klant7,klant8);
+    this._klanten.push(klant1, klant2, klant3, klant4, klant5, klant6, klant7, klant8);
 
   }
 

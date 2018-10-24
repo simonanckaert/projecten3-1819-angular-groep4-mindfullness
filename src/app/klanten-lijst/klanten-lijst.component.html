@@ -19,13 +19,12 @@
       <td>{{klant.achternaam}}</td>
       <td>{{klant.geboorteDatum | date: 'dd/MM/yyyy'}}</td>
       <td>{{klant.mailadres}}</td>
-    </tr>
-            <a (click)="veranderen(klant)">
+
+           <td> <a (click)="veranderen(klant)">
               <input *ngIf="klant.isGeblokkeerd()" type="checkbox" data-toggle="toggle" data-on="Nee" data-off="Ja" data-onstyle="success" data-offstyle="danger">
               <input *ngIf="!klant.isGeblokkeerd()" type="checkbox" checked data-toggle="toggle" data-on="Nee" data-off="Ja" data-onstyle="success" data-offstyle="danger">
-            </a>
-        </td>
-      </tr>
+            </a></td>
+            </tr>
     </tbody>
   </table>
 </div>
