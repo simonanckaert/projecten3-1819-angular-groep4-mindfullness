@@ -35,3 +35,13 @@ h1 {
 .toevoegKnop {
   float: right;
 }
+
+.form-control {
+    max-width: 200px;
+    display: inline;
+}
+
+label {
+    padding-left: 20px;
+    padding-right: 10px;
+}
