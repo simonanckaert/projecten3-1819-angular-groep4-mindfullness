@@ -50,3 +50,13 @@ h1 {
   float: left;
   margin-top: 30px;
 }
+
+.form-control {
+    max-width: 200px;
+    display: inline;
+}
+
+label {
+    padding-left: 20px;
+    padding-right: 10px;
+}

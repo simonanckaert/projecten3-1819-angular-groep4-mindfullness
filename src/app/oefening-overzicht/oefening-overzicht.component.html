@@ -4,9 +4,13 @@
         <button class="btn btn-primary knop"  data-toggle="modal" data-target="#toevoegen">Toevoegen <i class="material-icons add">add</i></button>
       <h1>Overzicht oefeningen</h1>
     </div>
+
+    <button class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Oefening toevoegen</button>
+    <p><label>Filter op naam:</label><input type="text" class="form-control" (input)="zoeken($event.target.value)"></p>
     <div class="tab-content row cards" id="nav-tabContent">
-      <div class="tab-pane fade show col-4" id="list-home" role="tabpanel" aria-labelledby="list-home-list" *ngFor="let oef of oefeningen" class="content">
-         <div class="card bg-light mb-3" style="width: 16rem;">
+      <div class="tab-pane fade show col-4" id="list-home" role="tabpanel" aria-labelledby="list-home-list" *ngFor="let oef of oefeningen()" class="content">
+        <div class="card bg-light mb-3" style="width: 16rem;">
+
           <div class="card-body">
             <h5 class="card-title">{{oef.naam}}</h5>
             <i class="material-icons build" data-toggle="modal" data-target="#bewerken">
