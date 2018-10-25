@@ -30,7 +30,7 @@ export class OefeningOverzichtComponent implements OnInit {
   zoeken(zoekwoord : string) {
     if(zoekwoord != undefined && zoekwoord.trim().length!=0) {
       console.log(zoekwoord);  
-      this._gefilterdeLijst = this._oefeningenLijst.filter(s => s.naam.includes(zoekwoord));
+      this._gefilterdeLijst = this._oefeningenLijst.filter(s => s.naam.includes(zoekwoord) || s.beschrijving.includes(zoekwoord));
       console.log(this._gefilterdeLijst);
       console.log("je zit in eerste");
     } else {
