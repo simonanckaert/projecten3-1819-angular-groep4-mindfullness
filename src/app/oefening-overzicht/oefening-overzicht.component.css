@@ -51,12 +51,34 @@ h1 {
   margin-top: 30px;
 }
 
-.form-control {
+.filter {
     max-width: 200px;
     display: inline;
 }
 
-label {
+.label {
     padding-left: 20px;
     padding-right: 10px;
+}
+
+.filter {
+  margin-top: 10px;
+  margin-left: 30px;
+  position: inherit;
+  top: 0;
+  right: 0;
+}
+
+.sessiebeschrijving {
+  margin-top: 20px;
+}
+
+.form-control[disabled] {
+  background-color: green;
+  color: white;
+}
+
+.verwijder {
+  position: absolute;
+  left: 5px;
 }
