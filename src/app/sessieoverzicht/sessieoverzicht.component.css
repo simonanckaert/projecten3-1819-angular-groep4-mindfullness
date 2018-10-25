@@ -2,6 +2,34 @@
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 20px; 
+  padding-top: 20px;
 }
 
+.oef {
+  display: inline;
+}
+
+.beschrijving {
+  margin-bottom: 50px;
+}
+
+.list-group-item {
+  border-top: black solid 5px;
+  border-radius: 20%;
+  margin-bottom: 5px;
+}
+
+.sessienaam {
+  text-decoration: underline;
+}
+
+.test {
+  margin-top: 20px;
+}
+
+.bewerk {
+  float: right;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+}

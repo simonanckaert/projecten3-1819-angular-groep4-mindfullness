@@ -19,9 +19,13 @@ export class OefeningOverzichtComponent implements OnInit {
     return this._oefDataService.oefeningen;
   }
 
-  onSubmit() {
+  onSubmit(naam: string, beschrijving: string) {
     console.log('Je hebt gesubmit');
-    const oefening = new Oefening('test', 'test');
+    const oefening = new Oefening(naam, beschrijving);
     this._oefDataService.voegNieuweOefeningToe(oefening);
   }
+
+  bewerkOefening(naam: string, beschrijving: string, id: number){
+   console.log(naam + ' ' + beschrijving + ' ' + id);
+   }
 }
