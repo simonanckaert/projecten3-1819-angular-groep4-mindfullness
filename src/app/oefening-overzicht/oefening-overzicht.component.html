@@ -4,8 +4,9 @@
       <h1>Overzicht oefeningen</h1>
     </div>
     <button class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Oefening toevoegen</button>
+    <input type="text" class="form-control" (input)="zoeken($event.target.value)">
     <div class="tab-content row cards" id="nav-tabContent">
-      <div class="tab-pane fade show col-4" id="list-home" role="tabpanel" aria-labelledby="list-home-list" *ngFor="let oef of oefeningen" class="content">
+      <div class="tab-pane fade show col-4" id="list-home" role="tabpanel" aria-labelledby="list-home-list" *ngFor="let oef of oefeningen()" class="content">
         <div class="card" style="width: 16rem;">
           <div class="card-body">
             <h5 class="card-title">{{oef.naam}}</h5>
