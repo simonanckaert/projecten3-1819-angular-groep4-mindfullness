@@ -3,7 +3,6 @@ export class Oefening {
   private _naam: string;
   private _dateAdded: Date = new Date();
   private _beschrijving: string;
-// test;
  // private _oefening: Object;
 
   constructor(naam: string, beschrijving: string) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Testability } from '@angular/core';
 import { SessieDataService } from '../sessie-data.service';
 import { Sessie } from '../sessie/sessie.model';
 import { Input } from '@angular/core';
@@ -26,15 +26,15 @@ export class SessieoverzichtComponent implements OnInit {
     return this._sessieDataService.sessies;
   }
 
-  toonSessieInfo(sessie: Sessie) : Sessie{
+  toonSessieInfo(sessie: Sessie): Sessie {
     console.log(sessie);
     this._sessie = sessie;
     this._oefeningen = this._sessie.oefeningen;
     return this._sessie;
   }
 
-  sessieGekozen() : boolean {
-    if(this._sessie != null) {
+  sessieGekozen(): boolean {
+    if (this._sessie != null) {
       return true;
     }
     return false;
@@ -44,6 +44,15 @@ export class SessieoverzichtComponent implements OnInit {
     return this._oefeningen;
   }
 
+  voegSessieToe(naam: string, beschrijving: string) {
+    console.log('Sessie toegevoegd' + naam +  ' ' + beschrijving + ' ' + this._sessieDataService.sessies.length);
+    this._sessieDataService.voegNieuweSessieToe(new Sessie(naam, beschrijving, null, this._sessieDataService.sessies.length));
+  }
 
-
+  bewerkSessie(naam: string, beschrijving: string, id: number) {
+    console.log('Sessie te bewerken ' + naam + beschrijving);
+    console.log(id);
+    this._sessieDataService.bewerkSessie(naam, beschrijving, id);
+    console.log('Sessie bewerkt ' + this._sessieDataService.sessies[0].naam + beschrijving);
+  }
 }

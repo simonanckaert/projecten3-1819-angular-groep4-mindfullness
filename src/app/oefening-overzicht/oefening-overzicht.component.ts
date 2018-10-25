@@ -21,11 +21,16 @@ export class OefeningOverzichtComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit() {
+  onSubmit(naam: string, beschrijving: string) {
     console.log('Je hebt gesubmit');
-    const oefening = new Oefening('test', 'test');
+    const oefening = new Oefening(naam, beschrijving);
     this._oefDataService.voegNieuweOefeningToe(oefening);
   }
+
+
+  bewerkOefening(naam: string, beschrijving: string, id: number){
+   console.log(naam + ' ' + beschrijving + ' ' + id);
+   }
 
   zoeken(zoekwoord : string) {
     if(zoekwoord != undefined && zoekwoord.trim().length!=0) {
@@ -43,5 +48,4 @@ export class OefeningOverzichtComponent implements OnInit {
   oefeningen() {
     return this._gefilterdeLijst;
   }
-
 }
