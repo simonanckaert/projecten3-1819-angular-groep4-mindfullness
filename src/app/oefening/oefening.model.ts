@@ -5,9 +5,10 @@ export class Oefening {
   private _beschrijving: string;
  // private _oefening: Object;
 
-  constructor(naam: string, beschrijving: string) {
+  constructor(naam: string, beschrijving: string, id: number) {
     this._naam = naam;
     this._beschrijving = beschrijving;
+    this._id = id;
   //  this._oefening = oefening;
   }
 
@@ -21,5 +22,13 @@ export class Oefening {
 
   get beschrijving(): string {
     return this._beschrijving;
+  }
+
+  set naam(naam: string) {
+    this._naam = naam;
+  }
+
+  set beschrijving(beschrijving: string) {
+    this._beschrijving = beschrijving;
   }
 }

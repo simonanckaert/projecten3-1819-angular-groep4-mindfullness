@@ -3,21 +3,14 @@
     <div class="tab-content" id="nav-tabContent">
         <button class="btn btn-primary knop"  data-toggle="modal" data-target="#toevoegen">Toevoegen <i class="material-icons add">add</i></button>
       <h1>Overzicht oefeningen</h1>
+      <p class="filter"><label class="label">Filter op naam:</label><input type="text" class="form-control filter" (input)="zoeken($event.target.value)"></p>
     </div>
-
-    <button class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Oefening toevoegen</button>
-    <p><label>Filter op naam:</label><input type="text" class="form-control" (input)="zoeken($event.target.value)"></p>
-    <div class="tab-content row cards" id="nav-tabContent">
-      <div class="tab-pane fade show col-4" id="list-home" role="tabpanel" aria-labelledby="list-home-list" *ngFor="let oef of oefeningen()" class="content">
+  <div class="tab-content row cards" id="nav-tabContent">
+      <div class="tab-pane fade show col-4" id="list-home" role="tabpanel" aria-labelledby="list-home-list" *ngFor="let oef of oefeningen" class="content">
         <div class="card bg-light mb-3" style="width: 16rem;">
 
-          <div class="card-body">
+          <div class="card-body" data-toggle="modal" data-target="#bewerken" (click)="toonOefeningInfo(oef)">
             <h5 class="card-title">{{oef.naam}}</h5>
-            <i class="material-icons build" data-toggle="modal" data-target="#bewerken">
-                build
-            </i>
-            <h6 class="card-subtitle mb-2 text-muted">{{oef.id}}</h6>
-            <p class="card-text">{{oef.beschrijving}}</p>
           </div>
         </div>
       </div>
@@ -57,3 +50,36 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="bewerken" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <div class="modal-body">
+              <form>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="sessienaam" value="{{_oefening.naam}}" [disabled]="_disableNaam" #bewerkNaam>
+                    <i class="material-icons build" data-toggle="modal" (click)="switchDisableNaam()">
+                      edit
+                    </i>
+                  </div>
+                  <div class="input-group sessiebeschrijving">
+                    <textarea class="form-control" id="sessiebeschrijving" value="{{_oefening.beschrijving}}" [disabled]="_disableBeschrijving" #bewerkBeschrijving></textarea>
+                    <i class="material-icons build" data-toggle="modal" (click)="switchDisableBeschrijving()">
+                        edit
+                    </i>
+                  </div>
+                  <div class="form-group">
+                      <label for="sessieBestand"></label>
+                      <input type="file" class="form-control-file" id="sessieBestand">
+                    </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
+            <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="bewerkOefening(bewerkNaam.value, bewerkBeschrijving.value , 6)">Opslaan</button>
+            <button type="button" class="btn btn-danger verwijder" data-dismiss="modal" (click)="verwijderOefening(6)">Verwijderen</button>
+          </div>
+        </div>
+      </div>
+    </div>
