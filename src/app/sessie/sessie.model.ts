@@ -22,7 +22,7 @@ export class Sessie {
     return this._beschrijving;
   }
 
-  get id(): number {
+  get sessieId(): number {
     return this._id;
   }
 
@@ -40,5 +40,10 @@ export class Sessie {
 
   get oefeningen() {
     return this._oefeningen;
+  }
+
+  set oefeningen(oef: Array<Oefening>)
+  {
+    this._oefeningen = oef;
   }
 }

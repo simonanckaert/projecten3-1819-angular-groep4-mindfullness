@@ -23,6 +23,7 @@ export class SessieoverzichtComponent implements OnInit {
   }
 
   get sessies(): Sessie[] {
+    this._sessieDataService.herlaadSessies();
     return this._sessieDataService.sessies;
   }
 
