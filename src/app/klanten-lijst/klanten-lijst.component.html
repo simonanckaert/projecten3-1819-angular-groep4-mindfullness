@@ -1,30 +1,31 @@
 <div class="container-inline">
-<h2 id="titel">Overzicht klanten</h2>
-<div class="filter">
-  <p>Filter hier op naam, wachtwoord of mailadres:</p>
-  <input class="form-control" id="myInput" type="text" placeholder="Zoek..">
-  <br>
-</div>
-<table class="table table-bordered table-striped">
-  <tr>
-    <th>Voornaam</th>
-    <th>Achternaam</th>
-    <th>Geboortedatum</th>
-    <th>Emailadres</th>
-    <th>Geblokkeerd</th>
-  </tr>
-  <tbody id="myTable">
-    <tr *ngFor="let klant of klanten">
-      <td>{{klant.voornaam}}</td>
-      <td>{{klant.achternaam}}</td>
-      <td>{{klant.geboorteDatum | date: 'dd/MM/yyyy'}}</td>
-      <td>{{klant.mailadres}}</td>
-           <td> <a (click)="veranderen(klant)">
-             <button type="button" class="btn btn-success" *ngIf="!klant.isGeblokkeerd()">Nee</button>
-             <button type="button" class="btn btn-danger" *ngIf="klant.isGeblokkeerd()">Ja</button>
-            </a></td>
-            </tr>
+  <h2 id="titel">Overzicht klanten</h2>
+  <div class="filter">
+    <p>Filter hier op naam, wachtwoord of mailadres:</p>
+    <input class="form-control" id="myInput" type="text" placeholder="Zoek..">
+    <br>
+  </div>
+  <table class="table table-bordered table-striped">
+    <tr>
+      <th>Voornaam</th>
+      <th>Achternaam</th>
+      <th>Geboortedatum</th>
+      <th>Emailadres</th>
+      <!--<th>Geblokkeerd</th>-->
+    </tr>
+    <tbody id="myTable">
+      <tr *ngFor="let klant of klanten">
+        <td>{{klant.voornaam}}</td>
+        <td>{{klant.achternaam}}</td>
+        <td>{{klant.geboorteDatum | date: 'dd/MM/yyyy'}}</td>
+        <td>{{klant.mailadres}}</td>
+        <!--<td>
+          <a (click)="veranderen(klant)">
+            <button type="button" class="btn btn-success" *ngIf="!klant.isGeblokkeerd()">Nee</button>
+            <button type="button" class="btn btn-danger" *ngIf="klant.isGeblokkeerd()">Ja</button>
+          </a>
+        </td>-->
+      </tr>
     </tbody>
   </table>
 </div>
-
