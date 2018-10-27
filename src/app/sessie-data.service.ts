@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { Sessie } from './sessie/sessie.model';
 import { Oefening } from './oefening/oefening.model';
 import * as globals from '../globals/globals';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+const httpPostOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/x-www-form-urlencoded'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -36,17 +41,49 @@ export class SessieDataService {
     return this._sessies;
   }
 
-  voegNieuweSessieToe(sessie) {
-    this._sessies.push(sessie);
+  voegNieuweSessieToe(sessie: Sessie) {
+
+    const body = new HttpParams()
+      .set('naam', sessie.naam)
+      .set('beschrijving', sessie.beschrijving);
+
+    //post de sessie data naar de backend
+    this.http.post(globals.backendUrl + "/sessies", body, {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'x-www-form-urlencoded')
+    }).subscribe(
+      res => {
+        console.log(res);
+        this._sessies.push(sessie);
+      },
+      err => {
+        console.log("Error occured");
+      }
+    );
   }
 
   bewerkSessie(naam: string, beschrijving: string, id: number) {
-    console.log('voor de for loop');
 
+    const body = new HttpParams()
+      .set('naam', naam)
+      .set('beschrijving', beschrijving)
+      .set('sessieId', id.toString());
+
+    this.http.put(globals.backendUrl + "/sessies", body, {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'x-www-form-urlencoded')
+    }).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log("Error occured");
+      }
+    );
+
+    //update local list
     for (let i = 0; i < this._sessies.length; i++) {
-      console.log('tijdens de loop' + i);
       if (this._sessies[i].sessieId === id) {
-        console.log('for loop ' + i);
         this._sessies[i].naam = naam;
         this._sessies[i].beschrijving = beschrijving;
       }
