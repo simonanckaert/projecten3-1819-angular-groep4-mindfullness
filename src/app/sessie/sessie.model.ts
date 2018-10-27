@@ -30,6 +30,10 @@ export class Sessie {
     this._naam = naam;
   }
 
+  set sessieId(id: number) {
+    this._id = id;
+  }
+
   set beschrijving(beschrijving: string) {
     this._beschrijving = beschrijving;
   }
