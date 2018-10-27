@@ -12,13 +12,15 @@ export class SessieDataService {
 
   constructor(private http: HttpClient) {
 
-    let sessie1 = new Sessie(null, null, [], null);;
+    //Voer een get request uit naar de backend met alle sessies
     this.http.get(globals.backendUrl + "/sessies").subscribe((data: Sessie) => {
       Object.assign(this._sessies, data);
 
+      //Per sessie worden de oefeningen ervan opgehaald in de backend en toegevoegd aan het sessieobjec
       this._sessies.forEach((val) => {
 
         this.http.get(globals.backendUrl + "/oefeningen/" + val.sessieId).subscribe((oef: Array<Oefening>) => {
+          //indien er geen oefeningen aanwezig zijn zullen de oefeningen niet toegewezen kunnen worden
           if (oef.length > 0) {
             val.oefeningen = [];
             Object.assign(val.oefeningen, oef)
