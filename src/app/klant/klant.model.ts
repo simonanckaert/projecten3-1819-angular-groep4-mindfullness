@@ -3,14 +3,14 @@ export class Klant {
     private _voornaam: string;
     private _achternaam: string;
     private _geboorteDatum: Date;
-    private _mailadres: string;
+    private _email: string;
     private _geblokkeerd: boolean;
 
     constructor(vnaam: string, anaam: string, gDatum: Date, email: string, id: number) {
         this._voornaam = vnaam;
         this._achternaam = anaam;
         this._geboorteDatum = gDatum;
-        this._mailadres = email;
+        this._email = email;
         this._geblokkeerd = false;
         this._id = id;
 
@@ -32,8 +32,8 @@ export class Klant {
         return this._geboorteDatum;
     }
 
-    get mailadres(): string {
-        return this._mailadres;
+    get email(): string {
+        return this._email;
     }
 
     set voornaam(nieuw: string) {
@@ -64,7 +64,7 @@ export class Klant {
         return this._geblokkeerd;
     }
 
-    set mailadres(nieuw: string) {
-        this._mailadres = nieuw;
+    set email(nieuw: string) {
+        this._email = nieuw;
     }
 }
