@@ -33,6 +33,10 @@ export class Oefening {
     return this._beschrijving;
   }
 
+  get datumGemaakt() : Date {
+    return this._dateAdded;
+  }
+
   /**
    * Verandert de naam van de oefening
    * @param naam: Dit is de nieuwe naam van de oefening
