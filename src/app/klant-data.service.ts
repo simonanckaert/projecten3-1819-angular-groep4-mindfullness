@@ -14,11 +14,17 @@ export class KlantDataService {
     });
   }
 
+  /**
+   * Geeft een lijst terug van klanten
+   */
   get klanten(): Klant[] {
     return this._klanten;
   }
 
-
+  /**
+   * Voegt een nieuwe klant toe aan de databank
+   * @param klant is de klant die zal toegevoegd worden in de databank
+   */
   voegNieuweKlantToe(klant: Klant) {
     this._klanten.push(klant);
   }

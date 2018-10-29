@@ -14,38 +14,70 @@ export class Sessie {
     this._id = id;
   }
 
+  /**
+   * Geeft de naam van de sessie terug
+   */
   get naam(): string {
     return this._naam;
   }
 
+  /**
+   * Geeft de beschrijving van de sessie terug
+   */
   get beschrijving(): string {
     return this._beschrijving;
   }
 
+  /**
+   * Geeft het sessieId van de sessie terug
+   */
   get sessieId(): number {
     return this._id;
   }
 
+  /**
+   * wijzigt de naam van de sessie
+   * @param naam: dit is de nieuwe naam van de sessie
+   */
   set naam(naam: string) {
     this._naam = naam;
   }
 
+  /**
+   * wijzigt het id van de sessie
+   * @param id: dit is het nieuwe sessieID
+   */
   set sessieId(id: number) {
     this._id = id;
   }
 
+  /**
+   * wijzigt de beschrijving van de sessie
+   * @param beschrijving: dit is de nieuwe beschrijving van de sessie
+   */
   set beschrijving(beschrijving: string) {
     this._beschrijving = beschrijving;
   }
 
+  /**
+   * voegt een oefening toe aan deze sessie
+   * @param oefening Dit is een oefening die wordt toegevoegd aan de sessie
+   */
   addOefening(oefening: Oefening) {
     this._oefeningen.push(oefening);
   }
 
+  /**
+   * Geeft de lijst van oefeningen van deze sessie terug
+   */
   get oefeningen() {
     return this._oefeningen;
   }
 
+  /**
+   * Wijzigt de oefeningen van een sessie
+   * @param oef: Dit is de nieuwe lijst van oefeningen van een sessie
+   */
   set oefeningen(oef: Array<Oefening>)
   {
     this._oefeningen = oef;

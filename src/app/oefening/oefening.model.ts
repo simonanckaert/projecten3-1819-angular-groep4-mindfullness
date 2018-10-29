@@ -12,22 +12,39 @@ export class Oefening {
   //  this._oefening = oefening;
   }
 
+  /**
+   * Geeft het id van een oefening terug
+   */
   get id(): number {
     return this._id;
   }
 
+  /**
+   * Geeft de naam van een oefening terug
+   */
   get naam(): string {
     return this._naam;
   }
 
+  /**
+   * Geeft de beschrijving van een oefening terug
+   */
   get beschrijving(): string {
     return this._beschrijving;
   }
 
+  /**
+   * Verandert de naam van de oefening
+   * @param naam: Dit is de nieuwe naam van de oefening
+   */
   set naam(naam: string) {
     this._naam = naam;
   }
 
+  /**
+   * Verandert de beschrijving van de oefening
+   * @param beschrijving: Dit is de nieuwe beschrijving van de oefening
+   */
   set beschrijving(beschrijving: string) {
     this._beschrijving = beschrijving;
   }
