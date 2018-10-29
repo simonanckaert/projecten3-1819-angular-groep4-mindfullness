@@ -31,7 +31,7 @@ export class SessieoverzichtComponent implements OnInit {
   }
 
   /**
-   * 
+   * Houdt de sessie en de sessieoefeningen bij als attributen
    * @param sessie dit is de sessie die u wilt zien
    */
   toonSessieInfo(sessie: Sessie): Sessie {
@@ -59,7 +59,7 @@ export class SessieoverzichtComponent implements OnInit {
   }
 
   /**
-   * 
+   * Voegt een nieuwe sessie toe aan databank met opgegeven parameters
    * @param naam dit is de naam van een sessie die wordt toegevoegd
    * @param beschrijving dit is de beschrijving van een sessie die wordt toegevoegd
    */
@@ -69,7 +69,7 @@ export class SessieoverzichtComponent implements OnInit {
   }
 
   /**
-   * 
+   * Bewerkt een sessie met de opgegeven parameters
    * @param naam dit is de nieuwe naam van de sessie
    * @param beschrijving dit is de nieuwe beschrijving van de sessie
    * @param id dit is het sessieId van de sessie die bewerkt gaat worden

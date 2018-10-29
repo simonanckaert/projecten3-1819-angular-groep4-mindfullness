@@ -26,7 +26,7 @@ export class OefeningOverzichtComponent implements OnInit {
   }
 
   /**
-   * 
+   * Voegt de oefening toe aan de databank
    * @param naam Dit is de naam van de oefening die zal worden toegevoegd in de databank
    * @param beschrijving Dit is de beschrijving van de oefening die zal worden toegevoegd in de databank
    */
@@ -37,7 +37,7 @@ export class OefeningOverzichtComponent implements OnInit {
   }
 
   /**
-   * 
+   * Bewerkt de oefening volgens de parameters
    * @param naam Dit is de nieuwe naam van de oefening
    * @param beschrijving Dit is de nieuwe beschrijving van de oefening
    * @param id Dit is het oefeningId van de oefening die zal worden aangepast
@@ -48,7 +48,7 @@ export class OefeningOverzichtComponent implements OnInit {
    }
 
    /**
-    * 
+    * verwijderd de meegegeven oefening
     * @param id Dit is het oefeningId van de oefening die zal worden verwijderd
     */
    verwijderOefening(id: number) {
@@ -56,7 +56,7 @@ export class OefeningOverzichtComponent implements OnInit {
    }
 
    /**
-    * 
+    * filtert de oefeninglijst volgens de parameter
     * @param zoekwoord Dit is het stukje tekst waarop gefilterd zal worden
     */
   zoeken(zoekwoord: string) {
@@ -80,7 +80,7 @@ export class OefeningOverzichtComponent implements OnInit {
   }
 
   /**
-   * 
+   * Toont de info van geselecteerde oefening
    * @param oefening Dit is de oefening waarvan men de info wilt zien
    */
   toonOefeningInfo(oefening: Oefening) {
@@ -97,10 +97,16 @@ export class OefeningOverzichtComponent implements OnInit {
     this._disableBeschrijving = true;
   }
 
+  /**
+   * Laat toe om de naam te bewerken
+   */
   switchDisableNaam() {
     this._disableNaam = ! this._disableNaam;
   }
 
+  /**
+   * Laat toe om de beschrijving te bewerken
+   */
   switchDisableBeschrijving() {
     this._disableBeschrijving = ! this._disableBeschrijving;
   }

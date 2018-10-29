@@ -34,6 +34,7 @@ export class Oefening {
   }
 
   /**
+   * Verandert de naam van de oefening
    * @param naam: Dit is de nieuwe naam van de oefening
    */
   set naam(naam: string) {
@@ -41,6 +42,7 @@ export class Oefening {
   }
 
   /**
+   * Verandert de beschrijving van de oefening
    * @param beschrijving: Dit is de nieuwe beschrijving van de oefening
    */
   set beschrijving(beschrijving: string) {

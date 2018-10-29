@@ -23,7 +23,7 @@ export class SessieLijstComponent implements OnInit {
   }
 
   /**
-   * 
+   * Voegt een sessie toe aan de databank
    * @param sessie dit is de sessie die zal toegevoegd worden aan de databank
    */
   voegSessieToe(sessie) {

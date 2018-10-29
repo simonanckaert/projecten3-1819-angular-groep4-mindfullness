@@ -22,7 +22,7 @@ export class KlantDataService {
   }
 
   /**
-   * 
+   * Voegt een nieuwe klant toe aan de databank
    * @param klant is de klant die zal toegevoegd worden in de databank
    */
   voegNieuweKlantToe(klant: Klant) {

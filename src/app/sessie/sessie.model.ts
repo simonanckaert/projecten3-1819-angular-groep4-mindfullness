@@ -36,6 +36,7 @@ export class Sessie {
   }
 
   /**
+   * wijzigt de naam van de sessie
    * @param naam: dit is de nieuwe naam van de sessie
    */
   set naam(naam: string) {
@@ -43,6 +44,7 @@ export class Sessie {
   }
 
   /**
+   * wijzigt het id van de sessie
    * @param id: dit is het nieuwe sessieID
    */
   set sessieId(id: number) {
@@ -50,7 +52,7 @@ export class Sessie {
   }
 
   /**
-   * 
+   * wijzigt de beschrijving van de sessie
    * @param beschrijving: dit is de nieuwe beschrijving van de sessie
    */
   set beschrijving(beschrijving: string) {
@@ -58,7 +60,7 @@ export class Sessie {
   }
 
   /**
-   * 
+   * voegt een oefening toe aan deze sessie
    * @param oefening Dit is een oefening die wordt toegevoegd aan de sessie
    */
   addOefening(oefening: Oefening) {
@@ -73,7 +75,7 @@ export class Sessie {
   }
 
   /**
-   * 
+   * Wijzigt de oefeningen van een sessie
    * @param oef: Dit is de nieuwe lijst van oefeningen van een sessie
    */
   set oefeningen(oef: Array<Oefening>)

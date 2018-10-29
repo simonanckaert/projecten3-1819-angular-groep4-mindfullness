@@ -52,6 +52,7 @@ export class Klant {
     }
 
     /**
+     * Verandert de voornaam van de klant
      * @param nieuw: Dit is de nieuwe voornaam van deze klant
      */
     set voornaam(nieuw: string) {
@@ -59,6 +60,7 @@ export class Klant {
     }
 
     /**
+     * Verandert de achternaam van de klant
      * @param nieuw: Dit is de nieuwe achternaam van deze klant
      */
     set achternaam(nieuw: string) {
@@ -66,6 +68,7 @@ export class Klant {
     }
 
     /**
+     * verandert pauze van de geboortedatum
      * @param nieuw: Dit is de nieuwe geboorteDatum van deze klant
      */
     set geboorteDatum(nieuw: Date) {
@@ -73,6 +76,7 @@ export class Klant {
     }
 
     /**
+     * verandert het id van de klant
      * @param id: Dit is het nieuwe Id van deze klant
      */
     set id(id: number) {
@@ -96,6 +100,7 @@ export class Klant {
     }
 
     /**
+     * Verandert de mail van de klant
      * @param nieuw: Dit is het nieuwe mailadres van een klant
      */
     set email(nieuw: string) {

@@ -30,7 +30,7 @@ export class OefeningDataService {
    }
 
    /**
-    * 
+    * Voegt een nieuwe oefening toe aan de databank
     * @param oefening is een nieuwe oefening die zal toegevoegd worden in de databank
     */
    voegNieuweOefeningToe(oefening) {
@@ -38,7 +38,7 @@ export class OefeningDataService {
    }
 
    /**
-    * 
+    * bewerkt de oefening met het overeenkomstige id
     * @param naam is de nieuwe naam van een oefening
     * @param beschrijving is de nieuwe omschrijving van een oefening
     * @param id is het oefeningId waarbij de wijzigingen zullen gebeuren
@@ -57,7 +57,7 @@ export class OefeningDataService {
   }
 
   /**
-   * 
+   * Verwijdert een oefening met het overeenkomstige id
    * @param id is het oefeningId van de sessie die verwijderd zal worden
    */
   verwijderOef(id: number) {

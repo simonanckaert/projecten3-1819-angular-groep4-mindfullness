@@ -23,7 +23,7 @@ export class OefeningenLijstComponent implements OnInit {
   }
 
   /**
-   * 
+   * Voegt een oefening toe aan de databank
    * @param oefening Dit is een oefening die zal worden toegevoegd in de databank
    */
   voegOefeningToe(oefening) {

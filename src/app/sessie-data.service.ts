@@ -35,6 +35,7 @@ export class SessieDataService {
 
     });
   }
+  
   /**
    * Geeft een lijst met sessies terug
    */
@@ -42,8 +43,9 @@ export class SessieDataService {
 
     return this._sessies;
   }
+
   /**
-  * 
+  * Voegt een nieuwe sessie toe aan databank
   * @param sessie is een nieuwe sessie die zal toegevoegd worden in de databank 
   */
   voegNieuweSessieToe(sessie: Sessie) {
@@ -66,8 +68,9 @@ export class SessieDataService {
       }
     );
   }
+
   /**
-   * 
+   * Bewerkt de sessie waarvan het id meegegeven wordt
    * @param naam is de aangepaste naam van een sessie
    * @param beschrijving is de aangepaste beschrijving van een sessie
    * @param id is het sessieId waarbij de aanpassingen zullen gebeuren
