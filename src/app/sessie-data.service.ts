@@ -35,12 +35,17 @@ export class SessieDataService {
 
     });
   }
-
+  /**
+   * Geeft een lijst met sessies terug
+   */
   get sessies(): Sessie[] {
 
     return this._sessies;
   }
-
+  /**
+  * 
+  * @param sessie is een nieuwe sessie die zal toegevoegd worden in de databank 
+  */
   voegNieuweSessieToe(sessie: Sessie) {
 
     const body = new HttpParams()
@@ -61,7 +66,12 @@ export class SessieDataService {
       }
     );
   }
-
+  /**
+   * 
+   * @param naam is de aangepaste naam van een sessie
+   * @param beschrijving is de aangepaste beschrijving van een sessie
+   * @param id is het sessieId waarbij de aanpassingen zullen gebeuren
+   */
   bewerkSessie(naam: string, beschrijving: string, id: number) {
 
     const body = new HttpParams()

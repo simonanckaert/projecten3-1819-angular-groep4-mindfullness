@@ -15,10 +15,17 @@ export class OefeningenLijstComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Geeft een lijst van oefeningen terug uit de databank
+   */
   get oefeningen(): Oefening[] {
     return this._oefeningDataService.oefeningen;
   }
 
+  /**
+   * 
+   * @param oefening Dit is een oefening die zal worden toegevoegd in de databank
+   */
   voegOefeningToe(oefening) {
     this._oefeningDataService.voegNieuweOefeningToe(oefening);
   }

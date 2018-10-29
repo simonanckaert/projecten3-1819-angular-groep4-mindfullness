@@ -15,10 +15,17 @@ export class SessieLijstComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Geeft een lijst van sessies terug
+   */
   get sessies(): Sessie[] {
     return this._sessieDataService.sessies;
   }
 
+  /**
+   * 
+   * @param sessie dit is de sessie die zal toegevoegd worden aan de databank
+   */
   voegSessieToe(sessie) {
     this._sessieDataService.voegNieuweSessieToe(sessie);
   }

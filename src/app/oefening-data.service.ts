@@ -21,15 +21,28 @@ export class OefeningDataService {
     this._oefeningen.push(oefening1, oefening2, oefening3, oefening4, oefening5, oefening6, oefening8, oefening9,
               oefening10, oefening11, oefening12, oefening13);
    }
-
+   
+   /**
+    * Geeft een lijst van oefeningen terug
+    */
    get oefeningen(): Oefening[] {
      return this._oefeningen;
    }
 
+   /**
+    * 
+    * @param oefening is een nieuwe oefening die zal toegevoegd worden in de databank
+    */
    voegNieuweOefeningToe(oefening) {
      this._oefeningen.push(oefening);
    }
 
+   /**
+    * 
+    * @param naam is de nieuwe naam van een oefening
+    * @param beschrijving is de nieuwe omschrijving van een oefening
+    * @param id is het oefeningId waarbij de wijzigingen zullen gebeuren
+    */
    bewerkOef(naam: string, beschrijving: string, id: number) {
     console.log('voor de for loop');
 
@@ -43,7 +56,11 @@ export class OefeningDataService {
     }
   }
 
-    verwijderOef(id: number) {
+  /**
+   * 
+   * @param id is het oefeningId van de sessie die verwijderd zal worden
+   */
+  verwijderOef(id: number) {
       for (let i = 0; i < this._oefeningen.length; i++) {
         if (this._oefeningen[i].id === id) {
          // this._oefeningen.pop(2);

@@ -18,17 +18,25 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Geeft de datum van vandaag terug
+   */
   get datum(): Date {
     return this._datum;
   }
 
+  /**
+   * Geeft het uur van nu terug
+   */
   get uur(): Number {
     return this._uur;
   }
 
 
 
-  /* Groet functie die naargelang de tijd de gebruiker begroet*/
+  /**
+   * Geeft de begroetboodschap van nu terug
+   */
   get berekenGroet(): string {
     if (this.uur < 6) {
       return 'Goeienacht ';

@@ -15,15 +15,19 @@ export class KlantenLijstComponent implements OnInit {
   }
 
 
+  /**
+   * Geeft een lijst van klanten terug
+   */
   get klanten(): Klant[] {
     return this._klantenDataService.klanten;
   }
 
+  /*
   veranderen(klant: Klant) {
    // console.log('veranderen is gebruikt');
     this._klantenDataService.klanten.find(k => k.id === klant.id).geblokkeerd();
     console.log(this._klantenDataService.klanten.find(k => k.id === klant.id).achternaam);
     // location.reload();
-  }
+  }*/
 
 }

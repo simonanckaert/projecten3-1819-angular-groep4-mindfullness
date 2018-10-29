@@ -25,22 +25,40 @@ export class OefeningOverzichtComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * 
+   * @param naam Dit is de naam van de oefening die zal worden toegevoegd in de databank
+   * @param beschrijving Dit is de beschrijving van de oefening die zal worden toegevoegd in de databank
+   */
   onSubmit(naam: string, beschrijving: string) {
     console.log('Je hebt gesubmit');
     const oefening = new Oefening(naam, beschrijving, 6);
     this._oefDataService.voegNieuweOefeningToe(oefening);
   }
 
-
+  /**
+   * 
+   * @param naam Dit is de nieuwe naam van de oefening
+   * @param beschrijving Dit is de nieuwe beschrijving van de oefening
+   * @param id Dit is het oefeningId van de oefening die zal worden aangepast
+   */
   bewerkOefening(naam: string, beschrijving: string, id: number) {
     this._oefDataService.bewerkOef(naam, beschrijving, id);
     this.disableInputs();
    }
 
+   /**
+    * 
+    * @param id Dit is het oefeningId van de oefening die zal worden verwijderd
+    */
    verwijderOefening(id: number) {
      this._oefDataService.verwijderOef(id);
    }
 
+   /**
+    * 
+    * @param zoekwoord Dit is het stukje tekst waarop gefilterd zal worden
+    */
   zoeken(zoekwoord: string) {
     if(zoekwoord != undefined && zoekwoord.trim().length !== 0) {
       console.log(zoekwoord);
@@ -54,16 +72,26 @@ export class OefeningOverzichtComponent implements OnInit {
     }
   }
 
+  /**
+   * Geeft een lijst van gefilterde oefeningen terug
+   */
   get oefeningen() {
     return this._gefilterdeLijst;
   }
 
+  /**
+   * 
+   * @param oefening Dit is de oefening waarvan men de info wilt zien
+   */
   toonOefeningInfo(oefening: Oefening) {
     console.log(oefening);
     this._oefening = oefening;
     return this._oefening;
   }
 
+  /**
+   * Disabled de naam en beschrijving voor een oefening aan te passen
+   */
   disableInputs() {
     this._disableNaam = true;
     this._disableBeschrijving = true;
