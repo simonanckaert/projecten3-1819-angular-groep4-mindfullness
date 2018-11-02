@@ -16,6 +16,7 @@ export class OefeningOverzichtComponent implements OnInit {
   private _gefilterdeLijst: Array<Oefening>;
   private _disableNaam = true;
   private _disableBeschrijving = true;
+  private _file : File;
 
   constructor(private _oefDataService: OefeningDataService) {
     this._oefeningenLijst = this._oefDataService.oefeningen;
@@ -32,8 +33,10 @@ export class OefeningOverzichtComponent implements OnInit {
    */
   onSubmit(naam: string, beschrijving: string) {
     console.log('Je hebt gesubmit');
-    const oefening = new Oefening(naam, beschrijving, 6);
-    this._oefDataService.voegNieuweOefeningToe(oefening);
+    
+    const oefening = new Oefening(naam, beschrijving, 0);
+    console.log(this._file)
+    this._oefDataService.voegNieuweOefeningToe(oefening, this._file);
   }
 
   /**
@@ -102,6 +105,13 @@ export class OefeningOverzichtComponent implements OnInit {
    */
   switchDisableNaam() {
     this._disableNaam = ! this._disableNaam;
+  }
+
+  onFileChange(event) {
+    if(event.target.files.length > 0) {
+      let file = event.target.files[0];
+      this._file = file;
+    }
   }
 
   /**
