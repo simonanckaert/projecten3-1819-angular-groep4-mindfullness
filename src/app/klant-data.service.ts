@@ -9,7 +9,7 @@ export class KlantDataService {
 
   constructor(private http: HttpClient) {
 
-    this.http.get(globals.backendUrl + "/users").subscribe((data: Klant) => {
+    this.http.get(globals.backendUrl + '/users').subscribe((data: Klant) => {
       Object.assign(this._klanten, data);
     });
   }
@@ -18,8 +18,10 @@ export class KlantDataService {
     return this._klanten;
   }
 
-
+// Wordt niet gebruikt
+/*
   voegNieuweKlantToe(klant: Klant) {
     this._klanten.push(klant);
   }
+  */
 }

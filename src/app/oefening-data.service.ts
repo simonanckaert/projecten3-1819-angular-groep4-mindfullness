@@ -12,12 +12,12 @@ export class OefeningDataService {
     const oefening4 = new Oefening('Oefening 4', 'Dit is oefening 4', 3);
     const oefening5 = new Oefening('Oefening 5', 'Dit is oefening 5', 4);
     const oefening6 = new Oefening('Oefening 6', 'Dit is oefening 6', 5);
-    const oefening8 = new Oefening('Oefening 6', 'Dit is oefening 8', 7);
-    const oefening9 = new Oefening('Oefening 6', 'Dit is oefening 9', 8);
-    const oefening10 = new Oefening('Oefening 6', 'Dit is oefening 10', 9);
-    const oefening11 = new Oefening('Oefening 6', 'Dit is oefening 11', 10);
-    const oefening12 = new Oefening('Oefening 6', 'Dit is oefening 12', 11);
-    const oefening13 = new Oefening('Oefening 6', 'Dit is oefening 13', 12);
+    const oefening8 = new Oefening('Oefening 7', 'Dit is oefening 8', 7);
+    const oefening9 = new Oefening('Oefening 8', 'Dit is oefening 9', 8);
+    const oefening10 = new Oefening('Oefening 9', 'Dit is oefening 10', 9);
+    const oefening11 = new Oefening('Oefening 10', 'Dit is oefening 11', 10);
+    const oefening12 = new Oefening('Oefening 11', 'Dit is oefening 12', 11);
+    const oefening13 = new Oefening('Oefening 12', 'Dit is oefening 13', 12);
     this._oefeningen.push(oefening1, oefening2, oefening3, oefening4, oefening5, oefening6, oefening8, oefening9,
               oefening10, oefening11, oefening12, oefening13);
    }

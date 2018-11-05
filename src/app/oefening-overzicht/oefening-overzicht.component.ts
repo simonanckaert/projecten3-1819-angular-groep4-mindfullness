@@ -42,7 +42,7 @@ export class OefeningOverzichtComponent implements OnInit {
    }
 
   zoeken(zoekwoord: string) {
-    if(zoekwoord != undefined && zoekwoord.trim().length !== 0) {
+    if (zoekwoord !== undefined && zoekwoord.trim().length !== 0) {
       console.log(zoekwoord);
       this._gefilterdeLijst = this._oefeningenLijst.filter(s => s.naam.includes(zoekwoord) || s.beschrijving.includes(zoekwoord));
       console.log(this._gefilterdeLijst);
@@ -54,12 +54,11 @@ export class OefeningOverzichtComponent implements OnInit {
     }
   }
 
-  get oefeningen() {
+  get oefeningen(): Oefening[] {
     return this._gefilterdeLijst;
   }
 
   toonOefeningInfo(oefening: Oefening) {
-    console.log(oefening);
     this._oefening = oefening;
     return this._oefening;
   }
