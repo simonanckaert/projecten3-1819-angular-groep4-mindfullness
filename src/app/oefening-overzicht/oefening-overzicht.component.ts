@@ -63,7 +63,7 @@ export class OefeningOverzichtComponent implements OnInit {
     * @param zoekwoord Dit is het stukje tekst waarop gefilterd zal worden
     */
   zoeken(zoekwoord: string) {
-    if(zoekwoord != undefined && zoekwoord.trim().length !== 0) {
+    if (zoekwoord !== undefined && zoekwoord.trim().length !== 0) {
       console.log(zoekwoord);
       this._gefilterdeLijst = this._oefeningenLijst.filter(s => s.naam.includes(zoekwoord) || s.beschrijving.includes(zoekwoord));
       console.log(this._gefilterdeLijst);
@@ -74,6 +74,7 @@ export class OefeningOverzichtComponent implements OnInit {
       console.log('je zit in tweede');
     }
   }
+
 
   /**
    * Geeft een lijst van gefilterde oefeningen terug
@@ -87,7 +88,6 @@ export class OefeningOverzichtComponent implements OnInit {
    * @param oefening Dit is de oefening waarvan men de info wilt zien
    */
   toonOefeningInfo(oefening: Oefening) {
-    console.log(oefening);
     this._oefening = oefening;
     return this._oefening;
   }

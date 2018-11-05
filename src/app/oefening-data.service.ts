@@ -9,6 +9,7 @@ import { HttpHeaders } from '@angular/common/http';
 export class OefeningDataService {
   private _oefeningen = new Array<Oefening>();
 
+
   constructor(private http: HttpClient) {
     this.http.get(globals.backendUrl + "/oefeningen/").subscribe((data: Oefening) => {
       Object.assign(this._oefeningen, data);
@@ -57,6 +58,7 @@ export class OefeningDataService {
    */
   bewerkOef(naam: string, beschrijving: string, id: number) {
     /*console.log('voor de for loop');
+
 
     for (let i = 0; i < this._oefeningen.length; i++) {
       console.log('for loop ' + i + ' van de ', this._oefeningen.length);

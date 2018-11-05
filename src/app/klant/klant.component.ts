@@ -8,7 +8,7 @@ import { Input } from '@angular/core';
   styleUrls: ['./klant.component.css']
 })
 export class KlantComponent implements OnInit {
-  @Input() public klant: Klant;
+
 
   constructor() { }
 

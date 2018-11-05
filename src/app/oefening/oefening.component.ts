@@ -14,4 +14,10 @@ export class OefeningComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  verwijderOefeningUitSessie() {
+    if (confirm('Ben je zeker dat je ' + this.oefening.naam + ' wilt verwijderen?')) {
+      console.log(this.oefening.naam + ' is verwijderd uit de sessie');
+    }
+  }
 }

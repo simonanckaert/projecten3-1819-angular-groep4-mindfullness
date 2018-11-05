@@ -6,11 +6,8 @@
           href="#list-home" role="tab" aria-controls="home" (click)="toonSessieInfo(sessie)">
           <a>{{sessie.naam}}</a>
         </div>
-        <!--  <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Sessie 2: het tweede deel</a>
-        <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Sessie 3: het derde deel</a>
-        <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Sessie 4: het vierde deel</a> -->
       </div>
-      <button type="button" class="btn btn-primary btn-lg btn-block test" data-toggle="modal" data-target="#exampleModal">
+      <button type="button" class="btn btn-primary btn-lg btn-block knop toevoegKnop" data-toggle="modal" data-target="#sessieToevoegModal">
         Sessie toevoegen
       </button>
     </div>
@@ -23,18 +20,14 @@
         </div>
       </div>
       <div class="tab-content oef" id="nav-tabContent" *ngFor='let localOefening of oefeningen'>
-        <!--<div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list"><app-oefeningen-lijst></app-oefeningen-lijst></div>
-       <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list"><app-oefeningen-lijst></app-oefeningen-lijst></div>
-        <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list"><app-oefeningen-lijst></app-oefeningen-lijst></div>
-        <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list"><app-oefeningen-lijst></app-oefeningen-lijst></div> -->
-        <app-oefening class="test" [oefening]='localOefening'></app-oefening>
+        <app-oefening [oefening]='localOefening'></app-oefening>
       </div>
     </div>
   </div>
 </div>
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="sessieToevoegModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -44,7 +37,6 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
           <div class="form-group">
             <label for="sessienaam" class="col-form-label">Sessienaam:</label>
             <input type="text" class="form-control" id="sessienaam" #naam>
@@ -53,11 +45,10 @@
             <label for="sessiebeschrijving" class="col-form-label">Beschrijving:</label>
             <textarea class="form-control" id="sessiebeschrijving" #beschrijving></textarea>
           </div>
-        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
-        <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="voegSessieToe(naam.value, beschrijving.value)">Opslaan</button>
+        <button type="button" class="btn btn-secondary annuleerKnop" data-dismiss="modal">Annuleer</button>
+        <button type="submit" class="btn btn-primary knop" data-dismiss="modal" (click)="voegSessieToe(naam.value, beschrijving.value)">Opslaan</button>
       </div>
     </div>
   </div>
@@ -73,7 +64,6 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
             <div class="form-group">
               <label for="sessienaam" class="col-form-label">Sessienaam:</label>
               <input type="text" class="form-control" id="sessienaam" value="{{_sessie.naam}}" #bewerkNaam>
@@ -82,11 +72,10 @@
               <label for="sessiebeschrijving" class="col-form-label">Beschrijving:</label>
               <textarea class="form-control" id="sessiebeschrijving" value="{{_sessie.beschrijving}}" #bewerkBeschrijving></textarea>
             </div>
-          </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
-          <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="bewerkSessie(bewerkNaam.value, bewerkBeschrijving.value, _sessie.sessieId)">Opslaan</button>
+          <button type="button" class="btn btn-secondary annuleerKnop" data-dismiss="modal">Annuleer</button>
+          <button type="submit" class="btn btn-primary opslaanKnop" data-dismiss="modal" (click)="bewerkSessie(bewerkNaam.value, bewerkBeschrijving.value, _sessie.sessieId)">Opslaan</button>
         </div>
       </div>
     </div>

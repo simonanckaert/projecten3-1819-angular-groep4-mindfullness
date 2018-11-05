@@ -9,7 +9,7 @@ export class KlantDataService {
 
   constructor(private http: HttpClient) {
 
-    this.http.get(globals.backendUrl + "/users").subscribe((data: Klant) => {
+    this.http.get(globals.backendUrl + '/users').subscribe((data: Klant) => {
       Object.assign(this._klanten, data);
     });
   }
@@ -21,6 +21,7 @@ export class KlantDataService {
     return this._klanten;
   }
 
+
   /**
    * Voegt een nieuwe klant toe aan de databank
    * @param klant is de klant die zal toegevoegd worden in de databank
@@ -28,4 +29,5 @@ export class KlantDataService {
   voegNieuweKlantToe(klant: Klant) {
     this._klanten.push(klant);
   }
+  */
 }

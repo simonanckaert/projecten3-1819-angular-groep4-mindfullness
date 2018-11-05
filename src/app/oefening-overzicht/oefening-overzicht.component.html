@@ -1,14 +1,13 @@
 <div class="container-inline">
   <div class="col-16">
     <div class="tab-content" id="nav-tabContent">
-        <button class="btn btn-primary knop"  data-toggle="modal" data-target="#toevoegen">Toevoegen <i class="material-icons add">add</i></button>
+        <button class="btn btn-primary knop toevoegKnop"  data-toggle="modal" data-target="#toevoegen">Toevoegen <i class="material-icons add">add</i></button>
       <h1>Overzicht oefeningen</h1>
       <p class="filter"><label class="label">Filter op naam:</label><input type="text" class="form-control filter" (input)="zoeken($event.target.value)"></p>
     </div>
   <div class="tab-content row cards" id="nav-tabContent">
       <div class="tab-pane fade show col-4" id="list-home" role="tabpanel" aria-labelledby="list-home-list" *ngFor="let oef of oefeningen" class="content">
-        <div class="card bg-light mb-3" style="width: 16rem;">
-
+       <div class="card bg-light mb-3 grow" style="width: 16rem;">
           <div class="card-body" data-toggle="modal" data-target="#bewerken" (click)="toonOefeningInfo(oef)">
             <h5 class="card-title">{{oef.naam}}</h5>
           </div>
@@ -44,8 +43,8 @@
             </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
-          <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit(naam.value, beschrijving.value)">Opslaan</button>
+          <button type="button" class="btn btn-secondary annuleerKnop" data-dismiss="modal" (click)="disableInputs()">Annuleer</button>
+          <button type="submit" class="btn btn-primary knop" data-dismiss="modal" (click)="onSubmit(naam.value, beschrijving.value)">Opslaan</button>
         </div>
       </div>
     </div>
@@ -76,8 +75,8 @@
               </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
-            <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="bewerkOefening(bewerkNaam.value, bewerkBeschrijving.value, bewerkFile.value, 6)">Opslaan</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="disableInputs()">Annuleer</button>
+            <button type="submit" class="btn btn-primary knop" data-dismiss="modal" (click)="bewerkOefening(bewerkNaam.value, bewerkBeschrijving.value , 6)">Opslaan</button>      
             <button type="button" class="btn btn-danger verwijder" data-dismiss="modal" (click)="verwijderOefening(6)">Verwijderen</button>
           </div>
         </div>

@@ -1,4 +1,7 @@
-<div class="card bg-light mb-3" style="width: 16rem;">
+<div class="card bg-light mb-3 grow" style="width: 16rem;">
+    <button type="button" class="close" (click)="verwijderOefeningUitSessie()">
+        <span aria-hidden="true">&times;</span>
+      </button>
     <div class="card-body">
         <h5 class="card-title">{{oefening.naam}}</h5>
         <p class="card-text">{{oefening.beschrijving}}</p>

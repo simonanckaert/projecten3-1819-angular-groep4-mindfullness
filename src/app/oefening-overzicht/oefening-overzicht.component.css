@@ -22,7 +22,6 @@ h1 {
     padding-top: 20px;
     display: inline-block;
     margin-left: 20px;
-
 }
 
 
@@ -45,7 +44,7 @@ h1 {
   right: -2px;
 }
 
-.knop {
+.toevoegKnop {
   margin-left: 45px;
   float: left;
   margin-top: 30px;
@@ -74,11 +73,20 @@ h1 {
 }
 
 .form-control[disabled] {
-  background-color: green;
-  color: white;
+  background-color: lightgray;
+  color: black;
 }
 
 .verwijder {
   position: absolute;
   left: 5px;
+}
+
+.grow {
+  transition: all .2s ease-in-out;
+ }
+
+.grow:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }

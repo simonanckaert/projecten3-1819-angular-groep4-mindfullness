@@ -18,3 +18,19 @@
   border: solid #60993E 2px;
   border-radius: 5px;
 }
+
+.grow {
+  transition: all .2s ease-in-out;
+}
+
+
+.grow:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}

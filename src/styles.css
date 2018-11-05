@@ -15,3 +15,18 @@ body {
   background-color: rgb(175,219,206);
   height: 10%
 }
+
+.knop {
+  background-color: rgb(248,139,31);
+  border: 0;
+  border-radius: 0;
+}
+
+.knop:hover {
+  color: black;
+  background-color: rgb(248,139,31);
+}
+
+.annuleerKnop {
+  border-radius: 0;
+}
