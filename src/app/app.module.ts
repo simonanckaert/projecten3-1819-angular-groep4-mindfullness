@@ -19,16 +19,33 @@ import { KlantComponent } from './klant/klant.component';
 import { KlantenLijstComponent } from './klanten-lijst/klanten-lijst.component';
 import { HomeComponent } from './home/home.component';
 import { OefeningOverzichtComponent } from './oefening-overzicht/oefening-overzicht.component';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
+import { LoginComponent } from './login/login.component';
+import { EmailComponent } from './email/email.component';
+import { RegistrerenComponent } from './registreren/registreren.component';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyB1wU05Yb-p-0hu98hq2agU2dk_7XHF7Zo",
+  authDomain: "projecten3-angular.firebaseapp.com",
+  databaseURL: "https://projecten3-angular.firebaseio.com",
+  projectId: "projecten3-angular",
+  storageBucket: "projecten3-angular.appspot.com",
+  messagingSenderId: "378320525386"
+
+};
 
 
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: RegistrerenComponent },
   { path: 'berichten', component: BerichtenComponent },
   { path: 'sessieoverzicht', component: SessieoverzichtComponent },
   { path: 'klanten', component: KlantenLijstComponent},
   { path: 'oefeningen', component: OefeningOverzichtComponent },
-  { path: '**', component: PagenotfoundComponent }
+  { path: '**', component: PagenotfoundComponent },
+  { path: 'registreren', component: RegistrerenComponent }
 ];
 
 @NgModule({
@@ -45,14 +62,19 @@ const appRoutes: Routes = [
     KlantComponent,
     KlantenLijstComponent,
     HomeComponent,
-    OefeningOverzichtComponent
+    OefeningOverzichtComponent,
+    LoginComponent,
+    EmailComponent,
+    RegistrerenComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(firebaseConfig),
     ReactiveFormsModule,
+    AngularFireAuthModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
