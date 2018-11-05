@@ -22,11 +22,18 @@ export class SessieoverzichtComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Geeft een lijst van sessies terug
+   */
   get sessies(): Sessie[] {
     this._sessieDataService.herlaadSessies();
     return this._sessieDataService.sessies;
   }
 
+  /**
+   * Houdt de sessie en de sessieoefeningen bij als attributen
+   * @param sessie dit is de sessie die u wilt zien
+   */
   toonSessieInfo(sessie: Sessie): Sessie {
     console.log(sessie);
     this._sessie = sessie;
@@ -34,6 +41,9 @@ export class SessieoverzichtComponent implements OnInit {
     return this._sessie;
   }
 
+  /**
+   * Geeft weer of er een sessie gekozen is of niet
+   */
   sessieGekozen(): boolean {
     if (this._sessie != null) {
       return true;
@@ -41,15 +51,29 @@ export class SessieoverzichtComponent implements OnInit {
     return false;
   }
 
+  /**
+   * Geeft een lijst van oefeningen terug
+   */
   get oefeningen() {
     return this._oefeningen;
   }
 
+  /**
+   * Voegt een nieuwe sessie toe aan databank met opgegeven parameters
+   * @param naam dit is de naam van een sessie die wordt toegevoegd
+   * @param beschrijving dit is de beschrijving van een sessie die wordt toegevoegd
+   */
   voegSessieToe(naam: string, beschrijving: string) {
     console.log('Sessie toegevoegd' + naam +  ' ' + beschrijving + ' ' + this._sessieDataService.sessies.length);
     this._sessieDataService.voegNieuweSessieToe(new Sessie(naam, beschrijving, null, this._sessieDataService.sessies.length));
   }
 
+  /**
+   * Bewerkt een sessie met de opgegeven parameters
+   * @param naam dit is de nieuwe naam van de sessie
+   * @param beschrijving dit is de nieuwe beschrijving van de sessie
+   * @param id dit is het sessieId van de sessie die bewerkt gaat worden
+   */
   bewerkSessie(naam: string, beschrijving: string, id: number) {
     console.log('Sessie te bewerken ' + naam + beschrijving);
     console.log(id);

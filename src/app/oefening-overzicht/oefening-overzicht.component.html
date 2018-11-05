@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label for="sessieBestand"></label>
-                    <input type="file" class="form-control-file" id="sessieBestand">
+                    <input type="file" class="form-control-file" id="sessieBestand" (change)="onFileChange($event)" #bestand>
                   </div>
             </form>
         </div>
@@ -70,13 +70,13 @@
                   </div>
                   <div class="form-group">
                       <label for="sessieBestand"></label>
-                      <input type="file" class="form-control-file" id="sessieBestand">
+                      <input type="file" class="form-control-file" id="sessieBestand" (change)="onFileChange($event)" value="{{_oefening.file}}" #bewerkFile>
                     </div>
               </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="disableInputs()">Annuleer</button>
-            <button type="submit" class="btn btn-primary knop" data-dismiss="modal" (click)="bewerkOefening(bewerkNaam.value, bewerkBeschrijving.value , 6)">Opslaan</button>
+            <button type="submit" class="btn btn-primary knop" data-dismiss="modal" (click)="bewerkOefening(bewerkNaam.value, bewerkBeschrijving.value , 6)">Opslaan</button>      
             <button type="button" class="btn btn-danger verwijder" data-dismiss="modal" (click)="verwijderOefening(6)">Verwijderen</button>
           </div>
         </div>
