@@ -138,11 +138,9 @@ export class Klant {
      */
 
     geblokkeerd() {
-      console.log('ervoor ' + this.isGeblokkeerd());
        this._geblokkeerd = !this._geblokkeerd;
-       console.log('erna ' + this.isGeblokkeerd());
     }
-    */
+    
 
     /**
      * Geeft terug of deze klant geblokkeerd is of niet
