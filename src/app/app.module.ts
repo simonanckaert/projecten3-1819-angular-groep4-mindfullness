@@ -25,6 +25,8 @@ import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { LoginComponent } from './login/login.component';
 import { EmailComponent } from './email/email.component';
 import { RegistrerenComponent } from './registreren/registreren.component';
+import { AuthGuardService } from './auth-guard.service';
+import { AuthenticationService } from './authentication.service';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyB1wU05Yb-p-0hu98hq2agU2dk_7XHF7Zo",
@@ -39,12 +41,12 @@ export const firebaseConfig = {
 
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'berichten', component: BerichtenComponent },
-  { path: 'sessieoverzicht', component: SessieoverzichtComponent },
-  { path: 'klanten', component: KlantenLijstComponent},
-  { path: 'oefeningen', component: OefeningOverzichtComponent },
-  { path: 'registreren', component: RegistrerenComponent },
+  { path: '', canActivate: [AuthGuardService], component: HomeComponent },
+  { path: 'berichten', canActivate: [AuthGuardService], component: BerichtenComponent },
+  { path: 'sessieoverzicht', canActivate: [AuthGuardService], component: SessieoverzichtComponent },
+  { path: 'klanten', canActivate: [AuthGuardService], component: KlantenLijstComponent},
+  { path: 'oefeningen', canActivate: [AuthGuardService], component: OefeningOverzichtComponent },
+  { path: 'registreren', canActivate: [AuthGuardService], component: RegistrerenComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', component: PagenotfoundComponent }
   
@@ -82,7 +84,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [],
+  providers: [AuthenticationService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
