@@ -16,15 +16,15 @@ export class LoginComponent implements OnInit {
   error: any;
 
   constructor(public af: AngularFireAuth, private router: Router) {
-    this.af.user.subscribe(user => {
-      this.router.navigateByUrl('/');
-    })
+    /*this.af.user.subscribe(user => {
+      this.router.navigateByUrl('/login');
+    })*/
   }
 
-  /*onSubmit(formData) {
+  onSubmit(formData) {
     if (formData.valid) {
       console.log(formData.value);
-      this.af.auth. (formData.value.email, formData.value.password)
+      this.af.auth.signInWithEmailAndPassword(formData.value.email, formData.value.password)
         .then((success) => {
           console.log(success);
           this.router.navigate(['/']);
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
           this.error = err;
         })
     }
-  }*/
+  }
 
   ngOnInit() {
   }

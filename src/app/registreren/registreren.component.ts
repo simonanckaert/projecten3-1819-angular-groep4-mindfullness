@@ -12,9 +12,9 @@ export class RegistrerenComponent implements OnInit {
   error: any;
 
   constructor(public af: AngularFireAuth, private router: Router) {
-    this.af.user.subscribe(user => {
-      this.router.navigateByUrl('/');
-    })
+    /*this.af.user.subscribe(user => {
+      this.router.navigateByUrl('/registreren');
+    })*/
   }
 
   onSubmit(formData) {
@@ -22,8 +22,8 @@ export class RegistrerenComponent implements OnInit {
       console.log(formData.value);
       this.af.auth.createUserWithEmailAndPassword(formData.value.email, formData.value.password)
         .then((success) => {
-          console.log(success);
-          this.router.navigate(['/']);
+          console.log("success");
+          this.router.navigateByUrl('/login');
         }).catch((err) => {
           console.log(err);
           this.error = err;

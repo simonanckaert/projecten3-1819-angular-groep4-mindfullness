@@ -39,13 +39,15 @@ export const firebaseConfig = {
 
 
 const appRoutes: Routes = [
-  { path: '', component: RegistrerenComponent },
+  { path: '', component: HomeComponent },
   { path: 'berichten', component: BerichtenComponent },
   { path: 'sessieoverzicht', component: SessieoverzichtComponent },
   { path: 'klanten', component: KlantenLijstComponent},
   { path: 'oefeningen', component: OefeningOverzichtComponent },
-  { path: '**', component: PagenotfoundComponent },
-  { path: 'registreren', component: RegistrerenComponent }
+  { path: 'registreren', component: RegistrerenComponent },
+  { path: 'login', component: LoginComponent },
+  { path: '**', component: PagenotfoundComponent }
+  
 ];
 
 @NgModule({

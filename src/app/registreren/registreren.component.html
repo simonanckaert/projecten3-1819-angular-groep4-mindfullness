@@ -1,6 +1,6 @@
 <div class="form-container">
 
-    <h2>Gelieve U aan te melden</h2>
+    <h2>Gelieve U te registreren</h2>
     <span class="error" *ngIf="error">{{error}}</span>
   
     <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
@@ -10,5 +10,4 @@
       <button type="submit" [disabled]="!formData.valid" class="basic-btn">Create my account</button>
     </form>
   
-    <a href="/registreren">No account? <strong>Create one here</strong></a>
   </div>
