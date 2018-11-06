@@ -1,23 +1,30 @@
 export class Oefening {
-  private _id: number;
+  private _oefeningId: number;
+  private _sessieId: number;
   private _naam: string;
   private _dateAdded: Date = new Date();
   private _beschrijving: string;
   private _file: File
- // private _oefening: Object;
+  private _fileName: string;
+  private _fileMimetype: string;
+  private _fileOriginalName: string;
+  private _fileSize: number;
 
-  constructor(naam: string, beschrijving: string, id: number) {
+  constructor(naam: string, beschrijving: string, oefeningId: number) {
     this._naam = naam;
     this._beschrijving = beschrijving;
-    this._id = id;
-  //  this._oefening = oefening;
+    this._oefeningId = oefeningId;
   }
 
   /**
    * Geeft het id van een oefening terug
    */
-  get id(): number {
-    return this._id;
+  get oefeningId(): number {
+    return this._oefeningId;
+  }
+
+  get sessieId(): number {
+    return this._sessieId;
   }
 
   /**
@@ -42,6 +49,22 @@ export class Oefening {
     return this._file;
   }
 
+  get fileName() : string {
+    return this._fileName;
+  }
+
+  get fileSize() : number {
+    return this._fileSize;
+  }
+  
+  get fileOriginalName() : string {
+    return this._fileOriginalName;
+  }
+  
+  get fileMimetype() : string {
+    return this._fileMimetype;
+  }
+
   /**
    * Verandert de naam van de oefening
    * @param naam: Dit is de nieuwe naam van de oefening
@@ -56,6 +79,26 @@ export class Oefening {
    */
   set beschrijving(beschrijving: string) {
     this._beschrijving = beschrijving;
+  }
+
+  set fileName(name : string) {
+    this._fileName = name;
+  }
+
+  set fileSize(size : number) {
+    this._fileSize = size;
+  }
+  
+  set fileOriginalName(originalName : string) {
+    this._fileOriginalName = originalName
+  }
+  
+  set fileMimetype(mimetype : string) {
+    this._fileMimetype = mimetype;
+  }
+
+  set sessieId(sessieId : number) {
+    this._sessieId = sessieId;
   }
 
   set file(file : File)
