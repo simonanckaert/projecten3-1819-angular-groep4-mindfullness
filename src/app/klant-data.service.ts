@@ -29,5 +29,5 @@ export class KlantDataService {
   voegNieuweKlantToe(klant: Klant) {
     this._klanten.push(klant);
   }
-  */
+  
 }
