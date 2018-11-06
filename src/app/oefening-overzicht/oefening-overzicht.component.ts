@@ -14,8 +14,8 @@ export class OefeningOverzichtComponent implements OnInit {
   @Input() _oefening: Oefening;
   private _oefeningenLijst: Array<Oefening>;
   private _gefilterdeLijst: Array<Oefening>;
-  private _disableNaam = true;
-  private _disableBeschrijving = true;
+  public _disableNaam = true;
+  public _disableBeschrijving = true;
   private _file : File;
 
   constructor(private _oefDataService: OefeningDataService) {
