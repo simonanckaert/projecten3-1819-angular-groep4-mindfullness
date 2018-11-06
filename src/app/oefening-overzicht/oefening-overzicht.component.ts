@@ -56,6 +56,7 @@ export class OefeningOverzichtComponent implements OnInit {
     */
    verwijderOefening(id: number) {
      this._oefDataService.verwijderOef(id);
+     console.log('tets')
    }
 
    /**

@@ -81,13 +81,13 @@ export class OefeningDataService {
         console.log(res);
       },
       err => {
-        console.log("Error occured");
+        console.log(err);
       }
     );
 
     //update local list
     for (let i = 0; i < this._oefeningen.length; i++) {
-      if (this._oefeningen[i].id === id) {
+      if (this._oefeningen[i].oefeningId === id) {
         this._oefeningen[i].naam = naam;
         this._oefeningen[i].beschrijving = beschrijving;
       }
@@ -100,8 +100,24 @@ export class OefeningDataService {
    */
   verwijderOef(id: number) {
     for (let i = 0; i < this._oefeningen.length; i++) {
-      if (this._oefeningen[i].id === id) {
-        // this._oefeningen.pop(2);
+      if (this._oefeningen[i].oefeningId === id) {
+        
+        const body = new HttpParams()
+        .set('oefeningId', id.toString());
+
+        this.http.delete(globals.backendUrl + "/oefeningen/" + id, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'x-www-form-urlencoded')
+        }).subscribe(
+          res => {
+            console.log(res);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+
+        break;
       }
     }
   }
