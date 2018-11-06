@@ -1,14 +1,18 @@
-<div class="form-container">
+<div class="container-inline">
+  <div class="form-container">
 
-  <h2>Gelieve U aan te melden</h2>
-  <span class="error" *ngIf="error">{{error}}</span>
+    <h2>Gelieve U aan te melden</h2>
+    <span class="error" *ngIf="error">{{error}}</span>
 
-  <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
-    <input type="text" placeholder="Email adres" (ngModel)="email" name="email" class="txt" required>
-    <input type="password" placeholder="Wachtwoord" (ngModel)="password" name="password" class="txt" required>
+    <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+      <input type="text" placeholder="Email adres" (ngModel)="email" name="email" class="txt" required><br>
+      <input type="password" placeholder="Wachtwoord" (ngModel)="password" name="password" class="txt" required><br>
 
-    <button type="submit" [disabled]="!formData.valid" class="basic-btn">Inloggen</button>
-  </form>
+      <button type="submit" [disabled]="!formData.valid" class="basic-btn">Inloggen</button>
+    </form>
 
-  <a href="/registreren">No account? <strong>Create one here</strong></a>
+    <a href="/registreren">No account?
+      <strong>Create one here</strong>
+    </a>
+  </div>
 </div>

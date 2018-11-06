@@ -21,7 +21,7 @@ export class MainNavComponent {
 
   logout() {
     this.af.auth.signOut().then(() => {
-      this.router.navigateByUrl('/sessies');
+      this.router.navigateByUrl('/login');
     })
   }
 
