@@ -4,16 +4,18 @@ export class Klant {
     private _achternaam: string;
     private _geboorteDatum: Date;
     private _email: string;
-    private _geblokkeerd: boolean;
+    private _regio: string;
+    private _telefoonNummer: string;
+    private _betaald: boolean;
 
-    constructor(vnaam: string, anaam: string, gDatum: Date, email: string, id: number) {
+    constructor(vnaam: string, anaam: string, gDatum: Date, email: string, regio: string, nummer: string) {
         this._voornaam = vnaam;
         this._achternaam = anaam;
         this._geboorteDatum = gDatum;
         this._email = email;
-        this._geblokkeerd = false;
-        this._id = id;
-
+        this._regio = regio;
+        this._telefoonNummer = nummer;
+        this._betaald = false;
     }
 
     /**
@@ -52,17 +54,43 @@ export class Klant {
     }
 
     /**
+     * Geeft het telefoonnummer van deze klant terug
+     */
+    get telefoonNummer(): string {
+        return this._telefoonNummer;
+    }
+
+    /**
+     * Geeft de regio van deze klant terug
+     */
+    get regio(): string {
+      return this._regio;
+    }
+
+    /**
+     * Geeft terug of de klant betaald heeft
+     */
+    get betaald(): boolean {
+      return this._betaald;
+    }
+
+
+    /**
      * Verandert de voornaam van de klant
      * @param nieuw: Dit is de nieuwe voornaam van deze klant
      */
+
     set voornaam(nieuw: string) {
         this._voornaam = nieuw;
     }
+
+
 
     /**
      * Verandert de achternaam van de klant
      * @param nieuw: Dit is de nieuwe achternaam van deze klant
      */
+
     set achternaam(nieuw: string) {
       this._achternaam = nieuw;
     }
@@ -83,20 +111,25 @@ export class Klant {
       this._id = id;
     }
 
-    /**
-     * Veranderd de geblokkeerdstatus van deze klant
+     /**
+     * verandert de regio van de klant
+     * @param regio: Dit is de nieuwe regio van deze klant
      */
-    geblokkeerd() {
-      console.log('ervoor ' + this.isGeblokkeerd());
-       this._geblokkeerd = !this._geblokkeerd;
-       console.log('erna ' + this.isGeblokkeerd());
+    set regio(regio: string) {
+      this._regio = regio;
     }
 
-    /**
-     * Geeft terug of deze klant geblokkeerd is of niet
+     /**
+     * verandert het telefoonnummer van de klant
+     * @param nummer: Dit is het nieuwe telefoonnummer van deze klant
      */
-    isGeblokkeerd() {
-        return this._geblokkeerd;
+    set telefoonNummer(nummer: string) {
+      this._telefoonNummer = nummer;
+    }
+
+    /*
+    heeftBetaald(): string {
+      return 'ja';
     }
 
     /**

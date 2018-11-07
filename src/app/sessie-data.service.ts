@@ -17,19 +17,19 @@ export class SessieDataService {
 
   constructor(private http: HttpClient) {
 
-    //Voer een get request uit naar de backend met alle sessies
-    this.http.get(globals.backendUrl + "/sessies").subscribe((data: Sessie) => {
+    // Voer een get request uit naar de backend met alle sessies
+    this.http.get(globals.backendUrl + '/sessies').subscribe((data: Sessie) => {
       Object.assign(this._sessies, data);
 
-      //Per sessie worden de oefeningen ervan opgehaald in de backend en toegevoegd aan het sessieobjec
+      // Per sessie worden de oefeningen ervan opgehaald in de backend en toegevoegd aan het sessieobject
       this._sessies.forEach((val) => {
 
-        this.http.get(globals.backendUrl + "/oefeningen/" + val.sessieId).subscribe((oef: Array<Oefening>) => {
-          //indien er geen oefeningen aanwezig zijn zullen de oefeningen niet toegewezen kunnen worden
+        this.http.get(globals.backendUrl + '/oefeningen/' + val.sessieId).subscribe((oef: Array<Oefening>) => {
+          // indien er geen oefeningen aanwezig zijn zullen de oefeningen niet toegewezen kunnen worden
           if (oef.length > 0) {
             val.oefeningen = [];
-            Object.assign(val.oefeningen, oef)
-          };
+            Object.assign(val.oefeningen, oef);
+          }
         });
       });
 
@@ -54,8 +54,8 @@ export class SessieDataService {
       .set('naam', sessie.naam)
       .set('beschrijving', sessie.beschrijving);
 
-    //post de sessie data naar de backend
-    this.http.post(globals.backendUrl + "/sessies", body, {
+    // post de sessie data naar de backend
+    this.http.post(globals.backendUrl + '/sessies', body, {
       headers: new HttpHeaders()
         .set('Content-Type', 'x-www-form-urlencoded')
     }).subscribe(
@@ -64,7 +64,7 @@ export class SessieDataService {
         this._sessies.push(sessie);
       },
       err => {
-        console.log("Error occured");
+        console.log('Error occured');
       }
     );
   }
@@ -82,7 +82,7 @@ export class SessieDataService {
       .set('beschrijving', beschrijving)
       .set('sessieId', id.toString());
 
-    this.http.put(globals.backendUrl + "/sessies", body, {
+    this.http.put(globals.backendUrl + '/sessies', body, {
       headers: new HttpHeaders()
         .set('Content-Type', 'x-www-form-urlencoded')
     }).subscribe(
@@ -90,11 +90,11 @@ export class SessieDataService {
         console.log(res);
       },
       err => {
-        console.log("Error occured");
+        console.log('Error occured');
       }
     );
 
-    //update local list
+    // update local list
     for (let i = 0; i < this._sessies.length; i++) {
       if (this._sessies[i].sessieId === id) {
         this._sessies[i].naam = naam;

@@ -41,15 +41,18 @@ export const firebaseConfig = {
 
 
 const appRoutes: Routes = [
+
   { path: '', canActivate: [AuthGuardService], component: HomeComponent },
   { path: 'berichten', canActivate: [AuthGuardService], component: BerichtenComponent },
   { path: 'sessieoverzicht', canActivate: [AuthGuardService], component: SessieoverzichtComponent },
   { path: 'klanten', canActivate: [AuthGuardService], component: KlantenLijstComponent},
   { path: 'oefeningen', canActivate: [AuthGuardService], component: OefeningOverzichtComponent },
+  { path: 'oefeningenlijst', component: OefeningenLijstComponent },
   { path: 'registreren', canActivate: [AuthGuardService], component: RegistrerenComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', canActivate: [AuthGuardService], component: PagenotfoundComponent }
   
+
 ];
 
 @NgModule({

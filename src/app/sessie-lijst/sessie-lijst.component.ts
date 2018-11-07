@@ -16,7 +16,7 @@ export class SessieLijstComponent implements OnInit {
   }
 
   /**
-   * Geeft een lijst van sessies terug
+   * Geeft een lijstvan sessies terug
    */
   get sessies(): Sessie[] {
     return this._sessieDataService.sessies;

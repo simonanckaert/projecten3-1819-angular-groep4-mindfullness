@@ -1,4 +1,4 @@
-import { Oefening } from "../oefening/oefening.model";
+import { Oefening } from '../oefening/oefening.model';
 
 export class Sessie {
   private _naam: string;
@@ -78,8 +78,7 @@ export class Sessie {
    * Wijzigt de oefeningen van een sessie
    * @param oef: Dit is de nieuwe lijst van oefeningen van een sessie
    */
-  set oefeningen(oef: Array<Oefening>)
-  {
+  set oefeningen(oef: Array<Oefening>) {
     this._oefeningen = oef;
   }
 }

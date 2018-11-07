@@ -15,6 +15,7 @@ export class KlantenLijstComponent implements OnInit {
   }
 
 
+
   /**
    * Geeft een lijst van klanten terug
    */
@@ -29,5 +30,4 @@ export class KlantenLijstComponent implements OnInit {
     console.log(this._klantenDataService.klanten.find(k => k.id === klant.id).achternaam);
     // location.reload();
   }*/
-
 }
