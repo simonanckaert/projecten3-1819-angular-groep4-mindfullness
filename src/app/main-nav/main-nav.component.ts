@@ -25,7 +25,7 @@ export class MainNavComponent {
 
   logout() {
     this.af.auth.signOut().then(() => {
-      /*localStorage.removeItem('user');*/
+      localStorage.removeItem('user');
       this.router.navigateByUrl('/login');
     })
   }

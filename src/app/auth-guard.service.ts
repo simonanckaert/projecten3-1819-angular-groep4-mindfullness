@@ -11,7 +11,7 @@ export class AuthGuardService implements CanActivate {
   constructor(private authService: AuthenticationService, private router: Router, private af: AngularFireAuth) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.af.user) {
+    if (localStorage.getItem('user')) {
       return true;
     }
     // Retain the attempted URL for redirection
