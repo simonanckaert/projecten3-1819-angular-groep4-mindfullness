@@ -13,24 +13,21 @@ export class MainNavComponent {
   aangemeld:boolean;
  
   constructor(public af: AngularFireAuth, private router: Router) {
-    /*this.af.user.subscribe(user => {
+    this.af.user.subscribe(user => {
       if(user) {
-        this.name = user;
+        this.aangemeld = true;
+      } else {
+        this.aangemeld = false;
       }
-    })*/
-    if(localStorage.getItem('user')) {
-      this.aangemeld = true;
-    }
-    else {
-      this.aangemeld = false;
-    }
+    })
+    
   }
 
   logout() {
     this.af.auth.signOut().then(() => {
       localStorage.removeItem('user');
-      location.reload();
       this.router.navigateByUrl('/login');
+      
     })
   }
 
