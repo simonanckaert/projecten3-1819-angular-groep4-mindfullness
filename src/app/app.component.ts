@@ -2,6 +2,11 @@ import { Component } from '@angular/core';
 import { OefeningDataService } from './oefening-data.service';
 import { KlantDataService } from './klant-data.service';
 import { SessieDataService } from './sessie-data.service';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Observable } from 'rxjs/Observable';
+import * as firebase from 'firebase/app';
+import { AuthenticationService } from './authentication.service';
 
 
 @Component({
@@ -11,4 +16,11 @@ import { SessieDataService } from './sessie-data.service';
   providers: [OefeningDataService, SessieDataService, KlantDataService]
 })
 export class AppComponent {
+  ingelogd : boolean = false;
+
+  constructor(private _authService : AuthenticationService) {}
+
+  ngOnInit() {
+    this.ingelogd = this._authService.aangemeld;
+  }
 }
