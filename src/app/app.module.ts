@@ -48,7 +48,7 @@ const appRoutes: Routes = [
   { path: 'oefeningen', canActivate: [AuthGuardService], component: OefeningOverzichtComponent },
   { path: 'registreren', canActivate: [AuthGuardService], component: RegistrerenComponent },
   { path: 'login', component: LoginComponent },
-  { path: '**', component: PagenotfoundComponent }
+  { path: '**', canActivate: [AuthGuardService], component: PagenotfoundComponent }
   
 ];
 

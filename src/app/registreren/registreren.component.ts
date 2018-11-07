@@ -29,6 +29,9 @@ export class RegistrerenComponent implements OnInit {
           this.error = err;
         })
     }
+    /* User deleten
+    var user = this.af.auth.currentUser;
+    user.delete().then(function() {}).catch(function(error) { console.log(error)}*/
   }
 
   ngOnInit() {
