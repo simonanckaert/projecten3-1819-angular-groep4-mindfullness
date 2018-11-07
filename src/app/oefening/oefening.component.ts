@@ -10,6 +10,7 @@ import { OefeningDataService } from '../oefening-data.service';
 export class OefeningComponent implements OnInit {
   @Input() public oefening: Oefening;
 
+
   constructor(private oefDataservice: OefeningDataService) {
    }
 

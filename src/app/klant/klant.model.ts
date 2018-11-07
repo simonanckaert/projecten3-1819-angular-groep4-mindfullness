@@ -131,7 +131,14 @@ export class Klant {
     heeftBetaald(): string {
       return 'ja';
     }
-    */
+
+    /**
+     * Veranderd de geblokkeerdstatus van deze klant
+     */
+
+    geblokkeerd() {
+       this._geblokkeerd = !this._geblokkeerd;
+    }
 
     /**
      * Verandert de mail van de klant

@@ -81,7 +81,7 @@ export class OefeningDataService {
         console.log(res);
       },
       err => {
-        console.log('Error occured');
+        console.log(err);
       }
     );
 
@@ -101,7 +101,22 @@ export class OefeningDataService {
   verwijderOef(id: number) {
     for (let i = 0; i < this._oefeningen.length; i++) {
       if (this._oefeningen[i].oefeningId === id) {
-        // this._oefeningen.pop(2);
+        
+        const body = new HttpParams()
+        .set('oefeningId', id.toString());
+
+        this.http.delete(globals.backendUrl + "/oefeningen/" + id, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'x-www-form-urlencoded')
+        }).subscribe(
+          res => {
+            console.log(res);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+        break;
       }
     }
   }

@@ -19,11 +19,10 @@ export class OefeningOverzichtComponent implements OnInit {
   /* @Input() _oefening: Oefening;
   private _oefeningenLijst: Array<Oefening>;
   private _gefilterdeLijst: Array<Oefening>;
-  private _disableNaam = true;
-  private _disableBeschrijving = true;
-  private _geblokkeerd = true;
-  private _file: File;
-  public oef: FormGroup;*/
+  public _disableNaam = true;
+  public _disableBeschrijving = true;
+  private _file : File;
+
 
   constructor(private _oefDataService: OefeningDataService, private route: ActivatedRoute /*private fb: FormBuilder*/) {
    // this._oefeningenLijst = this._oefDataService.oefeningen;
@@ -78,6 +77,7 @@ export class OefeningOverzichtComponent implements OnInit {
     * @param id Dit is het oefeningId van de oefening die zal worden verwijderd
    verwijderOefening(id: number) {
      this._oefDataService.verwijderOef(id);
+     console.log('tets')
    }
 
    /**
