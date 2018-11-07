@@ -20,3 +20,16 @@ a {
 .material-icons {
   font-size: 30px;
 }
+.nav-item button {
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+@media (min-width:1005px) {
+  
+  .nav-item button {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+  }
+}

@@ -28,7 +28,10 @@
         <li class="nav-item" *ngIf="aangemeld">
               <a class="nav-link" href="/berichten">BERICHTEN</a>
         </li>
+        <li class="nav-item" *ngIf="aangemeld">
+          <button (click)="logout()" class="basic-btn">Afmelden</button>
+        </li>
       </ul>
     </div>
-    <button (click)="logout()" class="basic-btn" *ngIf="aangemeld">Afmelden</button>
+    
   </nav>

@@ -1,15 +1,18 @@
 <div class="container-inline">
-<div class="form-container">
+  <div class="form-container loginmodal-container">
 
     <h2>Gelieve U te registreren</h2>
     <span class="error" *ngIf="error">{{error}}</span>
-  
+
     <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
-      <input type="text" placeholder="Email adres" (ngModel)="email" name="email" class="txt" required><br>
-      <input type="password" placeholder="Wachtwoord" (ngModel)="password" name="password" class="txt" required><br>
-  
+      <input type="text" placeholder="Email adres" (ngModel)="email" name="email" class="txt" required>
+      <br>
+      <input type="password" placeholder="Wachtwoord" (ngModel)="password" name="password" class="txt" required>
+      <br>
+      <!--<input type="password" placeholder="Herhaal wachtwoord" (ngModel)="confirmPassword" name="confirmPassword" required />-->
+
       <button type="submit" [disabled]="!formData.valid" class="basic-btn">Create my account</button>
     </form>
-  
+
   </div>
 </div>

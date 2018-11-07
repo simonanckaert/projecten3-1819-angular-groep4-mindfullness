@@ -23,7 +23,7 @@ export class RegistrerenComponent implements OnInit {
       this.af.auth.createUserWithEmailAndPassword(formData.value.email, formData.value.password)
         .then((success) => {
           console.log("success");
-          this.router.navigateByUrl('/login');
+          this.router.navigateByUrl('/');
         }).catch((err) => {
           console.log(err);
           this.error = err;
