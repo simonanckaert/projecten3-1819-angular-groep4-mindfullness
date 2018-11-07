@@ -9,7 +9,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '../../../node_m
   styleUrls: ['./oefeningen-lijst.component.css']
 })
 export class OefeningenLijstComponent implements OnInit {
-  private oefening: FormGroup;
+  public oefening: FormGroup;
   private _file: File;
 
   constructor(private _oefDataService: OefeningDataService, private fb: FormBuilder) {
