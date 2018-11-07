@@ -15,13 +15,12 @@ export class OefeningOverzichtComponent implements OnInit {
 
   private _oefening: Oefening;
   public errorMsg: string;
-
-  /* @Input() _oefening: Oefening;
+ /*@Input() _oefening: Oefening;
   private _oefeningenLijst: Array<Oefening>;
   private _gefilterdeLijst: Array<Oefening>;
   public _disableNaam = true;
   public _disableBeschrijving = true;
-  private _file : File;
+  private _file : File; */
 
 
   constructor(private _oefDataService: OefeningDataService, private route: ActivatedRoute /*private fb: FormBuilder*/) {

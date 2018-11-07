@@ -133,14 +133,6 @@ export class Klant {
     }
 
     /**
-     * Veranderd de geblokkeerdstatus van deze klant
-     */
-
-    geblokkeerd() {
-       this._geblokkeerd = !this._geblokkeerd;
-    }
-
-    /**
      * Verandert de mail van de klant
      * @param nieuw: Dit is het nieuwe mailadres van een klant
      */
