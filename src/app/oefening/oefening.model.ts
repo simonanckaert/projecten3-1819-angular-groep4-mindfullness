@@ -1,5 +1,6 @@
 export class Oefening {
   private _oefeningId: number;
+
   private _sessieId: number;
   private _naam: string;
   private _dateAdded: Date = new Date();
@@ -35,17 +36,24 @@ export class Oefening {
   }
 
   /**
+   * Geeft het sessieId van een oefening terug
+   */
+  get sessieId(): number {
+    return this._sessieId;
+  }
+
+  /**
    * Geeft de beschrijving van een oefening terug
    */
   get beschrijving(): string {
     return this._beschrijving;
   }
 
-  get datumGemaakt() : Date {
+  get datumGemaakt(): Date {
     return this._dateAdded;
   }
 
-  get file() : File {
+  get file(): File {
     return this._file;
   }
 
@@ -104,5 +112,14 @@ export class Oefening {
   set file(file : File)
   {
     this._file = file;
+  }
+
+
+  /**
+   * Verandert het sessieid van de oefening
+   * @param id: Dit is de nieuwe sessieId van de oefening
+   */
+  set sessieId(id: number) {
+    this._sessieId = id;
   }
 }

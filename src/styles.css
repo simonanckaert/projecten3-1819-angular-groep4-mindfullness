@@ -3,6 +3,18 @@
 html,
 body {
   height: 100%;
+  font-family: helvetica;
+  font-size: 18px;
+  font-weight: 400;
+  color: #171717;
+}
+
+.title {
+  text-align: center;
+  font-family: helvetica;
+  font-weight: 300;
+  font-size: 68px;
+  color: #171717;
 }
 
 .container-inline {
@@ -20,6 +32,16 @@ body {
   background-color: rgb(248,139,31);
   border: 0;
   border-radius: 0;
+  color: white;
+}
+
+.knop[disabled] {
+  background-color: rgb(250, 195, 93);
+}
+
+.knop[disabled]:hover {
+  background-color: rgb(250, 195, 93);
+  color: white;
 }
 
 .knop:hover {
@@ -29,4 +51,13 @@ body {
 
 .annuleerKnop {
   border-radius: 0;
+}
+
+.annuleerKnop:hover {
+  color: black;
+}
+
+.error {
+  color: red;
+
 }

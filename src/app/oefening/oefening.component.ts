@@ -10,7 +10,8 @@ import { OefeningDataService } from '../oefening-data.service';
 export class OefeningComponent implements OnInit {
   @Input() public oefening: Oefening;
 
-  constructor(private _oefeningDataService: OefeningDataService) {
+
+  constructor(private oefDataservice: OefeningDataService) {
    }
 
   ngOnInit() {
@@ -18,7 +19,7 @@ export class OefeningComponent implements OnInit {
 
   verwijderOefeningUitSessie() {
     if (confirm('Ben je zeker dat je ' + this.oefening.naam + ' wilt verwijderen?')) {
-      this._oefeningDataService.verwijderOef(this.oefening.oefeningId);
+      this.oefDataservice.verwijderOefUitSessie(this.oefening.oefeningId);
     }
   }
 }

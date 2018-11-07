@@ -7,7 +7,6 @@ export class Klant {
     private _regio: string;
     private _telefoonNummer: string;
     private _betaald: boolean;
-    private _geblokkeerd: boolean;
 
     constructor(vnaam: string, anaam: string, gDatum: Date, email: string, regio: string, nummer: string) {
         this._voornaam = vnaam;
@@ -60,14 +59,14 @@ export class Klant {
     get telefoonNummer(): string {
         return this._telefoonNummer;
     }
-  
+
     /**
      * Geeft de regio van deze klant terug
      */
     get regio(): string {
       return this._regio;
     }
-    
+
     /**
      * Geeft terug of de klant betaald heeft
      */
@@ -119,7 +118,7 @@ export class Klant {
     set regio(regio: string) {
       this._regio = regio;
     }
-    
+
      /**
      * verandert het telefoonnummer van de klant
      * @param nummer: Dit is het nieuwe telefoonnummer van deze klant
@@ -139,14 +138,6 @@ export class Klant {
 
     geblokkeerd() {
        this._geblokkeerd = !this._geblokkeerd;
-    }
-    
-
-    /**
-     * Geeft terug of deze klant geblokkeerd is of niet
-     */
-    isGeblokkeerd() {
-        return this._geblokkeerd;
     }
 
     /**

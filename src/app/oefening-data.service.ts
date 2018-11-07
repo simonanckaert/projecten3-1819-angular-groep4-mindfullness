@@ -11,7 +11,7 @@ export class OefeningDataService {
 
 
   constructor(private http: HttpClient) {
-    this.http.get(globals.backendUrl + "/oefeningen/").subscribe((data: Oefening) => {
+    this.http.get(globals.backendUrl + '/oefeningen/').subscribe((data: Oefening) => {
       Object.assign(this._oefeningen, data);
     });
   }
@@ -27,17 +27,17 @@ export class OefeningDataService {
    * Voegt een nieuwe oefening toe aan de databank
    * @param oefening is een nieuwe oefening die zal toegevoegd worden in de databank
    */
-  voegNieuweOefeningToe(oefening, file : File) {
-    //this._oefeningen.push(oefening);
+  voegNieuweOefeningToe(oefening: Oefening, file: File) {
+    // this._oefeningen.push(oefening);
     var fd = new FormData();
-    console.log(file)
-    fd.append('naam', oefening.naam)
-    fd.append('beschrijving', oefening.beschrijving)
-    fd.append('sessieId', "1"); // TODO sessie parameter
+    console.log(file);
+    fd.append('naam', oefening.naam);
+    fd.append('beschrijving', oefening.beschrijving);
+    fd.append('sessieId', oefening.sessieId.toString());
     fd.append('file', file);
 
-    //post de oefening data naar de backend
-    this.http.post(globals.backendUrl + "/oefeningen", fd,  {
+    // post de oefening data naar de backend
+    this.http.post(globals.backendUrl + '/oefeningen', fd,  {
       // headers: {'Content-Type': 'multipart/form-data'}
   }).subscribe(
       res => {
@@ -73,7 +73,7 @@ export class OefeningDataService {
       .set('beschrijving', beschrijving)
       .set('sessieId', id.toString());
 
-    this.http.put(globals.backendUrl + "/oefeningen", body, {
+    this.http.put(globals.backendUrl + '/oefeningen', body, {
       headers: new HttpHeaders()
         .set('Content-Type', 'x-www-form-urlencoded')
     }).subscribe(
@@ -85,7 +85,7 @@ export class OefeningDataService {
       }
     );
 
-    //update local list
+    // update local list
     for (let i = 0; i < this._oefeningen.length; i++) {
       if (this._oefeningen[i].oefeningId === id) {
         this._oefeningen[i].naam = naam;
@@ -116,9 +116,34 @@ export class OefeningDataService {
             console.log(err);
           }
         );
-
         break;
       }
     }
   }
+
+  /**
+   * Verwijdert een oefening met het overeenkomstige id uit zijn sessie
+   * @param id is het oefeningId waarbij het sessieId op 0 zal worden gezet
+   */
+  verwijderOefUitSessie(id: number) {
+    for (let i = 0; i < this._oefeningen.length; i++) {
+      if (this._oefeningen[i].oefeningId === id) {
+
+        const body = new HttpParams()
+        .set('oefeningId', id.toString());
+         this.http.delete(globals.backendUrl + '/oefeningen/' + id, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'x-www-form-urlencoded')
+        }).subscribe(
+          res => {
+            console.log(res);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+         break;
+    }
+  }
+}
 }
