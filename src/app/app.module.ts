@@ -28,6 +28,7 @@ const appRoutes: Routes = [
   { path: 'sessieoverzicht', component: SessieoverzichtComponent },
   { path: 'klanten', component: KlantenLijstComponent},
   { path: 'oefeningen', component: OefeningOverzichtComponent },
+  { path: 'oefeningenlijst', component: OefeningenLijstComponent },
   { path: '**', component: PagenotfoundComponent }
 ];
 

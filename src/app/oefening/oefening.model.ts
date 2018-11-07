@@ -1,23 +1,25 @@
 export class Oefening {
-  private _id: number;
+  private _oefeningId: number;
   private _naam: string;
   private _dateAdded: Date = new Date();
   private _beschrijving: string;
-  private _file: File
+  private _file: File;
+  private _sessieId: number;
  // private _oefening: Object;
 
-  constructor(naam: string, beschrijving: string, id: number) {
+  constructor(naam: string, beschrijving: string, id: number, sessieId: number) {
     this._naam = naam;
     this._beschrijving = beschrijving;
-    this._id = id;
+    this._oefeningId = id;
+    this._sessieId = sessieId;
   //  this._oefening = oefening;
   }
 
   /**
    * Geeft het id van een oefening terug
    */
-  get id(): number {
-    return this._id;
+  get oefeningId(): number {
+    return this._oefeningId;
   }
 
   /**
@@ -28,17 +30,24 @@ export class Oefening {
   }
 
   /**
+   * Geeft het sessieId van een oefening terug
+   */
+  get sessieId(): number {
+    return this._sessieId;
+  }
+
+  /**
    * Geeft de beschrijving van een oefening terug
    */
   get beschrijving(): string {
     return this._beschrijving;
   }
 
-  get datumGemaakt() : Date {
+  get datumGemaakt(): Date {
     return this._dateAdded;
   }
 
-  get file() : File {
+  get file(): File {
     return this._file;
   }
 
@@ -58,8 +67,16 @@ export class Oefening {
     this._beschrijving = beschrijving;
   }
 
-  set file(file : File)
-  {
+  set file(file: File) {
     this._file = file;
+  }
+
+
+  /**
+   * Verandert het sessieid van de oefening
+   * @param id: Dit is de nieuwe sessieId van de oefening
+   */
+  set sessieId(id: number) {
+    this._sessieId = id;
   }
 }

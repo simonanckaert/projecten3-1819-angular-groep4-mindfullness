@@ -1,11 +1,18 @@
-<div class="container-inline">
+<!-- <div class="container-inline">
   <div class="col-16">
     <div class="tab-content" id="nav-tabContent">
         <button class="btn btn-primary knop toevoegKnop"  data-toggle="modal" data-target="#toevoegen">Toevoegen <i class="material-icons add">add</i></button>
       <h1>Overzicht oefeningen</h1>
-      <p class="filter"><label class="label">Filter op naam:</label><input type="text" class="form-control filter" (input)="zoeken($event.target.value)"></p>
-    </div>
-  <div class="tab-content row cards" id="nav-tabContent">
+      <p class="filter"><input type="text" class="form-control filter" placeholder="filter.." (input)="zoeken($event.target.value)"></p>
+    </div> -->
+   <!-- <div class='legende'>
+      <ul>
+        <li class="tekst">Tekst</li>
+        <li class="audio">Audio</li>
+        <li class="video">Video</li>
+      </ul>
+    </div> -->
+    <!-- <div class="tab-content row cards" id="nav-tabContent">
       <div class="tab-pane fade show col-4" id="list-home" role="tabpanel" aria-labelledby="list-home-list" *ngFor="let oef of oefeningen" class="content">
        <div class="card bg-light mb-3 grow" style="width: 16rem;">
           <div class="card-body" data-toggle="modal" data-target="#bewerken" (click)="toonOefeningInfo(oef)">
@@ -27,24 +34,47 @@
             </button>
         </div>
         <div class="modal-body">
-            <form>
-                <div class="form-group">
-                  <label for="sessienaam" class="col-form-label">Oefeningnaam:</label>
-                  <input type="text" class="form-control" id="sessienaam" #naam>
+          <form [formGroup]="oef" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                  <label for="oefeningnaam" class="col-form-label">Oefeningnaam:</label>
+                  <input type="text" formControlName="oefnaam" id="oefeningnaam" placeholder="naam van de nieuwe oefening">
                 </div>
+                <label *ngIf='!!oef.get("oefnaam").errors?.required && oef.get("oefnaam").touched' class="error">
+                  Gelieve een correcte naam in te geven.
+                  </label>
                 <div class="form-group">
                   <label for="sessiebeschrijving" class="col-form-label">Beschrijving:</label>
-                  <textarea class="form-control" id="sessiebeschrijving" #beschrijving></textarea>
+                  <textarea formControlName="oefbeschrijving" id="sessiebeschrijving" rows="3" #beschrijving></textarea>
+                </div>
+                <label *ngIf='!!oef.get("oefbeschrijving").errors?.required && oef.get("oefbeschrijving").touched' class="error">
+                    Gelieve een beschrijving in te geven.
+                </label>
+                <div class="form-group">
+                  <label>Sessie:</label>
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" formControlName="oefSessie" #oefsessie>
+                        <option selected value="0">Geen sessie</option>
+                        <option value="1">Sessie 1: Het begin</option>
+                        <option value="2">Sessie 2: Het tweede deel</option>
+                        <option value="3">Sessie 3: Het derde deel</option>
+                        <option value="4">Sessie 4: Het vierde deel</option>
+                        <option value="15">Sessie 5: Het vijfde deel</option>
+                        <option value="16">Sessie 6: Het zesde deel</option>
+                        <option value="17">Sessie 7: Het zevende deel</option>
+                        <option value="18">Sessie 8: Het achtste deel</option>
+                      </select>
                 </div>
                 <div class="form-group">
                     <label for="sessieBestand"></label>
-                    <input type="file" class="form-control-file" id="sessieBestand" (change)="onFileChange($event)" #bestand>
+                    <input type="file" formControlName="oefbestand" class="form-control-file" id="sessieBestand" (change)="onFileChange($event)" #bestand>
                   </div>
-            </form>
+                  <label *ngIf='!!oef.get("oefbestand").errors?.required && oef.get("oefbestand").touched' class="error">
+                      Gelieve een bestand in te geven.
+                  </label>
+         </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary annuleerKnop" data-dismiss="modal" (click)="disableInputs()">Annuleer</button>
-          <button type="submit" class="btn btn-primary knop" data-dismiss="modal" (click)="onSubmit(naam.value, beschrijving.value)">Opslaan</button>
+          <button type="submit" class="btn knop" data-dismiss="modal" (click)="onSubmit(naam.value, beschrijving.value, oefsessie.value)" [disabled]="oef.invalid">Opslaan</button>
         </div>
       </div>
     </div>
@@ -55,7 +85,6 @@
         <div class="modal-content">
 
           <div class="modal-body">
-              <form>
                   <div class="input-group">
                     <input type="text" class="form-control" id="sessienaam" value="{{_oefening.naam}}" [disabled]="_disableNaam" #bewerkNaam>
                     <i class="material-icons build" data-toggle="modal" (click)="switchDisableNaam()">
@@ -72,13 +101,18 @@
                       <label for="sessieBestand"></label>
                       <input type="file" class="form-control-file" id="sessieBestand" (change)="onFileChange($event)" value="{{_oefening.file}}" #bewerkFile>
                     </div>
-              </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="disableInputs()">Annuleer</button>
-            <button type="submit" class="btn btn-primary knop" data-dismiss="modal" (click)="bewerkOefening(bewerkNaam.value, bewerkBeschrijving.value , 6)">Opslaan</button>      
+            <button type="submit" class="btn btn-primary knop" data-dismiss="modal" (click)="bewerkOefening(bewerkNaam.value, bewerkBeschrijving.value , 6)">Opslaan</button>
             <button type="button" class="btn btn-danger verwijder" data-dismiss="modal" (click)="verwijderOefening(6)">Verwijderen</button>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+
+  <div class="container-inline">
+      <a routerLink="/sessieoverzicht"><i class="material-icons pijl">
+          arrow_back
+      </i></a>
+  </div>

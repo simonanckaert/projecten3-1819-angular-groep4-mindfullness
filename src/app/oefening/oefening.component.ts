@@ -1,5 +1,6 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { Oefening } from './oefening.model';
+import { OefeningDataService } from '../oefening-data.service';
 
 @Component({
   selector: 'app-oefening',
@@ -9,7 +10,7 @@ import { Oefening } from './oefening.model';
 export class OefeningComponent implements OnInit {
   @Input() public oefening: Oefening;
 
-  constructor() {
+  constructor(private oefDataservice: OefeningDataService) {
    }
 
   ngOnInit() {
@@ -17,7 +18,7 @@ export class OefeningComponent implements OnInit {
 
   verwijderOefeningUitSessie() {
     if (confirm('Ben je zeker dat je ' + this.oefening.naam + ' wilt verwijderen?')) {
-      console.log(this.oefening.naam + ' is verwijderd uit de sessie');
+      this.oefDataservice.verwijderOefUitSessie(this.oefening.oefeningId);
     }
   }
 }

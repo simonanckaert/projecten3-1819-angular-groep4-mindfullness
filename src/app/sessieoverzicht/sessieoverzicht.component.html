@@ -15,12 +15,20 @@
       <div class="tab-content" id="nav-tabContent">
         <div class="info">
           <h1 class="sessienaam">{{_sessie.naam}}</h1>
-          <button type="button" class="btn btn-primary bewerk" data-toggle="modal" data-target="#bewerkModal">Bewerken</button>
-          <p class="beschrijving">{{_sessie.beschrijving}}</p>
+          <button type="button" class="btn knop bewerken" data-toggle="modal" data-target="#bewerkModal">bewerken</button>
+          <div class="row">
+            <div class="col-7 beschrijving">{{_sessie.beschrijving}}
+            </div>
+           <div class="col-1"></div>
+            <div class="col-2 oefeningen">
+              <div *ngFor='let localOefening of oefeningen'> <app-oefening [oefening]='localOefening'></app-oefening></div>
+              <a routerLink="/oefeningenlijst"><div class="card bg-light mb-3 grow">
+                  <div class="card-body">
+                      <p class="plus">+</p>
+                    </div>
+                </div></a></div>
+          </div>
         </div>
-      </div>
-      <div class="tab-content oef" id="nav-tabContent" *ngFor='let localOefening of oefeningen'>
-        <app-oefening [oefening]='localOefening'></app-oefening>
       </div>
     </div>
   </div>
@@ -43,7 +51,7 @@
           </div>
           <div class="form-group">
             <label for="sessiebeschrijving" class="col-form-label">Beschrijving:</label>
-            <textarea class="form-control" id="sessiebeschrijving" #beschrijving></textarea>
+            <textarea class="form-control" id="sessiebeschrijving" rows="5" #beschrijving></textarea>
           </div>
       </div>
       <div class="modal-footer">
@@ -70,7 +78,7 @@
             </div>
             <div class="form-group">
               <label for="sessiebeschrijving" class="col-form-label">Beschrijving:</label>
-              <textarea class="form-control" id="sessiebeschrijving" value="{{_sessie.beschrijving}}" #bewerkBeschrijving></textarea>
+              <textarea class="form-control" id="sessiebeschrijving" value="{{_sessie.beschrijving}}" rows="5" #bewerkBeschrijving></textarea>
             </div>
         </div>
         <div class="modal-footer">

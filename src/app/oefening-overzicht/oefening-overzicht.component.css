@@ -22,8 +22,8 @@ h1 {
     padding-top: 20px;
     display: inline-block;
     margin-left: 20px;
+    text-decoration: underline;
 }
-
 
 .card-body {
   background-color: rgb(175,219,206);
@@ -51,8 +51,10 @@ h1 {
 }
 
 .filter {
-    max-width: 200px;
-    display: inline;
+    max-width: 500px;
+    margin-top: 1%;
+    margin-right: 5%;
+    float: right;
 }
 
 .label {
@@ -60,17 +62,11 @@ h1 {
     padding-right: 10px;
 }
 
-.filter {
-  margin-top: 10px;
-  margin-left: 30px;
-  position: inherit;
-  top: 0;
-  right: 0;
-}
-
 .sessiebeschrijving {
   margin-top: 20px;
 }
+
+
 
 .form-control[disabled] {
   background-color: lightgray;
@@ -90,3 +86,47 @@ h1 {
   transform: scale(1.1);
   cursor: pointer;
 }
+
+.legende {
+  position: absolute;
+  right: 50px;
+  top: 100px;
+}
+
+.pijl {
+  font-size: 50px;
+  position: absolute;
+  left: 1%;
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/*
+ul {
+  list-style: none;
+}
+
+ul li::before {
+  content: "\2023";
+  font-size: 20px;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+.audio {
+  color: green;
+}
+
+.video {
+  color: red;
+}
+
+.tekst {
+  color: blue;
+}
+*/
