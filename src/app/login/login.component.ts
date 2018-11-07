@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
         .then((success) => {
           console.log(success);
           localStorage.setItem('user', this.af.idToken + '');
+          location.reload();
           this.router.navigate(['/']);
         }).catch((err) => {
           console.log(err);
