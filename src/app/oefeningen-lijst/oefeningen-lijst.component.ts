@@ -18,7 +18,7 @@ export class OefeningenLijstComponent implements OnInit {
   ngOnInit() {
     this.oefening = this.fb.group({
       oefeningNaam: ['', [Validators.required, Validators.minLength(4)]],
-      oefeningBeschrijving: ['', [Validators.required]],
+      oefeningBeschrijving: ['', [Validators.required, Validators.minLength(20)]],
       oefeningSessie: [''],
       oefeningBestand: ['', Validators.required]
     });
@@ -26,7 +26,7 @@ export class OefeningenLijstComponent implements OnInit {
 
   onSubmit() {
     const oefening = new Oefening(this.oefening.value.oefeningNaam,
-      this.oefening.value.oefeningBeschrijving, 0, this.oefening.value.oefeningSessie);
+      this.oefening.value.oefeningBeschrijving, this.oefening.value.oefeningSessie);
     this._oefDataService.voegNieuweOefeningToe(oefening, this._file);
   }
 }

@@ -11,10 +11,10 @@ export class Oefening {
   private _fileOriginalName: string;
   private _fileSize: number;
 
-  constructor(naam: string, beschrijving: string, oefeningId: number) {
+  constructor(naam: string, beschrijving: string, sessieId: number) {
     this._naam = naam;
     this._beschrijving = beschrijving;
-    this._oefeningId = oefeningId;
+    this._oefeningId = sessieId;
   }
 
   /**
@@ -22,10 +22,6 @@ export class Oefening {
    */
   get oefeningId(): number {
     return this._oefeningId;
-  }
-
-  get sessieId(): number {
-    return this._sessieId;
   }
 
   /**
@@ -57,19 +53,19 @@ export class Oefening {
     return this._file;
   }
 
-  get fileName() : string {
+  get fileName(): string {
     return this._fileName;
   }
 
-  get fileSize() : number {
+  get fileSize(): number {
     return this._fileSize;
   }
-  
-  get fileOriginalName() : string {
+
+  get fileOriginalName(): string {
     return this._fileOriginalName;
   }
-  
-  get fileMimetype() : string {
+
+  get fileMimetype(): string {
     return this._fileMimetype;
   }
 
@@ -96,21 +92,16 @@ export class Oefening {
   set fileSize(size : number) {
     this._fileSize = size;
   }
-  
+
   set fileOriginalName(originalName : string) {
     this._fileOriginalName = originalName
   }
-  
+
   set fileMimetype(mimetype : string) {
     this._fileMimetype = mimetype;
   }
 
-  set sessieId(sessieId : number) {
-    this._sessieId = sessieId;
-  }
-
-  set file(file : File)
-  {
+  set file(file: File) {
     this._file = file;
   }
 
