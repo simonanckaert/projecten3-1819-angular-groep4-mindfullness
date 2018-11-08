@@ -43,10 +43,10 @@ export class OefeningDataService {
   voegNieuweOefeningToe(oefening: Oefening, file: File) {
     // this._oefeningen.push(oefening);
     var fd = new FormData();
-    console.log(file);
+    
     fd.append('naam', oefening.naam);
     fd.append('beschrijving', oefening.beschrijving);
-    fd.append('sessieId', oefening.sessieId.toString());
+    fd.append('sessieId', oefening.sessieId + "");
     fd.append('file', file);
 
     // post de oefening data naar de backend
@@ -62,7 +62,7 @@ export class OefeningDataService {
       }
     );
   }
-
+  
   /**
    * bewerkt de oefening met het overeenkomstige id
    * @param naam is de nieuwe naam van een oefening
