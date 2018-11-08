@@ -14,7 +14,7 @@ export class Oefening {
   constructor(naam: string, beschrijving: string, sessieId: number) {
     this._naam = naam;
     this._beschrijving = beschrijving;
-    this._oefeningId = sessieId;
+    this._sessieId = sessieId;
   }
 
   /**
