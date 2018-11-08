@@ -14,6 +14,8 @@ export class RegistrerenComponent implements OnInit {
   error: any;
 
   public registrerenForm: FormGroup;
+  public emailField: FormControl = new FormControl('email');
+  public passwordField: FormControl = new FormControl('password');
 
   constructor(public af: AngularFireAuth, private router: Router) {
     /*this.af.user.subscribe(user => {
@@ -23,8 +25,8 @@ export class RegistrerenComponent implements OnInit {
 
   ngOnInit() {
     this.registrerenForm = new FormGroup({
-      email: new FormControl('email'),
-      password: new FormControl('password')
+      email: this.emailField,
+      password: this.passwordField
     })
   }
 
