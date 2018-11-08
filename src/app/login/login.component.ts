@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
   state: string = '';
   error: any;
   public loginForm: FormGroup;
-  public emailField: FormControl = new FormControl('email');
-  public passwordField: FormControl = new FormControl('password');
+  public email: FormControl = new FormControl('email');
+  public password: FormControl = new FormControl('password');
 
   constructor(public af: AngularFireAuth, private router: Router) {
     /*this.af.user.subscribe(user => {
@@ -28,8 +28,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      email: this.emailField,
-      password: this.passwordField
+      email: this.email,
+      password: this.password
     })
   }
 
