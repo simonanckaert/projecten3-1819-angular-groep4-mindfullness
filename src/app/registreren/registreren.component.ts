@@ -13,16 +13,21 @@ export class RegistrerenComponent implements OnInit {
   state: string = '';
   error: any;
 
-  registrerenForm= new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl('')
-  })
+  private registrerenForm: FormGroup;
 
   constructor(public af: AngularFireAuth, private router: Router) {
     /*this.af.user.subscribe(user => {
       this.router.navigateByUrl('/registreren');
     })*/
   }
+
+  ngOnInit() {
+    this.registrerenForm = new FormGroup({
+      email: new FormControl('email'),
+      password: new FormControl('password')
+    })
+  }
+
 
   onSubmit(formData) {
     if (formData.valid) {
@@ -39,9 +44,6 @@ export class RegistrerenComponent implements OnInit {
     /* User deleten
     var user = this.af.auth.currentUser;
     user.delete().then(function() {}).catch(function(error) { console.log(error)}*/
-  }
-
-  ngOnInit() {
   }
 
 }

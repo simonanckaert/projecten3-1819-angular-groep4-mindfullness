@@ -4,10 +4,10 @@
     <h2>Gelieve U te registreren</h2>
     <span class="error" *ngIf="error">{{error}}</span>
 
-    <form [formGroup]="registrerenForm" #formData='ngForm' (ngSubmit)="onSubmit(formData)">
-      <input type="text" formControlName="email" placeholder="Email adres" (ngModel)="email" name="email" class="txt" required>
+    <form [formGroup]='registrerenForm' #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+      <input type="text" formControlName='email' placeholder="Email adres" (ngModel)="email" name="email" class="txt" required>
       <br>
-      <input type="password" formControlName="password" placeholder="Wachtwoord" (ngModel)="password" name="password" class="txt" required>
+      <input type="password" formControlName='password' placeholder="Wachtwoord" (ngModel)="password" name="password" class="txt" required>
       <br>
       <!--<input type="password" placeholder="Herhaal wachtwoord" (ngModel)="confirmPassword" name="confirmPassword" required />-->
 
