@@ -1,6 +1,8 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-registreren',
@@ -10,6 +12,11 @@ import { Router } from '@angular/router';
 export class RegistrerenComponent implements OnInit {
   state: string = '';
   error: any;
+
+  registrerenForm= new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl('')
+  })
 
   constructor(public af: AngularFireAuth, private router: Router) {
     /*this.af.user.subscribe(user => {
