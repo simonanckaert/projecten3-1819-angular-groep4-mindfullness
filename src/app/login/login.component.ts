@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
 
   state: string = '';
   error: any;
-  private loginForm: FormGroup;
-  
+  public loginForm: FormGroup;
+
   constructor(public af: AngularFireAuth, private router: Router) {
     /*this.af.user.subscribe(user => {
       this.router.navigateByUrl('/login');

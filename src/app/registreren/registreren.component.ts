@@ -13,7 +13,7 @@ export class RegistrerenComponent implements OnInit {
   state: string = '';
   error: any;
 
-  private registrerenForm: FormGroup;
+  public registrerenForm: FormGroup;
 
   constructor(public af: AngularFireAuth, private router: Router) {
     /*this.af.user.subscribe(user => {
