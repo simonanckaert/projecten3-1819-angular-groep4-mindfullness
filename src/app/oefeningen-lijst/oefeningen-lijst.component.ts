@@ -18,7 +18,7 @@ export class OefeningenLijstComponent implements OnInit {
   ngOnInit() {
     this.oefening = this.fb.group({
       oefeningNaam: ['', [Validators.required, Validators.minLength(4)]],
-      oefeningBeschrijving: ['', [Validators.required, Validators.minLength(20)]],
+      oefeningBeschrijving: ['', [Validators.required]],
       oefeningSessie: [''],
       oefeningBestand: ['', Validators.required]
     });

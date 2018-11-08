@@ -27,6 +27,7 @@ import { EmailComponent } from './email/email.component';
 import { RegistrerenComponent } from './registreren/registreren.component';
 import { AuthGuardService } from './auth-guard.service';
 import { AuthenticationService } from './authentication.service';
+import { OefeningdetailComponent } from './oefeningdetail/oefeningdetail.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyB1wU05Yb-p-0hu98hq2agU2dk_7XHF7Zo",
@@ -47,12 +48,11 @@ const appRoutes: Routes = [
   { path: 'sessieoverzicht', canActivate: [AuthGuardService], component: SessieoverzichtComponent },
   { path: 'klanten', canActivate: [AuthGuardService], component: KlantenLijstComponent},
   { path: 'oefeningen', canActivate: [AuthGuardService], component: OefeningOverzichtComponent },
-  { path: 'oefeningenlijst', component: OefeningenLijstComponent },
+  { path: 'oefeningenToevoegen', component: OefeningenLijstComponent },
   { path: 'registreren', canActivate: [AuthGuardService], component: RegistrerenComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'oef/:oefeningId', canActivate: [AuthGuardService], component: OefeningdetailComponent},
   { path: '**', canActivate: [AuthGuardService], component: PagenotfoundComponent }
-  
-
 ];
 
 @NgModule({
@@ -72,7 +72,8 @@ const appRoutes: Routes = [
     OefeningOverzichtComponent,
     LoginComponent,
     EmailComponent,
-    RegistrerenComponent
+    RegistrerenComponent,
+    OefeningdetailComponent
   ],
   imports: [
     BrowserModule,

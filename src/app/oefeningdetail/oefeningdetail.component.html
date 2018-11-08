@@ -1,0 +1,20 @@
+<div class="container-inline">
+    <a routerLink="/sessieoverzicht"><i class="material-icons pijl">
+        arrow_back
+    </i></a>
+    <h1 class="titel">{{oefening.naam}}</h1>
+  <div class="row">
+  <div class="col-5 beschrijving">
+    <h3>Beschrijving</h3>
+  <p>{{oefening.beschrijving}}</p>
+  </div>
+  <div class="col-2"></div>
+  <div class="col-4 bestand">
+    <h3>Bestand</h3>
+      <audio controls class="audio">
+          <source src="../../assets/audio.aac" type="audio/ogg">
+        Your browser does not support the audio element.
+        </audio>
+  </div>
+  </div>
+</div>

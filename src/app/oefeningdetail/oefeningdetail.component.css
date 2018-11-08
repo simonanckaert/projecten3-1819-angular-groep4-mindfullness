@@ -1,0 +1,39 @@
+.container-inline {
+  padding: 2%;
+}
+
+.titel {
+  text-align: center;
+}
+
+.pijl {
+  font-size: 50px;
+  position: absolute;
+  left: 1%;
+  color: black;
+}
+
+.row {
+  margin-top: 2%;
+  margin-left: 3%;
+}
+
+.bestand {
+  background-color: lightgray;
+  border: 1px black solid;
+  padding-top: 1%;
+}
+
+.beschrijving {
+  background-color: lightgray;
+  border: 1px black solid;
+  padding-top: 1%;
+}
+
+p {
+  margin-top: 5%;
+}
+
+audio {
+  width: 100%;
+}
