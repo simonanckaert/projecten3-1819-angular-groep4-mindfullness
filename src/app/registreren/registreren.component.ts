@@ -11,7 +11,9 @@ import { FormControl } from '@angular/forms';
 })
 export class RegistrerenComponent implements OnInit {
   state: string = '';
+  
   error: any;
+  errorPassword:any;
 
   public registrerenForm: FormGroup;
   public email: FormControl = new FormControl('email');
@@ -32,16 +34,35 @@ export class RegistrerenComponent implements OnInit {
 
 
   onSubmit(formData) {
+    this.error = null;
+    this.errorPassword = null;
     if (formData.valid) {
       console.log(formData.value);
+      var foutwachtwoord:Boolean = false;
+      
+      if(formData.value.password.length < 6) {
+        foutwachtwoord = true;
+      }
+
+
       this.af.auth.createUserWithEmailAndPassword(formData.value.email, formData.value.password)
         .then((success) => {
           console.log("success");
           this.router.navigateByUrl('/');
         }).catch((err) => {
           console.log(err);
-          this.error = err;
+          if(err && formData.value.password.length < 6) {
+            this.error = err;
+            this.errorPassword = "w";
+          }
+          else if(err && formData.value.password.length > 5) {
+            this.error = err;
+          } 
+
+          
         })
+
+      
     }
     /* User deleten
     var user = this.af.auth.currentUser;
