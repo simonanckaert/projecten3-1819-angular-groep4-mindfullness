@@ -3,18 +3,53 @@
         arrow_back
     </i></a>
     <h1 class="titel">{{oefening.naam}}</h1>
+    <button class="btn knop bewerk" data-toggle="modal" data-target="#sessieBewerken">Bewerken</button>
   <div class="row">
-  <div class="col-5 beschrijving">
-    <h3>Beschrijving</h3>
-  <p>{{oefening.beschrijving}}</p>
-  </div>
-  <div class="col-2"></div>
-  <div class="col-4 bestand">
-    <h3>Bestand</h3>
-      <audio controls class="audio">
-          <source src="../../assets/audio.aac" type="audio/ogg">
-        Your browser does not support the audio element.
-        </audio>
-  </div>
+  <div class="col-5">
+    <div class="card">
+      <h5 class="card-header">Beschrijving
+      </h5>
+      <div class="card-body">
+        <p class="card-text">{{oefening.beschrijving}}</p>
+      </div>
+    </div>
+    </div>
+  <div class="col-1"></div>
+  <div class="col-4">
+    <div class="card bestand">
+      <h5 class="card-header">Bestand
+      </h5>
+      <div class="card-body">
+          <audio controls class="audio">
+              <source src="../../assets/audio.aac" type="audio/ogg">
+            Your browser does not support the audio element.
+            </audio>
+      </div>
+    </div>
   </div>
 </div>
+
+<div class="modal fade" id="sessieBewerken" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+
+        <div class="modal-body">
+          <div class="form-group">
+                  <label>Naam:</label>
+                  <input type="text" class="form-control" id="sessienaam" value="{{oefening.naam}}">
+                </div>
+                <div class="form-group">
+                  <label>Beschrijving:</label>
+                  <textarea class="form-control" id="sessiebeschrijving" value="{{oefening.beschrijving}}" rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="sessieBestand"></label>
+                    <input type="file" class="form-control-file" id="sessieBestand" value="{{oefening.file}}">
+                  </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary btn-block knop" data-dismiss="modal">Opslaan</button>
+        </div>
+      </div>
+    </div>
+  </div>

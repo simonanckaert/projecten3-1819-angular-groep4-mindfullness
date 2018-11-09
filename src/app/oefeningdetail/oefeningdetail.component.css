@@ -19,15 +19,26 @@
 }
 
 .bestand {
-  background-color: lightgray;
-  border: 1px black solid;
-  padding-top: 1%;
+  margin-left: 5%;
 }
 
-.beschrijving {
+.card {
+  border-radius: 5px;
+}
+
+.bewerk {
+  position: absolute;
+  right: 50px;
+  top: 140px;
+}
+
+.card-header {
+  background-color: gray;
+}
+
+.card-body {
   background-color: lightgray;
-  border: 1px black solid;
-  padding-top: 1%;
+
 }
 
 p {
@@ -37,3 +48,4 @@ p {
 audio {
   width: 100%;
 }
+
