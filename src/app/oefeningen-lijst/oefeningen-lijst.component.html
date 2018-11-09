@@ -27,14 +27,14 @@
                 <label>Sessie:</label>
                 <!--TODO Sessieobjecten afhalen en naam + id in de selects steken-->
                 <select class="custom-select mr-sm-2 form-control" id="oefeningSessie" formControlName="oefeningSessie">
-                    <option value="1" selected>Sessie 1: Het begin</option>
+                    <option value="1" selected>Sessie 1: Schets ACT – mindfulness - Ademfocus</option>
                     <option value="2">Sessie 2: Het tweede deel</option>
                     <option value="3">Sessie 3: Het derde deel</option>
                     <option value="4">Sessie 4: Het vierde deel</option>
                     <option value="5">Sessie 5: Het vijfde deel</option>
                     <option value="6">Sessie 6: Het zesde deel</option>
                     <option value="7">Sessie 7: Het zevende deel</option>
-                    <option value="8">Sessie 8: Het achtste deel</option>
+                    <option value="8">Sessie 8: Het laatste deel</option>
                 </select>
             </div>
             <div class="form-group">
@@ -43,7 +43,7 @@
                     formControlName="oefeningBestand">
             </div>
             <div>
-                <button type="submit" class="btn knop btn-block" [disabled]="!!oefening.invalid">Opslaan</button>
+                <button type="submit" class="btn knop btn-block" [disabled]="oefening.invalid">Opslaan</button>
             </div>
         </form>
     </div>

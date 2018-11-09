@@ -24,6 +24,19 @@ export class OefeningDataService {
   }
 
   /**
+   * Geeft een oefening adhv oefeningId terug
+   */
+  geefOefening(oefeningId: number): Oefening {
+    for (let i = 0; i < this._oefeningen.length; i++) {
+      console.log(this._oefeningen[i]);
+      if (this._oefeningen[i].oefeningId == oefeningId) {
+        console.log('ik zit erin ' + this._oefeningen[i]);
+        return this._oefeningen[i];
+      }
+    }
+  }
+
+  /**
    * Voegt een nieuwe oefening toe aan de databank
    * @param oefening is een nieuwe oefening die zal toegevoegd worden in de databank
    */
@@ -101,7 +114,7 @@ export class OefeningDataService {
   verwijderOef(id: number) {
     for (let i = 0; i < this._oefeningen.length; i++) {
       if (this._oefeningen[i].oefeningId === id) {
-        
+
         const body = new HttpParams()
         .set('oefeningId', id.toString());
 

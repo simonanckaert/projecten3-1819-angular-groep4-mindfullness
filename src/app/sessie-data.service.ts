@@ -35,7 +35,6 @@ export class SessieDataService {
 
     });
   }
-  
   /**
    * Geeft een lijst met sessies terug
    */
@@ -46,7 +45,7 @@ export class SessieDataService {
 
   /**
   * Voegt een nieuwe sessie toe aan databank
-  * @param sessie is een nieuwe sessie die zal toegevoegd worden in de databank 
+  * @param sessie is een nieuwe sessie die zal toegevoegd worden in de databank
   */
   voegNieuweSessieToe(sessie: Sessie) {
 
