@@ -1,3 +1,3 @@
 'use strict';
 
-export const backendUrl: string="http://127.0.0.1:3000";
+export const backendUrl: string="http://141.134.155.219:3000";
