@@ -8,3 +8,7 @@ footer {
   margin-top: -3%;
   text-align: center;
 }
+
+.bericht {
+  text-decoration: underline;
+}

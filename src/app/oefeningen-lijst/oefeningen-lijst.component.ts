@@ -27,6 +27,7 @@ export class OefeningenLijstComponent implements OnInit {
   onSubmit() {
     const oefening = new Oefening(this.oefening.value.oefeningNaam,
       this.oefening.value.oefeningBeschrijving, this.oefening.value.oefeningSessie);
+      console.log(this.oefening.value.oefeningSessie);
       this._oefDataService.voegNieuweOefeningToe(oefening, this._file);
   }
 
