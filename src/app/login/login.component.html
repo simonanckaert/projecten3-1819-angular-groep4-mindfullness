@@ -2,7 +2,7 @@
   <div class="form-container loginmodal-container">
 
     <h2>Gelieve U aan te melden</h2>
-    <span class="error" *ngIf="error">{{error}}</span>
+    <span class="error" *ngIf="error">Uw email en/of wachtwoord is niet correct</span>
 
     <form [formGroup]='loginForm' #formData='ngForm' (ngSubmit)="onSubmit(formData)">
       <input type="text" formControlName='email' placeholder="Email adres" (ngModel)="email" name="email" class="input" required>

@@ -111,3 +111,9 @@
 .login-help{
   font-size: 12px;
 }
+
+.error {
+  color: red;
+  padding: 10px;
+  font-weight: bold;
+}
