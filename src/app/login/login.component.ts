@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
   state: string = '';
   error: any;
   public loginForm: FormGroup;
-  public email: FormControl = new FormControl('email');
-  public password: FormControl = new FormControl('password');
+  public email: FormControl = new FormControl('');
+  public password: FormControl = new FormControl('');
 
   constructor(public af: AngularFireAuth, private router: Router) {
     /*this.af.user.subscribe(user => {

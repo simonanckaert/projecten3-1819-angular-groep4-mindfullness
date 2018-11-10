@@ -3,6 +3,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-registreren',
@@ -16,8 +17,8 @@ export class RegistrerenComponent implements OnInit {
   errorPassword:any;
 
   public registrerenForm: FormGroup;
-  public email: FormControl = new FormControl('email');
-  public password: FormControl = new FormControl('password');
+  public emailField: FormControl = new FormControl('', [Validators.required]);
+  public passwordField: FormControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
 
   constructor(public af: AngularFireAuth, private router: Router) {
     /*this.af.user.subscribe(user => {
@@ -27,8 +28,8 @@ export class RegistrerenComponent implements OnInit {
 
   ngOnInit() {
     this.registrerenForm = new FormGroup({
-      email: this.email,
-      password: this.password
+      email: this.emailField,
+      password: this.passwordField
     })
   }
 
