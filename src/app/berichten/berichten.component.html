@@ -3,10 +3,17 @@
 <!--h1>{{ item | async | json }}</h1-->
 
 <ul>
-        <li *ngFor="let item of items | async">
-           {{ item | json }}
+    <li *ngFor="let item of items | async">
+        {{ item | json }}
+    </li>
+   
+    <li *ngFor="let item of klanten">
+            {{ item.naam }}
+            {{item.messages}}
         </li>
-      </ul>
+       
+
+</ul>
 <!--
 <div *ngFor="let items of chatUsers">
     <app-berichtdetail [ref]='items'></app-berichtdetail>

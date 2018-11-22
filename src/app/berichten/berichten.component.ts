@@ -14,16 +14,24 @@ export class BerichtenComponent implements OnInit {
 
   chatRef$ : AngularFireList<any>;
   items: Observable<any[]>;
+  klanten: ChatUser[] = [];
   
 
   constructor(public db : AngularFireDatabase ) {
   this.items = db.list("Chat").snapshotChanges();
   this.items.subscribe(actions => {
     actions.forEach(action => {
-      this.zoekKlant(action.key).subscribe(console.log)
+      this.zoekKlant(action.key).subscribe(value => {
+       let chatuser = new ChatUser();
+       chatuser.naam = value;
+       chatuser.messages = action.payload.val();
+       this.klanten.push(chatuser);
+      }
+      )
       console.log(action.payload.val());
+      
     });
-     })}
+     })}  
 
 
   ngOnInit() {
@@ -35,22 +43,18 @@ export class BerichtenComponent implements OnInit {
   }
   
   zoekChatBericht(userID: String, messageId: String): Observable<any>{
-    return this.db.object("Chat/" ).valueChanges();
+    return this.db.object("Chat/"+userID+"/"+messageId ).valueChanges();
   }
    
 }
 
 
 class ChatScreen{
-  constructor(json: JSON){
-    this.id = json.parse("key");
-    this.users = json.parse("payload");
-  }
   users : ChatUser[];
-  id: String;
 }
 
 class ChatUser{
+  naam : String
   messages : Message[];
 }
 
