@@ -1,0 +1,14 @@
+<h1>Real Time Chat</h1>
+
+<!--h1>{{ item | async | json }}</h1-->
+
+<ul>
+        <li *ngFor="let item of items | async">
+           {{ item | json }}
+        </li>
+      </ul>
+<!--
+<div *ngFor="let items of chatUsers">
+    <app-berichtdetail [ref]='items'></app-berichtdetail>
+</div-->
+

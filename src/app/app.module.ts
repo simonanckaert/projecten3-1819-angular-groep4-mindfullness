@@ -20,7 +20,7 @@ import { KlantenLijstComponent } from './klanten-lijst/klanten-lijst.component';
 import { HomeComponent } from './home/home.component';
 import { OefeningOverzichtComponent } from './oefening-overzicht/oefening-overzicht.component';
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { LoginComponent } from './login/login.component';
 import { EmailComponent } from './email/email.component';
@@ -28,6 +28,9 @@ import { RegistrerenComponent } from './registreren/registreren.component';
 import { AuthGuardService } from './auth-guard.service';
 import { AuthenticationService } from './authentication.service';
 import { OefeningdetailComponent } from './oefeningdetail/oefeningdetail.component';
+import { AngularFireObject, AngularFireList } from 'angularfire2/database';
+import { BerichtdetailComponent } from './berichtdetail/berichtdetail.component';
+
 
 export const firebaseConfig = {
   apiKey: "AIzaSyB1wU05Yb-p-0hu98hq2agU2dk_7XHF7Zo",
@@ -38,6 +41,15 @@ export const firebaseConfig = {
   messagingSenderId: "378320525386"
 
 };
+
+export const firebaseAndroidProjectConfit = {
+  apiKey: "AIzaSyB6yKdGduZc5o7goCReFEFn2BwNjVTPoa4",
+  authDomain: "projecten3-1819-android-groep4.firebaseapp.com",
+  databaseURL: "https://projecten3-1819-android-groep4.firebaseio.com",
+  projectId: "projecten3-1819-android-groep4",
+  storageBucket: "projecten3-1819-android-groep4.appspot.com",
+  messagingSenderId: "1084064931254"
+}
 
 
 
@@ -73,15 +85,19 @@ const appRoutes: Routes = [
     LoginComponent,
     EmailComponent,
     RegistrerenComponent,
-    OefeningdetailComponent
-  ],
+    OefeningdetailComponent,
+    BerichtdetailComponent,
+    ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(firebaseAndroidProjectConfit),
     ReactiveFormsModule,
+    
+    AngularFireDatabaseModule,
+
     AngularFireAuthModule,
     RouterModule.forRoot(
       appRoutes,
