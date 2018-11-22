@@ -23,7 +23,11 @@ import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { firebaseAngularConfig } from 'src/environments/environment';
+import { firebaseAngularConfig, firebaseAndroidConfig } from 'src/environments/environment';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { RegistrerenComponent } from './registreren/registreren.component';
+import * as firebase from 'firebase';
 
 
 /** test@test.com   123456 */
@@ -40,6 +44,7 @@ import { firebaseAngularConfig } from 'src/environments/environment';
     OefeningEmptyComponent,
     SessieEmptyComponent,
     LoginComponent,
+    RegistrerenComponent,
   ],
   entryComponents: [OefeningComponent, OefeningEmptyComponent, SessieEmptyComponent],
   imports: [
@@ -61,8 +66,10 @@ import { firebaseAngularConfig } from 'src/environments/environment';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(firebaseAngularConfig),
-    AngularFireAuthModule
+    AngularFireModule.initializeApp(firebaseAngularConfig, 'angular'),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireDatabaseModule
   ],
   providers: [ AuthenticationService, AuthGuardService, OefeningDataService, SessieDataService ],
   bootstrap: [ AppComponent ]

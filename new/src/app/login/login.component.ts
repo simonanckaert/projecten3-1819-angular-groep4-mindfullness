@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
+
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-login',
@@ -11,18 +13,15 @@ import { FormControl } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   options: FormGroup;
-  state: String = '';
   error: any;
   public loginForm: FormGroup;
-  public email: FormControl = new FormControl('');
-  public password: FormControl = new FormControl('');
 
   constructor(public af: AngularFireAuth, private router: Router, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.minLength(4)]],
-      password: ['', [Validators.required, Validators.minLength(4)]]
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
   }
 

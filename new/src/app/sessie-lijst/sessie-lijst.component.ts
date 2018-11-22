@@ -1,16 +1,20 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Sessie } from '../sessie/sessie.model';
-import { Oefening } from '../oefening/oefening.model';
 import { SessieDataService } from '../sessie-data.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
 import { SessieEmptyComponent } from '../sessie-empty/sessie-empty.component';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { FirebaseOptionsToken } from 'angularfire2';
+import { firebaseAndroidConfig } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sessie-lijst',
   templateUrl: './sessie-lijst.component.html',
-  styleUrls: ['./sessie-lijst.component.css']
+  styleUrls: ['./sessie-lijst.component.css'],
+  providers: [{ provide: FirebaseOptionsToken, useValue: firebaseAndroidConfig }]
 })
 export class SessieLijstComponent implements OnInit, OnChanges {
   private _sessie: Sessie;
@@ -18,9 +22,16 @@ export class SessieLijstComponent implements OnInit, OnChanges {
 
   public errorMsg: string;
 
-  public items: Observable<any[]>;
+  constructor(public db: AngularFirestore, public dialog: MatDialog, private _sessieDataService: SessieDataService) {
 
-  constructor(public dialog: MatDialog, private _sessieDataService: SessieDataService) {
+    /*this.db.list('users').valueChanges().subscribe(
+      users => {
+        console.log('users', users.length);
+      },
+      err => {
+        console.log('Problem: ', err);
+      }
+    );*/
   }
 
   ngOnInit() {
@@ -47,7 +58,7 @@ export class SessieLijstComponent implements OnInit, OnChanges {
         (error: HttpErrorResponse) => {
           this.errorMsg = `Error ${
             error.status
-          } while trying to retrieve oefeningen: ${error.error}`;
+            } while trying to retrieve oefeningen: ${error.error}`;
         }
       );
   }
