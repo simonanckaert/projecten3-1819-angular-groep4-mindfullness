@@ -10,13 +10,3 @@ export const firebaseAndroidConfig = {
   storageBucket: 'projecten3-1819-android-groep4.appspot.com',
   messagingSenderId: '1084064931254'
 };
-
-export const firebaseAngularConfig = {
-  apiKey: 'AIzaSyB1wU05Yb-p-0hu98hq2agU2dk_7XHF7Zo',
-  authDomain: 'projecten3-angular.firebaseapp.com',
-  databaseURL: 'https://projecten3-angular.firebaseio.com',
-  projectId: 'projecten3-angular',
-  storageBucket: 'projecten3-angular.appspot.com',
-  messagingSenderId: '378320525386'
-
-};

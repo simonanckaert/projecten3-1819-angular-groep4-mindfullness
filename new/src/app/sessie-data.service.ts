@@ -16,9 +16,9 @@ export class SessieDataService {
     return this.http.get<Sessie[]>(globals.backendUrl + `/sessies`).pipe();
   }
 
-  getSessie(sessieId: number): Observable<Sessie[]> {
+  getSessie(sessieId: number): Observable<Sessie> {
     return this.http
-      .get<Sessie[]>(globals.backendUrl + `/sessies/` + sessieId)
+      .get<Sessie>(globals.backendUrl + `/sessies/` + sessieId)
       .pipe();
   }
 

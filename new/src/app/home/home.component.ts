@@ -29,10 +29,12 @@ export class HomeComponent implements OnInit {
       if (au) {
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(`admins/${au.uid}`);
         const user = userRef.valueChanges();
-        user.subscribe(value => {
-          this._name = value.displayName;
-          console.log(value.displayName);
-        });
+        if (user) {
+          user.subscribe(value => {
+            this._name = value.displayName;
+            // console.log(value.displayName);
+          });
+        }
       }
     });
   }

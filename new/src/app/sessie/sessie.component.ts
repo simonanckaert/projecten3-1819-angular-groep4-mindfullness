@@ -5,7 +5,7 @@ import { OefeningComponent } from '../oefening/oefening.component';
 import { Oefening } from '../oefening/oefening.model';
 import { OefeningEmptyComponent } from '../oefening-empty/oefening-empty.component';
 import { OefeningDataService } from '../oefening-data.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, Validators, FormBuilder } from '../../../node_modules/@angular/forms';
 import { SessieDataService } from '../sessie-data.service';
@@ -17,7 +17,7 @@ import { SessieDataService } from '../sessie-data.service';
 })
 export class SessieComponent implements OnInit, OnChanges {
   @Input() public sessie: Sessie;
-  private _oefeningen: Oefening[];
+  public _oefeningen: Oefening[];
 
   public editMode = false;
   public errorMsg: string;
@@ -35,6 +35,7 @@ export class SessieComponent implements OnInit, OnChanges {
       sessieNaam: [this.sessie.naam, [Validators.required, Validators.minLength(4)]],
       sessieBeschrijving: [this.sessie.beschrijving, [Validators.required]]
     });
+    this.getOefeningen();
   }
 
   ngOnChanges() {
@@ -73,7 +74,7 @@ export class SessieComponent implements OnInit, OnChanges {
       }
       setTimeout(() => {
         this.getOefeningen();
-      }, 200);
+      }, 2000);
     });
   }
 

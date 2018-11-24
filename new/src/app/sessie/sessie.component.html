@@ -30,7 +30,7 @@
         </mat-card-header>
         <mat-card-content>
           <mat-list>
-            <p *ngIf="oefeningen.length < 1">Nog geen oefeningen toegevoegd!</p>
+            <p *ngIf="_oefeningen.length < 1">Nog geen oefeningen toegevoegd!</p>
             <mat-nav-list>
               <a mat-list-item class="list-group-item" (click)="openDialog(oefening)" *ngFor="let oefening of oefeningen">{{oefening.naam}}</a>
             </mat-nav-list>
