@@ -1,3 +1,49 @@
-<p>
-  gebruikers works!
-</p>
+<!--ul *ngFor="let gebruiker of gebruikers">
+  <li>{{gebruiker.email}}</li>
+</ul-->
+
+<mat-card class="sessies-card">
+  <mat-card-header>
+    <mat-card-title>
+      <h3 class="animated fadeIn">Gebruikers</h3>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Naam </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+
+      <!-- Group Column -->
+      <ng-container matColumnDef="group">
+        <th mat-header-cell *matHeaderCellDef> Groep </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field>
+            <mat-select (selectionChange)="changeGroup(element.email)">
+              <mat-option *ngFor="let groep of groepen" [value]="groep.value">
+                {{groep.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </ng-container>      
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>

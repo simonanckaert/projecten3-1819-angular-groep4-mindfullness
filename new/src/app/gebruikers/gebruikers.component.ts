@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { MatTableDataSource } from '@angular/material';
+import { AngularFireAuth } from 'angularfire2/auth';
+
+export interface Groep {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-gebruikers',
@@ -10,21 +16,48 @@ import { Observable } from 'rxjs';
 })
 export class GebruikersComponent implements OnInit {
 
-  public items: Observable<any[]>;
+  private _items: Observable<any[]>;
+  private _gebruikers: any[];
 
-  constructor(public afDb: AngularFireDatabase) {
-    this.items = this.getItems();
-    this.items.subscribe(value => {
-      console.log(value);
-    })
+  groepen: Groep[] = [
+    { value: '1', viewValue: 'Groep 1' },
+    { value: '2', viewValue: 'Groep 2' },
+    { value: '3', viewValue: 'Groep 3' }
+  ];
+
+  displayedColumns: string[] = ['name', 'email', 'group'];
+  dataSource: MatTableDataSource<any>;
+
+  constructor(public afDb: AngularFireDatabase, public af: AngularFireAuth) {
+    this._items = this.getItems();
+    this._items.subscribe(result => this._gebruikers = result as any[]);
+    setTimeout(() => {
+      this.dataSource = new MatTableDataSource(this.gebruikers);
+    }, 1000);
   }
 
   getItems(): Observable<any[]> {
     return this.afDb.list('Users').valueChanges();
   }
 
+  get items(): Observable<any[]> {
+    return this._items;
+  }
+
+  get gebruikers(): any[] {
+    return this._gebruikers;
+  }
+
   ngOnInit() {
-    
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  changeGroup(email) {
+    // get uid by email
+    // update user in database with new groupid
   }
 
 }

@@ -1,4 +1,4 @@
-<mat-card class="sessie-card">
+<mat-card class="sessies-card">
   <div class="rightfloat">
     <button mat-button (click)="toggleEditMode()" disabled="{{editMode}}" tabindex=-1>
       <mat-icon>edit</mat-icon>
@@ -36,9 +36,9 @@
             </mat-nav-list>
           </mat-list>
           <br>
-          <a mat-mini-fab="primary" style="background-color: #0069D9;" (click)="openEmptyDialog()">
-            <mat-icon>add</mat-icon>
-          </a>
+          <button mat-raised-button color="primary" style="background-color: #0069D9; width: 100%" (click)="openEmptyDialog()">
+            OEFENING TOEVOEGEN
+          </button>
         </mat-card-content>
         <mat-card-actions>
         </mat-card-actions>

@@ -8,7 +8,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule } from '@angular/material';
-import { MatButtonToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatButtonToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatTableModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material';
 import { HomeComponent } from './home/home.component';
 import { SessieLijstComponent } from './sessie-lijst/sessie-lijst.component';
 import { SessieComponent } from './sessie/sessie.component';
@@ -66,6 +67,8 @@ import { GebruikersComponent } from './gebruikers/gebruikers.component';
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTableModule,
+    MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseAndroidConfig, 'angular'),

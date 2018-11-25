@@ -1,18 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { AngularFireAuth } from "angularfire2/auth";
+import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
 import {
   AngularFirestore,
   AngularFirestoreDocument
-} from "@angular/fire/firestore";
-import { Router } from "@angular/router";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { FormControl } from "@angular/forms";
-import { User } from "firebase";
+} from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { User } from 'firebase';
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"]
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   options: FormGroup;
@@ -28,8 +27,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      email: ["", [Validators.required]],
-      password: ["", [Validators.required]]
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
   }
 
@@ -57,10 +56,10 @@ export class LoginComponent implements OnInit {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`admins/${userCredential.uid}`);
     const user = userRef.valueChanges();
     user.subscribe(value => {
-      if (value != undefined) {
-        localStorage.setItem("user", this.af.idToken + "");
+      if (value !== undefined) {
+        localStorage.setItem('user', this.af.idToken + '');
         // console.log(this.af.user);
-        this.router.navigate(["home"]);
+        this.router.navigate(['home']);
       }
     });
   }
