@@ -1,11 +1,8 @@
-import { Injectable } from "@angular/core";
-import { Oefening } from "./oefening/oefening.model";
-import { HttpClient } from "@angular/common/http";
-import * as globals from "../globals/globals";
-import { HttpParams } from "@angular/common/http";
-import { HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
-import { of, from } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Oefening } from './oefening/oefening.model';
+import { HttpClient } from '@angular/common/http';
+import * as globals from '../globals/globals';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class OefeningDataService {

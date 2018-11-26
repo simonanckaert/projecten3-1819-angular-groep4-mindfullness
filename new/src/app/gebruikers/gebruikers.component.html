@@ -1,7 +1,3 @@
-<!--ul *ngFor="let gebruiker of gebruikers">
-  <li>{{gebruiker.email}}</li>
-</ul-->
-
 <mat-card class="sessies-card">
   <mat-card-header>
     <mat-card-title>
@@ -14,7 +10,7 @@
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" *ngIf="dataSource" class="mat-elevation-z8">
 
       <!-- Name Column -->
       <ng-container matColumnDef="name">
@@ -33,8 +29,8 @@
         <th mat-header-cell *matHeaderCellDef> Groep </th>
         <td mat-cell *matCellDef="let element">
           <mat-form-field>
-            <mat-select (selectionChange)="changeGroup(element.email)">
-              <mat-option *ngFor="let groep of groepen" [value]="groep.value">
+            <mat-select [value]="groepen[element.groepnr - 1]" (selectionChange)="changeGroup(element.uid, $event.value)">
+              <mat-option *ngFor="let groep of groepen" [value]="groep">
                 {{groep.viewValue}}
               </mat-option>
             </mat-select>
