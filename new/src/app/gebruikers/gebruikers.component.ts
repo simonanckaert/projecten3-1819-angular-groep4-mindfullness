@@ -19,25 +19,24 @@ export class GebruikersComponent implements OnInit {
 
   private _gebruikers: Observable<any[]>;
 
-  groepen: Groep[] = [
-    { value: '1', viewValue: 'Groep 1' },
-    { value: '2', viewValue: 'Groep 2' },
-    { value: '3', viewValue: 'Groep 3' }
-  ];
+  public groepen: Groep[] = [];
+  public groepNummers = [' A '];
+
+  public selectedGroep = 'alle gebruikers';
 
   displayedColumns: string[] = ['name', 'email', 'group'];
   dataSource: MatTableDataSource<any>;
 
   constructor(public afDb: AngularFireDatabase, public af: AngularFireAuth, public gService: GebruikerDataService) {
     this._gebruikers = this.getItems();
-    this._gebruikers.subscribe(result => this.dataSource = new MatTableDataSource(result));
-    /*setTimeout(() => {
-      this.dataSource = new MatTableDataSource(this.gebruikers);
-    }, 1000);*/
+    this._gebruikers.subscribe(result => {
+      this.setGroepen(result);
+      this.dataSource = new MatTableDataSource(result);
+      console.log(this.dataSource.data);
+    });
   }
 
   getItems(): Observable<any[]> {
-    // return this.afDb.list('Users').valueChanges();
     return this.gService.getUsers();
   }
 
@@ -47,22 +46,55 @@ export class GebruikersComponent implements OnInit {
 
   ngOnInit() { }
 
+  setGroepen(result: any[]) {
+    result.forEach(gebruiker => {
+      if (this.groepNummers.indexOf(gebruiker.groepnr) === -1) {
+        this.groepNummers.push(gebruiker.groepnr);
+      }
+    });
+
+    this.groepNummers.sort();
+
+    this.groepNummers.forEach(nummer => {
+      if (nummer !== ' A ') {
+        this.groepen.push({ value: nummer, viewValue: 'Groep ' + nummer });
+      } else {
+        this.groepen.push({ value: nummer, viewValue: 'Geen' });
+      }
+    });
+  }
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  applyGroepFilter(filterValue: string) {
+    this._gebruikers.subscribe(result => {
+      this.dataSource = new MatTableDataSource(result);
+      if (filterValue !== ' A ') {
+        const newData = [];
+        this.dataSource.data.forEach(element => {
+          if (element.groepnr === filterValue) {
+            newData.push(element);
+          }
+        });
+        this.dataSource = new MatTableDataSource(newData);
+        this.selectedGroep = 'Groep ' + filterValue;
+      } else {
+        this.selectedGroep = 'alle gebruikers';
+      }
+    });
+  }
+
   changeGroup(uid, nr) {
-    console.log(uid, nr.value);
-    // this.gService.getUserById(value).subscribe(result => console.log(result.name));
     const gebruiker = this.gService.getUserById(uid);
-    gebruiker.subscribe(result => console.log(result));
     gebruiker.subscribe(result => {
       const updatedGebruiker = {
         'email': result.email,
         'groepnr': nr.value.toString(),
         'name': result.name
       };
-      this.gService.updateUser(uid, updatedGebruiker);
+      this.gService.updateUser(uid, updatedGebruiker).subscribe((val) => console.log(val));
     });
   }
 }

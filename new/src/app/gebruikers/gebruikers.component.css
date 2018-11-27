@@ -11,3 +11,9 @@ table {
 .sessies-card{
   margin: 15px;
 }
+
+.sessies-card-groep{
+  margin: 15px;
+  display: inline-block;
+  width: auto;
+}

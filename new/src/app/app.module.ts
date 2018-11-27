@@ -28,7 +28,6 @@ import { firebaseAndroidConfig } from 'src/environments/environment';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { RegistrerenComponent } from './registreren/registreren.component';
-import * as firebase from 'firebase';
 import { GebruikersComponent } from './gebruikers/gebruikers.component';
 
 
