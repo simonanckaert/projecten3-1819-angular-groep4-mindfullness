@@ -3,7 +3,6 @@ import { AngularFireDatabase, AngularFireList, AngularFireObject  } from 'angula
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
-import { ActionSequence } from 'protractor';
 
 @Component({
   selector: 'app-berichten',
@@ -21,14 +20,17 @@ export class BerichtenComponent implements OnInit {
   this.items = db.list("Chat").snapshotChanges();
   this.items.subscribe(actions => {
     actions.forEach(action => {
+
       this.zoekKlant(action.key).subscribe(value => {
+        console.log(value);
        let chatuser = new ChatUser();
        chatuser.naam = value;
+       chatuser.uid = action.key;
        chatuser.messages = action.payload.val();
        this.klanten.push(chatuser);
       }
       )
-      console.log(action.payload.val());
+     // console.log(action.payload.val());
       
     });
      })}  
@@ -54,7 +56,8 @@ class ChatScreen{
 }
 
 class ChatUser{
-  naam : String
+  naam : String;
+  uid : String;
   messages : Message[];
 }
 

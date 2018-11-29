@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -11,9 +11,8 @@ import { map } from 'rxjs/operators';
 export class BerichtdetailComponent implements OnInit {
 
   @Input() public ref: String;
-  messageRef: AngularFireList<any>;
-  messages: Observable<any[]>;
-  mesages: Observable<any>;
+  name: any;
+  msgVal: string = '';
   
   constructor(public db: AngularFireDatabase) {
     let url = "Chat/" + this.ref;

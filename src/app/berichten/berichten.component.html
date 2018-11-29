@@ -1,21 +1,23 @@
+<!--<h1>Real Time Chat</h1>
+
+
+<p> {{ items | async | json }}</p>  
+-->
+
 <h1>Real Time Chat</h1>
 
-<!--h1>{{ item | async | json }}</h1-->
-
-<ul>
-    <li *ngFor="let item of items | async">
-        {{ item | json }}
-    </li>
-   
+  
     <li *ngFor="let item of klanten">
-            {{ item.naam }}
-            {{item.messages}}
+        {{ item.naam }}
+        {{item.uid}}
+        {{item.messages.getValue}}
+            
         </li>
+    
        
 
-</ul>
 <!--
-<div *ngFor="let items of chatUsers">
-    <app-berichtdetail [ref]='items'></app-berichtdetail>
-</div-->
+<div *ngFor="let item of klanten">
+    <app-berichtdetail [ref]="item.key"></app-berichtdetail>
+</div> -->
 
