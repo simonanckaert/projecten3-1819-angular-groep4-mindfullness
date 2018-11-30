@@ -1,0 +1,19 @@
+/* Structure */
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.sessies-card{
+  margin: 15px;
+}
+
+.sessies-card-groep{
+  margin: 5px;
+  display: inline-block;
+  width: auto;
+}
