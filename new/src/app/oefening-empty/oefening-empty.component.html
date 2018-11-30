@@ -16,6 +16,14 @@
       <input mat-raised-button type="file" class="form-control-file" (change)="onFileChange($event)">
     </label>
     <br>
+    <br>
+    <h4>Zichtbaar voor volgende groepen:</h4>
+    <div *ngFor='let nummer of groepNummers'>
+      <mat-checkbox (change)="checkGroep($event, nummer)">
+        {{ nummer }}
+      </mat-checkbox>
+      <br>
+    </div>
   </div>
   <div mat-dialog-actions class="rightfloat">
     <button mat-button (click)="onNoClick()" tabindex=-1>Annuleren</button>

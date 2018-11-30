@@ -43,3 +43,9 @@ img[_ngcontent-c1] {
   display: block;
   margin: auto;
 }
+
+.active {
+  background-color: #A8D2C6;
+  font-weight: bold;
+  letter-spacing: 2px;
+}

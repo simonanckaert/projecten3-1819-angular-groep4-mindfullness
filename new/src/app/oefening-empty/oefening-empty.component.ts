@@ -5,6 +5,8 @@ import { MatDialogRef } from '@angular/material';
 import { OefeningDataService } from '../oefening-data.service';
 import { FormGroup, Validators, FormBuilder } from '../../../node_modules/@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material';
+import { Observable } from 'rxjs';
+import { GebruikerDataService } from '../gebruiker-data.service';
 
 @Component({
   selector: 'app-oefening-empty',
@@ -16,8 +18,25 @@ export class OefeningEmptyComponent implements OnInit {
   public oefeningFormGroup: FormGroup;
   public _file: File;
 
+  private _gebruikers: Observable<any[]>;
+  public groepNummers = [];
+  public selectedGroepnummers = [];
+
   constructor(public dialogRef: MatDialogRef<OefeningEmptyComponent>, @Inject(MAT_DIALOG_DATA) public data: Sessie,
-    private _oefDataService: OefeningDataService, private fb: FormBuilder) {
+    private _oefDataService: OefeningDataService, public gService: GebruikerDataService, private fb: FormBuilder) {
+    this._gebruikers = this.gService.getUsers();
+    this._gebruikers.subscribe(result => {
+      this.setGroepen(result);
+    });
+  }
+
+  setGroepen(result: any[]) {
+    result.forEach(gebruiker => {
+      if (this.groepNummers.indexOf(gebruiker.groepnr) === -1) {
+        this.groepNummers.push(gebruiker.groepnr);
+      }
+    });
+    this.groepNummers.sort();
   }
 
   onNoClick(): void {
@@ -31,13 +50,25 @@ export class OefeningEmptyComponent implements OnInit {
     });
   }
 
+  checkGroep(result, nummer) {
+    if (result.checked) {
+      this.selectedGroepnummers.push(nummer);
+    } else {
+      const index: number = this.selectedGroepnummers.indexOf(nummer);
+      if (index !== -1) {
+        this.selectedGroepnummers.splice(index, 1);
+      }
+    }
+    console.log(this.selectedGroepnummers.length);
+  }
+
   oefeningOpslaan() {
     if (this.oefeningFormGroup.valid) {
       const oefening = new Oefening(this.oefeningFormGroup.value.oefeningNaam,
         this.oefeningFormGroup.value.oefeningBeschrijving, this.data.sessieId);
-        oefening.file = this._file;
+      oefening.file = this._file;
 
-        this.dialogRef.close(this._oefDataService.voegNieuweOefeningToe(oefening).subscribe());
+      this.dialogRef.close(this._oefDataService.voegNieuweOefeningToe(oefening).subscribe());
     }
   }
 

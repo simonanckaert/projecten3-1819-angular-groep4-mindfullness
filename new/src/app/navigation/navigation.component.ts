@@ -1,19 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { AngularFireAuth } from "angularfire2/auth";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
 import {
   AngularFirestore,
   AngularFirestoreDocument
-} from "@angular/fire/firestore";
-import { BehaviorSubject } from 'rxjs'
+} from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: "app-navigation",
-  templateUrl: "./navigation.component.html",
-  styleUrls: ["./navigation.component.css"]
+  selector: 'app-navigation',
+  templateUrl: './navigation.component.html',
+  styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
   private _aangemeld: BehaviorSubject<boolean>;
@@ -27,11 +27,9 @@ export class NavigationComponent implements OnInit {
     public af: AngularFireAuth,
     private router: Router,
     private afs: AngularFirestore
-  ) {
-    
-  }
+  ) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.af.authState.subscribe(user => {
 
       const cu = this.af.user.subscribe(au => {
@@ -67,9 +65,9 @@ export class NavigationComponent implements OnInit {
 
   logout() {
     this.af.auth.signOut().then(() => {
-      localStorage.removeItem("user");
+      localStorage.removeItem('user');
       this._aangemeld = new BehaviorSubject<boolean>(false);
-      this.router.navigateByUrl("/login");
+      this.router.navigateByUrl('/login');
     });
   }
 }

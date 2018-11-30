@@ -15,7 +15,19 @@
       <source src="http://141.134.155.219:3000/oefeningen/files/{{oef.fileName}}" type="audio/ogg">
       Your browser does not support the audio element.
     </audio>
-    <button mat-stroked-button color="primary" style="font-weight: 100" tabindex=-1 (click)="openBestand()" *ngIf="oef.fileMimetype.startsWith('application')"><strong>Open bestand</strong></button>
+    <button mat-stroked-button color="primary" style="font-weight: 100" tabindex=-1 (click)="openBestand()" *ngIf="oef.fileMimetype.startsWith('application')"><strong>Open
+        bestand</strong>
+    </button>
+    <br>
+    <br>
+    <h4>Zichtbaar voor volgende groepen:</h4>
+    <div *ngFor='let nummer of groepNummers'>
+      <mat-checkbox (change)="checkGroep($event, nummer)">
+        {{ nummer }}
+      </mat-checkbox>
+      <br>
+    </div>
+
   </div>
   <div mat-dialog-actions class="rightfloat">
     <button mat-button (click)="onNoClick()" tabindex=-1>Annuleren</button>
