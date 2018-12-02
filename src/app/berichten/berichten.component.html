@@ -1,23 +1,6 @@
-<!--<h1>Real Time Chat</h1>
-
-
-<p> {{ items | async | json }}</p>  
--->
-
 <h1>Real Time Chat</h1>
-
-  
-    <li *ngFor="let item of klanten">
-        {{ item.naam }}
-        {{item.uid}}
-        {{item.messages.getValue}}
-            
-        </li>
-    
-       
-
-<!--
-<div *ngFor="let item of klanten">
-    <app-berichtdetail [ref]="item.key"></app-berichtdetail>
-</div> -->
-
+      <li *ngFor="let item of klanten" style="  list-style-type: none;    ">
+       <div>{{ item.naam }} </div>
+       <div><app-berichtdetail [user]="item"></app-berichtdetail></div>
+       <br>
+    </li>

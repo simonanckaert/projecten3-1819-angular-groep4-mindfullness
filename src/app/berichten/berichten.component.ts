@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, AngularFireObject  } from 'angularfire2/database';
 import { Observable } from 'rxjs';
+import { MatTableDataSource } from '@angular/material';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
 
@@ -13,7 +14,7 @@ export class BerichtenComponent implements OnInit {
 
   chatRef$ : AngularFireList<any>;
   items: Observable<any[]>;
-  klanten: ChatUser[] = [];
+  public klanten: ChatUser[] = [];
   
 
   constructor(public db : AngularFireDatabase ) {
@@ -22,7 +23,6 @@ export class BerichtenComponent implements OnInit {
     actions.forEach(action => {
 
       this.zoekKlant(action.key).subscribe(value => {
-        console.log(value);
        let chatuser = new ChatUser();
        chatuser.naam = value;
        chatuser.uid = action.key;
@@ -49,28 +49,19 @@ export class BerichtenComponent implements OnInit {
   }
    
 }
-
-
-class ChatScreen{
-  users : ChatUser[];
+export class Message {
+  content : String; 
+  messageTime : String;
+  messageUser : String;
 }
 
-class ChatUser{
+export class ChatUser{
   naam : String;
   uid : String;
   messages : Message[];
 }
 
-class Message {
-  constructor(json: JSON){
-    this.messageUser = json.parse("messageUser");
-    this.content = json.parse("content");
-    this.messageTime = json.parse("messageTime"); 
-  }
-  content : String; 
-  messageTime : String;
-  messageUser : String;
-}
+
 
 /**
 {  
