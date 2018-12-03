@@ -1,6 +1,9 @@
 <h1>Real Time Chat</h1>
-      <li *ngFor="let item of klanten" style="  list-style-type: none;    ">
+
+      <li *ngFor="let item of klanten" style="  list-style-type: none;">
+      <div>
        <div>{{ item.naam }} </div>
        <div><app-berichtdetail [user]="item"></app-berichtdetail></div>
        <br>
+      </div>
     </li>

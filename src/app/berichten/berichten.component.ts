@@ -20,6 +20,7 @@ export class BerichtenComponent implements OnInit {
   constructor(public db : AngularFireDatabase ) {
   this.items = db.list("Chat").snapshotChanges();
   this.items.subscribe(actions => {
+    this.klanten = [];
     actions.forEach(action => {
 
       this.zoekKlant(action.key).subscribe(value => {
