@@ -23,6 +23,7 @@ export class BerichtdetailComponent implements OnInit {
     this.messagesfb = this.db.list(url).valueChanges();
 
     this.messagesfb.subscribe(actions => {
+      this.messages = [];
       actions.forEach(action => {
          let message = new Message();
          message.content = action.content;
@@ -41,7 +42,7 @@ export class BerichtdetailComponent implements OnInit {
 
   postMessage(input : String){
     
-    this.messages = [];
+    //this.messages = [];
     let messageTime = Date.now();
 
     //TODO: Haal huidige admin op en vul hier in.
