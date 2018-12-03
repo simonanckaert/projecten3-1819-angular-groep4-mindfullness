@@ -1,25 +1,21 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
 import { AngularFireAuth } from 'angularfire2/auth';
 
-@Injectable()
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/switchMap';
+
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthenticationService {
-  public aangemeld: boolean = false;
+
+  public aangemeld: Boolean = false;
 
   constructor(private af: AngularFireAuth) {
-    if(this.af.user) {
-        this.aangemeld = true;
+    if (this.af.user) {
+      this.aangemeld = true;
     }
-  }  
-
-  /*isAangemeld() {
-    this.aangemeld = true;
-  }
-
-  isAfgemeld() {
-    this.aangemeld = false;
-  }*/
+   }
 }

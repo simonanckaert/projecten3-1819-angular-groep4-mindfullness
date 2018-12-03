@@ -1,9 +1,17 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { Component, OnInit } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Admin } from '../admin';
 import { Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
-import { FormControl } from '@angular/forms';
-import { Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+
+interface User {
+  uid: string;
+  email: string;
+  displayName?: string;
+  admin: boolean;
+}
 
 @Component({
   selector: 'app-registreren',
@@ -11,63 +19,46 @@ import { Validators } from '@angular/forms';
   styleUrls: ['./registreren.component.css']
 })
 export class RegistrerenComponent implements OnInit {
-  state: string = '';
-  
+  options: FormGroup;
   error: any;
-  errorPassword:any;
+  public loginForm: FormGroup;
 
-  public registrerenForm: FormGroup;
-  public emailField: FormControl = new FormControl('', [Validators.required]);
-  public passwordField: FormControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
-
-  constructor(public af: AngularFireAuth, private router: Router) {
-    /*this.af.user.subscribe(user => {
-      this.router.navigateByUrl('/registreren');
-    })*/
-  }
+  constructor(public af: AngularFireAuth, private router: Router, private fb: FormBuilder, private afs: AngularFirestore ) { }
 
   ngOnInit() {
-    this.registrerenForm = new FormGroup({
-      email: this.emailField,
-      password: this.passwordField
-    })
+    this.loginForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
   }
 
-
-  onSubmit(formData) {
-    this.error = null;
-    this.errorPassword = null;
-    if (formData.valid) {
-      console.log(formData.value);
-      var foutwachtwoord:Boolean = false;
-      
-      if(formData.value.password.length < 6) {
-        foutwachtwoord = true;
-      }
-
-
-      this.af.auth.createUserWithEmailAndPassword(formData.value.email, formData.value.password)
-        .then((success) => {
-          console.log("success");
-          this.router.navigateByUrl('/');
+  onSubmit() {
+    if (this.loginForm.valid) {
+      this.af.auth.createUserWithEmailAndPassword(this.loginForm.value.email, this.loginForm.value.password)
+        .then((result) => {
+          console.log(result);
+          this.updateUserData(result.user);
+          localStorage.setItem('user', this.af.idToken + '');
+          console.log(this.af.user);
+          this.router.navigate(['/']);
         }).catch((err) => {
           console.log(err);
-          if(err && formData.value.password.length < 6) {
-            this.error = err;
-            this.errorPassword = "w";
-          }
-          else if(err && formData.value.password.length > 5) {
-            this.error = err;
-          } 
-
-          
-        })
-
-      
+          this.error = err;
+        });
     }
-    /* User deleten
-    var user = this.af.auth.currentUser;
-    user.delete().then(function() {}).catch(function(error) { console.log(error)}*/
   }
 
+  private updateUserData(user) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`admins/${user.uid}`);
+
+    const data: User = {
+      uid: user.uid,
+      email: user.email,
+      displayName: this.loginForm.value.name,
+      admin: true
+    };
+
+    return userRef.set(data, { merge: true });
+  }
 }

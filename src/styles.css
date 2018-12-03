@@ -1,63 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@font-face {
+  font-family: scrip;
+  src: url(assets/SCRIPTBL.TTF) format("truetype");
+}
+
+body {
+  margin: 0;
+}
 
 html,
 body {
   height: 100%;
-  font-family: helvetica;
-  font-size: 18px;
-  font-weight: 400;
-  color: #171717;
 }
 
-.title {
-  text-align: center;
-  font-family: helvetica;
-  font-weight: 300;
-  font-size: 68px;
-  color: #171717;
-}
-
-.container-inline {
+body {
   margin: 0;
-  background-color: rgb(246,241,228);
-  min-height: calc(100% - 100px);
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.topcontainer {
-  background-color: rgb(175,219,206);
-  height: 10%
-}
 
-.knop {
-  background-color: rgb(248,139,31);
-  border: 0;
-  border-radius: 0;
+.mat-flat-button {
+  background-color: #0069D9;
   color: white;
+  font-weight: 100;
 }
 
-.knop[disabled] {
-  background-color: rgb(250, 195, 93);
-}
-
-.knop[disabled]:hover {
-  background-color: rgb(250, 195, 93);
+.mat-raised-button {
+  background-color: #0069D9;
   color: white;
+  font-weight: 100;
 }
 
-.knop:hover {
-  color: black;
-  background-color: rgb(248,139,31);
-}
-
-.annuleerKnop {
-  border-radius: 0;
-}
-
-.annuleerKnop:hover {
-  color: black;
-}
-
-.error {
-  color: red;
-
+.mat-warn {
+  background-color: #F2453C;
+  color: #fff;
 }
