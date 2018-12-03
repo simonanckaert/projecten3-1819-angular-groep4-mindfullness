@@ -7,11 +7,9 @@ export class Sessie {
   private _oefeningen = new Array<Oefening>();
   private _id: number;
 
-  constructor(naam: string, beschrijving: string, oefeningen: Array<Oefening>, id: number) {
+  constructor(naam: string, beschrijving: string) {
     this._naam = naam;
     this._beschrijving = beschrijving;
-    this._oefeningen = oefeningen;
-    this._id = id;
   }
 
   /**
