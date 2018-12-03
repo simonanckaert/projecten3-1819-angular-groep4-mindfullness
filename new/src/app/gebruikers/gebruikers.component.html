@@ -6,14 +6,12 @@
   </mat-card-header>
   <mat-card-content>
 
-    <button mat-button *ngFor='let groep of groepNummers' (click)="applyGroepFilter(groep)">
-        <mat-card class="sessies-card-groep mat-elevation-z4">
-            <mat-card-header>
-              <mat-card-title>
-                {{groep}}
-              </mat-card-title>
-            </mat-card-header>
-          </mat-card>
+    <button mat-button *ngFor='let groep of groepNummers' (click)="applyGroepFilter(groep)" class="sessies-card-groep mat-elevation-z2"
+    [class.active]="groep === selectedGroepNr">
+        {{groep}}
+    </button>
+    <button mat-button class="sessies-card-groep mat-elevation-z2" (click)="addGroup()">
+        +
     </button>
   </mat-card-content>
 </mat-card>

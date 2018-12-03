@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { GebruikerDataService } from '../gebruiker-data.service';
+import { filter } from 'rxjs/operators';
 
 export interface Groep {
   value: string;
@@ -21,6 +22,7 @@ export class GebruikersComponent implements OnInit {
 
   public groepen: Groep[] = [];
   public groepNummers = [' A '];
+  public selectedGroepNr = ' A ';
 
   public selectedGroep = 'alle gebruikers';
 
@@ -80,8 +82,10 @@ export class GebruikersComponent implements OnInit {
         });
         this.dataSource = new MatTableDataSource(newData);
         this.selectedGroep = 'Groep ' + filterValue;
+        this.selectedGroepNr = filterValue
       } else {
         this.selectedGroep = 'alle gebruikers';
+        this.selectedGroepNr = ' A '
       }
     });
   }
@@ -96,5 +100,12 @@ export class GebruikersComponent implements OnInit {
       };
       this.gService.updateUser(uid, updatedGebruiker).subscribe((val) => console.log(val));
     });
+  }
+
+  addGroup() {
+    const n: number = +this.groepen[this.groepen.length-1].value + 1
+    console.log(n)
+    this.groepen.push({ value: n.toString(), viewValue: 'Groep ' + n });
+    this.groepNummers.push(n.toString());
   }
 }
