@@ -1,60 +1,12 @@
-<div class="rightfloat">
-  <button mat-button (click)="toggleEditMode()" disabled="{{editMode}}" tabindex=-1>
-    <mat-icon>edit</mat-icon>
-  </button>
-</div>
-<br>
-<div *ngIf="!editMode" class="oefeningDetail">
-  <div mat-dialog-content>
-    <h4>Oefening:</h4>
-    <p>{{oef.naam}}</p>
-    <h4>Beschrijving:</h4>
-    <p id="beschrijving">{{oef.beschrijving}}</p>
-    <h4>Bestand:</h4>
-    <audio controls *ngIf="oef.fileMimetype.startsWith('audio')">
-      <source src="http://141.134.155.219:3000/oefeningen/files/{{oef.fileName}}" type="audio/ogg">
-      Your browser does not support the audio element.
-    </audio>
-    <button mat-stroked-button color="primary" style="font-weight: 100" tabindex=-1 (click)="openBestand()" *ngIf="oef.fileMimetype.startsWith('application')"><strong>Open
-        bestand</strong>
-    </button>
-    <br>
-    <br>
-    <h4>Zichtbaar voor volgende groepen:</h4>
-    <div *ngFor='let nummer of groepNummers'>
-      <mat-checkbox (change)="checkGroep($event, nummer)">
-        {{ nummer }}
-      </mat-checkbox>
-      <br>
-    </div>
+<div class="card bg-light mb-3 grow">
+    <button type="button" class="close" (click)="verwijderOefeningUitSessie()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+   <a routerLink="/oef/{{oefening.oefeningId}}">
+    <div class="card-body">
+        <p class="card-title">{{oefening.naam}}</p>
+      </div>
+      </a>
+  </div>
 
-  </div>
-  <div mat-dialog-actions class="rightfloat">
-    <button mat-button (click)="onNoClick()" tabindex=-1>Annuleren</button>
-    <button mat-flat-button [color]="'warn'" (click)="oefeningVerwijderen()" tabindex=-1><strong>Verwijderen</strong></button>
-  </div>
-</div>
 
-<div *ngIf="editMode">
-  <div mat-dialog-content>
-    <h4>Oefening wijzigen</h4>
-    <form [formGroup]="oefeningFormGroup">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Naam van de oefening" value="{{oef.naam}}" formControlName="oefeningNaam" id="oefeningNaam">
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <textarea matInput placeholder="Beschrijving van de oefening" matTextareaAutosize matAutosizeMinRows="2"
-          matAutosizeMaxRows="5" value="{{oef.beschrijving}}" formControlName="oefeningBeschrijving" id="oefeningBeschrijving"></textarea>
-      </mat-form-field>
-    </form>
-
-    <label for="sessieBestand">
-      <input mat-raised-button type="file" class="form-control-file" value="{{oef.file}}" (change)="onFileChange($event)">
-    </label>
-    <br>
-  </div>
-  <div mat-dialog-actions class="rightfloat">
-    <button mat-button (click)="onNoClick()">Annuleren</button>
-    <button mat-flat-button (click)="oefeningOpslaan()" tabindex=-1 disabled="{{!oefeningFormGroup.valid}}"><strong>Opslaan</strong></button>
-  </div>
-</div>

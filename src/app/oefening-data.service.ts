@@ -2,63 +2,161 @@ import { Injectable } from '@angular/core';
 import { Oefening } from './oefening/oefening.model';
 import { HttpClient } from '@angular/common/http';
 import * as globals from '../globals/globals';
-import { Observable } from 'rxjs/Observable';
+import { HttpParams } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class OefeningDataService {
-  constructor(private http: HttpClient) {}
+  private _oefeningen = new Array<Oefening>();
 
-  getOefeningen(): Observable<Oefening[]> {
-    return this.http.get<Oefening[]>(globals.backendUrl + `/oefeningen`).pipe();
+
+  constructor(private http: HttpClient) {
+    this.http.get(globals.backendUrl + '/oefeningen/').subscribe((data: Oefening) => {
+      Object.assign(this._oefeningen, data);
+    });
   }
 
-  getOefeningenFromSessie(sessieId: number): Observable<Oefening[]> {
-    return this.http
-      .get<Oefening[]>(globals.backendUrl + `/oefeningen/` + sessieId)
-      .pipe();
+  /**
+   * Geeft een lijst van oefeningen terug
+   */
+  get oefeningen(): Oefening[] {
+    return this._oefeningen;
   }
 
-  getOefening(oefeningId: number): Observable<Oefening> {
-    return this.http
-    .get<Oefening>(globals.backendUrl + `/oefeningen/oef/` + oefeningId)
-    .pipe();
+  /**
+   * Geeft een oefening adhv oefeningId terug
+   */
+  geefOefening(oefeningId: number): Oefening {
+    for (let i = 0; i < this._oefeningen.length; i++) {
+      console.log(this._oefeningen[i]);
+      if (this._oefeningen[i].oefeningId == oefeningId) {
+        console.log('ik zit erin ' + this._oefeningen[i]);
+        return this._oefeningen[i];
+      }
+    }
   }
 
-  voegNieuweOefeningToe(oefening: Oefening): Observable<Oefening> {
-    const fd = new FormData();
+  /**
+   * Voegt een nieuwe oefening toe aan de databank
+   * @param oefening is een nieuwe oefening die zal toegevoegd worden in de databank
+   */
+  voegNieuweOefeningToe(oefening: Oefening, file: File) {
+    // this._oefeningen.push(oefening);
+    var fd = new FormData();
+    
     fd.append('naam', oefening.naam);
     fd.append('beschrijving', oefening.beschrijving);
-    fd.append('sessieId', oefening.sessieId.toString());
-    fd.append('file', oefening.file);
+    fd.append('sessieId', oefening.sessieId + "");
+    fd.append('file', file);
 
-    return this.http
-      .post<Oefening>(globals.backendUrl + `/oefeningen`, fd)
-      .pipe();
+    // post de oefening data naar de backend
+    this.http.post(globals.backendUrl + '/oefeningen', fd,  {
+      // headers: {'Content-Type': 'multipart/form-data'}
+  }).subscribe(
+      res => {
+        console.log(res);
+        this._oefeningen.push(oefening);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  
+  /**
+   * bewerkt de oefening met het overeenkomstige id
+   * @param naam is de nieuwe naam van een oefening
+   * @param beschrijving is de nieuwe omschrijving van een oefening
+   * @param id is het oefeningId waarbij de wijzigingen zullen gebeuren
+   */
+  bewerkOef(naam: string, beschrijving: string, id: number) {
+    /*console.log('voor de for loop');
+
+
+    for (let i = 0; i < this._oefeningen.length; i++) {
+      console.log('for loop ' + i + ' van de ', this._oefeningen.length);
+      if (this._oefeningen[i].id === id) {
+        console.log('oefeningnaam: ' + this._oefeningen[i].naam);
+        this._oefeningen[i].naam = naam;
+        this._oefeningen[i].beschrijving = beschrijving;
+      }
+    }*/
+    const body = new HttpParams()
+      .set('naam', naam)
+      .set('beschrijving', beschrijving)
+      .set('sessieId', id.toString());
+
+    this.http.put(globals.backendUrl + '/oefeningen', body, {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'x-www-form-urlencoded')
+    }).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+
+    // update local list
+    for (let i = 0; i < this._oefeningen.length; i++) {
+      if (this._oefeningen[i].oefeningId === id) {
+        this._oefeningen[i].naam = naam;
+        this._oefeningen[i].beschrijving = beschrijving;
+      }
+    }
   }
 
-  verwijderOefening(oefening: Oefening) {
-    return this.http
-      .delete(globals.backendUrl + '/oefeningen/' + oefening.oefeningId)
-      .subscribe(
-        res => {
-          console.log(res);
-        },
-        err => {
-          console.log(err);
-        }
-      );
+  /**
+   * Verwijdert een oefening met het overeenkomstige id
+   * @param id is het oefeningId van de sessie die verwijderd zal worden
+   */
+  verwijderOef(id: number) {
+    for (let i = 0; i < this._oefeningen.length; i++) {
+      if (this._oefeningen[i].oefeningId === id) {
+
+        const body = new HttpParams()
+        .set('oefeningId', id.toString());
+
+        this.http.delete(globals.backendUrl + "/oefeningen/" + id, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'x-www-form-urlencoded')
+        }).subscribe(
+          res => {
+            console.log(res);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+        break;
+      }
+    }
   }
 
-  updateOefening(oefening: Oefening) {
-    return this.http
-      .put(globals.backendUrl + '/oefeningen/', oefening)
-      .subscribe(
-        res => {
-          console.log(res);
-        },
-        err => {
-          console.log(err);
-        }
-      );
+  /**
+   * Verwijdert een oefening met het overeenkomstige id uit zijn sessie
+   * @param id is het oefeningId waarbij het sessieId op 0 zal worden gezet
+   */
+  verwijderOefUitSessie(id: number) {
+    for (let i = 0; i < this._oefeningen.length; i++) {
+      if (this._oefeningen[i].oefeningId === id) {
+
+        const body = new HttpParams()
+        .set('oefeningId', id.toString());
+         this.http.delete(globals.backendUrl + '/oefeningen/' + id, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'x-www-form-urlencoded')
+        }).subscribe(
+          res => {
+            console.log(res);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+         break;
+    }
   }
+}
 }

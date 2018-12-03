@@ -1,21 +1,19 @@
-<div class="example-container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Gelieve u te registreren</mat-card-title>
-    </mat-card-header>
-    <form [formGroup]='loginForm' (ngSubmit)="onSubmit()">
-      <mat-form-field>
-        <input type="text" matInput placeholder="Naam" required formControlName="name" id="name">
-      </mat-form-field>
+<div class="container-inline">
+  <div class="form-container loginmodal-container">
 
-      <mat-form-field>
-        <input type="email" matInput placeholder="Email" required formControlName="email" id="email">
-      </mat-form-field>
+    <h2>Gelieve U te registreren</h2>
+    <span class="error" *ngIf="error">Emailadres klopt niet of wachtwoord is te kort</span>
+    
+    <form [formGroup]='registrerenForm' #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+      <input type="text" formControlName='email' placeholder="Email adres" class="txt" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$">
+      <br>
+      <span class="error" *ngIf="errorPassword">Moet uit minstens 6 tekens bestaan</span>
+      <input type="password" formControlName='password' placeholder="Wachtwoord" class="txt">
+      <br>
+      <!--<input type="password" placeholder="Herhaal wachtwoord" (ngModel)="confirmPassword" name="confirmPassword" required />-->
 
-      <mat-form-field>
-        <input type="password" matInput placeholder="Wachtwoord" required formControlName="password" id="password">
-      </mat-form-field>
-      <button type="submit" mat-raised-button class="basic-button-center" [disabled]="!loginForm.valid">Registreren</button>
+      <button type="submit" [disabled]="!formData.valid" class="basic-btn">Registreren</button>
     </form>
-  </mat-card>
+
+  </div>
 </div>

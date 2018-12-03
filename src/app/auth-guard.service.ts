@@ -3,10 +3,9 @@ import { Injectable } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { CanActivate } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
+// Import our authentication service
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthGuardService implements CanActivate {
 
   constructor(private authService: AuthenticationService, private router: Router, private af: AngularFireAuth) { }
@@ -15,8 +14,10 @@ export class AuthGuardService implements CanActivate {
     if (localStorage.getItem('user')) {
       return true;
     }
-    // else
+    // Retain the attempted URL for redirection
+    //this.authService.redirectUrl = '/login'
     this.router.navigate(['/login']);
     return false;
   }
+
 }

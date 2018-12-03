@@ -1,35 +1,45 @@
-audio {
-  width: 100%;
+.material-icons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
-.rightfloat {
-  widows: 100%;
-  float: right;
+.card {
+  width: 20rem;
+  height: 1%;
 }
 
-.example-container {
-  display: flex;
-  flex-direction: column;
+.card-body {
+  text-align: center;
+  background-color: rgb(175,219,206);
+  border: solid #60993E 2px;
+  border-radius: 5px;
+  padding: 0.3rem;
 }
 
-.example-container>* {
-  width: 100%;
+p {
+  padding-top: 8px;
 }
 
-
-/* class repeated for increased specificity */
-.mat-form-field.mat-form-field {
-  width: 100%;
+.grow {
+  transition: all .2s ease-in-out;
 }
 
-#beschrijving {
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-  word-wrap: break-word;
+.grow:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
-.mat-dialog-content {
-  width: 500px;
+.close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+a {
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
 }

@@ -1,0 +1,50 @@
+<div class="container-inline">
+    <a routerLink="/sessieoverzicht"><i class="material-icons pijl">
+            arrow_back
+        </i></a>
+    <div class="container">
+        <h1 class="titel">Oefening toevoegen</h1>
+        <form [formGroup]="oefening" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="oefeningNaam" class="col-form-label">Oefeningnaam:</label>
+                <input type="text" class="form-control" formControlName="oefeningNaam" id="oefeningNaam" placeholder="naam oefening">
+                <div class="error animated fadeIn" *ngIf='!!oefening.get("oefeningNaam").errors?.required && !!oefening.get("oefeningNaam").touched'>
+                    U moet een naam ingeven.
+                </div>
+                <div class="error animated fadeIn" *ngIf='!!oefening.get("oefeningNaam").errors?.minlength && !!oefening.get("oefeningNaam").touched'>
+                    Een naam moet minstens 4 letters hebben.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="oefeningBeschrijving" class="col-form-label">Beschrijving:</label>
+                <textarea class="form-control textarea" formControlName="oefeningBeschrijving" id="oefeningBeschrijving"
+                    rows="3" placeholder="beschrijving oefening"></textarea>
+                <div class="error animated fadeIn" *ngIf='!!oefening.get("oefeningBeschrijving").errors?.required && !!oefening.get("oefeningBeschrijving").touched'>
+                    U moet een beschrijving ingeven.
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Sessie:</label>
+                <!--TODO Sessieobjecten afhalen en naam + id in de selects steken-->
+                <select class="custom-select mr-sm-2 form-control" id="oefeningSessie" formControlName="oefeningSessie">
+                    <option value="1" selected>Sessie 1: Schets ACT – mindfulness - Ademfocus</option>
+                    <option value="2">Sessie 2: Het tweede deel</option>
+                    <option value="3">Sessie 3: Het derde deel</option>
+                    <option value="4">Sessie 4: Het vierde deel</option>
+                    <option value="5">Sessie 5: Het vijfde deel</option>
+                    <option value="6">Sessie 6: Het zesde deel</option>
+                    <option value="7">Sessie 7: Het zevende deel</option>
+                    <option value="8">Sessie 8: Het laatste deel</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="oefeningBestand"></label>
+                <input type="file" class="form-control-file" id="oefeningBestand" (change)="onFileChange($event)"
+                    formControlName="oefeningBestand">
+            </div>
+            <div>
+                <button type="submit" class="btn knop btn-block" [disabled]="oefening.invalid">Opslaan</button>
+            </div>
+        </form>
+    </div>
+</div>

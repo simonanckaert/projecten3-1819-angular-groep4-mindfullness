@@ -1,66 +1,54 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument
-} from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { User } from 'firebase';
+import { FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+//import { moveIn, fallIn} from '../router.animations';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css']/*,
+  animations: [moveIn(), fallIn()],
+  host: {'[@moveIn]': ''}*/
 })
 export class LoginComponent implements OnInit {
-  options: FormGroup;
+
+  state: string = '';
   error: any;
   public loginForm: FormGroup;
+  public email: FormControl = new FormControl('');
+  public password: FormControl = new FormControl('');
 
-  constructor(
-    public af: AngularFireAuth,
-    private router: Router,
-    private fb: FormBuilder,
-    private afs: AngularFirestore
-  ) {}
-
-  ngOnInit() {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]]
-    });
+  constructor(public af: AngularFireAuth, private router: Router) {
+    /*this.af.user.subscribe(user => {
+      this.router.navigateByUrl('/login');
+    })*/
   }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      this.af.auth
-        .signInWithEmailAndPassword(
-          this.loginForm.value.email,
-          this.loginForm.value.password
-        )
-        .then(success => {
-          this.validateAdmin(success.user);
-          /*console.log(success);
-           */
-        })
-        .catch(err => {
+  ngOnInit() {
+    this.loginForm = new FormGroup({
+      email: this.email,
+      password: this.password
+    })
+  }
+
+  onSubmit(formData) {
+    if (formData.valid) {
+      console.log(formData.value);
+      this.af.auth.signInWithEmailAndPassword(formData.value.email, formData.value.password)
+        .then((success) => {
+          console.log(success);
+          localStorage.setItem('user', this.af.idToken + '');
+          console.log(this.af.user);
+          this.router.navigate(['/']);
+        }).catch((err) => {
           console.log(err);
           this.error = err;
-        });
+        })
     }
   }
 
-  validateAdmin(userCredential: User) {
-    console.log(userCredential.uid);
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`admins/${userCredential.uid}`);
-    const user = userRef.valueChanges();
-    user.subscribe(value => {
-      if (value !== undefined) {
-        localStorage.setItem('user', this.af.idToken + '');
-        // console.log(this.af.user);
-        this.router.navigate(['home']);
-      }
-    });
-  }
+
+
 }

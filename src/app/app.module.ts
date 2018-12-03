@@ -1,82 +1,94 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { NavigationComponent } from './navigation/navigation.component';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule } from '@angular/material';
-import { MatButtonToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatTableModule } from '@angular/material';
-import { MatSelectModule, MatCheckboxModule } from '@angular/material';
-import { HomeComponent } from './home/home.component';
-import { SessieLijstComponent } from './sessie-lijst/sessie-lijst.component';
-import { SessieComponent } from './sessie/sessie.component';
+
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
+import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from './app.component';
 import { OefeningComponent } from './oefening/oefening.component';
-import { OefeningEmptyComponent } from './oefening-empty/oefening-empty.component';
-import { OefeningDataService } from './oefening-data.service';
-import { SessieDataService } from './sessie-data.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SessieEmptyComponent } from './sessie-empty/sessie-empty.component';
-import { LoginComponent } from './login/login.component';
-import { AuthenticationService } from './authentication.service';
-import { AuthGuardService } from './auth-guard.service';
+import { SessieComponent } from './sessie/sessie.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { OefeningenLijstComponent } from './oefeningen-lijst/oefeningen-lijst.component';
+import { SessieLijstComponent } from './sessie-lijst/sessie-lijst.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { BerichtenComponent } from './berichten/berichten.component';
+import { SessieoverzichtComponent } from './sessieoverzicht/sessieoverzicht.component';
+import { KlantComponent } from './klant/klant.component';
+import { KlantenLijstComponent } from './klanten-lijst/klanten-lijst.component';
+import { HomeComponent } from './home/home.component';
+import { OefeningOverzichtComponent } from './oefening-overzicht/oefening-overzicht.component';
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { firebaseAndroidConfig } from 'src/environments/environment';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
+import { LoginComponent } from './login/login.component';
+import { EmailComponent } from './email/email.component';
 import { RegistrerenComponent } from './registreren/registreren.component';
-import { GebruikersComponent } from './gebruikers/gebruikers.component';
+import { AuthGuardService } from './auth-guard.service';
+import { AuthenticationService } from './authentication.service';
+import { OefeningdetailComponent } from './oefeningdetail/oefeningdetail.component';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyB1wU05Yb-p-0hu98hq2agU2dk_7XHF7Zo",
+  authDomain: "projecten3-angular.firebaseapp.com",
+  databaseURL: "https://projecten3-angular.firebaseio.com",
+  projectId: "projecten3-angular",
+  storageBucket: "projecten3-angular.appspot.com",
+  messagingSenderId: "378320525386"
+
+};
 
 
-/** test@test.com   123456 */
 
+const appRoutes: Routes = [
+
+  { path: '', canActivate: [AuthGuardService], component: HomeComponent },
+  { path: 'berichten', canActivate: [AuthGuardService], component: BerichtenComponent },
+  { path: 'sessieoverzicht', canActivate: [AuthGuardService], component: SessieoverzichtComponent },
+  { path: 'klanten', canActivate: [AuthGuardService], component: KlantenLijstComponent},
+  { path: 'oefeningen', canActivate: [AuthGuardService], component: OefeningOverzichtComponent },
+  { path: 'oefeningenToevoegen', component: OefeningenLijstComponent },
+  { path: 'registreren', canActivate: [AuthGuardService], component: RegistrerenComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'oef/:oefeningId', canActivate: [AuthGuardService], component: OefeningdetailComponent},
+  { path: '**', canActivate: [AuthGuardService], component: PagenotfoundComponent }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationComponent,
-    HomeComponent,
-    SessieLijstComponent,
-    SessieComponent,
     OefeningComponent,
-    OefeningEmptyComponent,
-    SessieEmptyComponent,
+    SessieComponent,
+    MainNavComponent,
+    OefeningenLijstComponent,
+    SessieLijstComponent,
+    PagenotfoundComponent,
+    BerichtenComponent,
+    SessieoverzichtComponent,
+    KlantComponent,
+    KlantenLijstComponent,
+    HomeComponent,
+    OefeningOverzichtComponent,
     LoginComponent,
+    EmailComponent,
     RegistrerenComponent,
-    GebruikersComponent,
+    OefeningdetailComponent
   ],
-  entryComponents: [OefeningComponent, OefeningEmptyComponent, SessieEmptyComponent],
   imports: [
     BrowserModule,
-    HttpClientModule,
     BrowserAnimationsModule,
-    FlexLayoutModule,
-    AppRoutingModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatCardModule,
-    MatButtonToggleModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatTableModule,
-    MatSelectModule,
-    MatCheckboxModule,
     FormsModule,
+    HttpClientModule,
+    AngularFireModule.initializeApp(firebaseConfig),
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(firebaseAndroidConfig, 'angular'),
     AngularFireAuthModule,
-    AngularFirestoreModule,
-    AngularFireDatabaseModule
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    )
   ],
-  providers: [ AuthenticationService, AuthGuardService, OefeningDataService, SessieDataService ],
-  bootstrap: [ AppComponent ]
+  providers: [AuthenticationService, AuthGuardService],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

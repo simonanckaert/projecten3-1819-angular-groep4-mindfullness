@@ -1,17 +1,18 @@
-<div class="example-container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Gelieve u aan te melden</mat-card-title>
-    </mat-card-header>
-    <form [formGroup]='loginForm' (ngSubmit)="onSubmit()">
-      <mat-form-field>
-        <input type="email" matInput placeholder="Email" required formControlName="email" id="email">
-      </mat-form-field>
+<div class="container-inline">
+  <div class="form-container loginmodal-container">
 
-      <mat-form-field>
-        <input type="password" matInput placeholder="Wachtwoord" required formControlName="password" id="password">
-      </mat-form-field>
-      <button type="submit" mat-raised-button class="basic-button-center" [disabled]="!loginForm.valid">Inloggen</button>
+    <h2>Gelieve U aan te melden</h2>
+    <span class="error" *ngIf="error">Uw email en/of wachtwoord is niet correct</span>
+
+    <form [formGroup]='loginForm' #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+      <input type="text" formControlName='email' placeholder="Email adres" (ngModel)="email" name="email" class="input" required>
+      <br>
+      <input type="password" formControlName='password' placeholder="Wachtwoord" (ngModel)="password" name="password" class="input" required>
+      <br>
+
+      <button type="submit" [disabled]="!formData.valid" class="login loginmodal-submit">Inloggen</button>
     </form>
-  </mat-card>
+
+
+  </div>
 </div>
