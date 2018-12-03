@@ -33,7 +33,8 @@ export class SessieComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.sessieFormGroup = this.fb.group({
       sessieNaam: [this.sessie.naam, [Validators.required, Validators.minLength(4)]],
-      sessieBeschrijving: [this.sessie.beschrijving, [Validators.required]]
+      sessieBeschrijving: [this.sessie.beschrijving, [Validators.required]],
+      sessieCode: [this.sessie.sessieCode]
     });
     this.getOefeningen();
   }
@@ -103,6 +104,7 @@ export class SessieComponent implements OnInit, OnChanges {
     if (this.sessieFormGroup.valid) {
       this.sessie.naam = this.sessieFormGroup.value.sessieNaam;
       this.sessie.beschrijving = this.sessieFormGroup.value.sessieBeschrijving;
+      this.sessie.sessieCode = this.sessieFormGroup.value.sessieCode;
       this._sessieDataService.updateSessie(this.sessie);
       this.toggleEditMode();
     }

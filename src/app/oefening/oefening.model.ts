@@ -10,6 +10,7 @@ export class Oefening {
     private _fileMimetype: string;
     private _fileOriginalName: string;
     private _fileSize: number;
+    private _groepen: string;
 
     constructor(naam: string, beschrijving: string, sessieId: number) {
       this._naam = naam;
@@ -69,6 +70,10 @@ export class Oefening {
       return this._fileMimetype;
     }
 
+    get groepen(): string {
+      return this._groepen;
+    }
+
     /**
      * Verandert de naam van de oefening
      * @param naam: Dit is de nieuwe naam van de oefening
@@ -105,6 +110,10 @@ export class Oefening {
       this._file = file;
     }
 
+    set groepen(groepen: string) {
+      this._groepen = groepen;
+    }
+
     /**
      * Verandert het sessieid van de oefening
      * @param id: Dit is de nieuwe sessieId van de oefening
@@ -131,7 +140,8 @@ export class Oefening {
         fileMimetype: this._fileMimetype,
         fileName: this._fileName,
         fileOriginalName: this._fileOriginalName,
-        fileSize: this._fileSize
+        fileSize: this._fileSize,
+        groepen: this._groepen
       };
     }
   }
