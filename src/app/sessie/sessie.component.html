@@ -43,6 +43,17 @@
         <mat-card-actions>
         </mat-card-actions>
       </mat-card>
+      <br>
+      <mat-card class="sessie-card">
+        <mat-card-header>
+          <mat-card-title>
+            <h5>Toegangscode</h5>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content *ngIf="!editMode">
+          <p>{{sessie.toegangsCode}}</p>
+        </mat-card-content>
+      </mat-card>
     </mat-card-content>
   </div>
   <mat-card-content>
