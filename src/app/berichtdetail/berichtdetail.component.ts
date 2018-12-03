@@ -21,14 +21,35 @@ export class BerichtdetailComponent implements OnInit {
     let url = "Chat/" + this.user.uid;
     console.log(url);
     this.messagesfb = this.db.list(url).valueChanges();
+
     this.messagesfb.subscribe(actions => {
       actions.forEach(action => {
          let message = new Message();
          message.content = action.content;
          message.messageTime = action.messageTime;
          message.messageUser = action.messageUser;
+
+         if(action.admin === undefined){
+          message.messageUser = this.user.naam;
+
+         }
          this.messages.push(message);
         });
     });
   }
+
+
+  postMessage(input : String){
+    
+    this.messages = [];
+    let messageTime = Date.now();
+
+    //TODO: Haal huidige admin op en vul hier in.
+    let messageUser = "Sarah";
+
+    //workaround omdat de database niet ingevuld is met messageUser uit de db op messages vanuit de android kant.
+    let admin = true;
+    this.db.list("Chat/" + this.user.uid).push({ content: input , messageTime, messageUser, admin});
+  }
+
 }

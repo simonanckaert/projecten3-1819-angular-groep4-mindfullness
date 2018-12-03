@@ -1,5 +1,11 @@
 <ul>
     <li *ngFor="let message of messages">
-        {{message.content}}    
+        {{message.content}}  
+        {{message.messageTime | date:'short'}}  
+        {{message.messageUser}} 
+    </li>
+    <li>
+     <input #chat (keyup.enter)="postMessage(chat.value)"> 
+     <button (click)="postMessage(chat.value)"> post</button>
     </li>
 </ul>
