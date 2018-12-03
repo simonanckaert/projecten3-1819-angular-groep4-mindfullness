@@ -28,12 +28,8 @@
     <br>
     <br>
     <h4>Zichtbaar voor volgende groepen:</h4>
-    <div *ngFor='let nummer of groepNummers'>
-      <mat-checkbox (change)="checkGroep($event, nummer)">
-        {{ nummer }}
-      </mat-checkbox>
-      <br>
-    </div>
+    <p *ngIf="oef.groepen === null">geen groepen geselecteerd</p>
+    <p>{{oef.groepen}}</p>
 
   </div>
   <div mat-dialog-actions class="rightfloat">
@@ -59,6 +55,14 @@
       <input mat-raised-button type="file" class="form-control-file" value="{{oef.file}}" (change)="onFileChange($event)">
     </label>
     <br>
+    <br>
+    Zichtbaar voor volgende groepen:
+    <div *ngFor='let nummer of groepNummers'>
+      <mat-checkbox (change)="checkGroep($event, nummer)" [checked]="isChecked(oef, nummer)">
+        {{ nummer }}
+      </mat-checkbox>
+      <br>
+    </div>
   </div>
   <div mat-dialog-actions class="rightfloat">
     <button mat-button (click)="onNoClick()">Annuleren</button>

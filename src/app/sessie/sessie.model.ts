@@ -6,7 +6,7 @@ export class Sessie {
   private _beschrijving: string;
   private _oefeningen = new Array<Oefening>();
   private _id: number;
-  private _toegangsCode: string;
+  private _sessieCode: string;
 
   constructor(naam: string, beschrijving: string) {
     this._naam = naam;
@@ -37,8 +37,8 @@ export class Sessie {
     /**
    * Geeft de toegangscode van de sessie terug
    */
-  get toegangsCode(): string {
-    return this._toegangsCode;
+  get sessieCode(): string {
+    return this._sessieCode;
   }
 
   /**
@@ -69,8 +69,8 @@ export class Sessie {
    * wijzigt de toegangscode van de sessie
    * @param beschrijving: dit is de nieuwe beschrijving van de sessie
    */
-  set toegangsCode(toegangsCode: string) {
-    this._toegangsCode = toegangsCode;
+  set sessieCode(sessieCode: string) {
+    this._sessieCode = sessieCode;
   }
 
   /**

@@ -48,13 +48,12 @@ export class OefeningComponent implements OnInit {
   ngOnInit() {
     this.oefeningFormGroup = this.fb.group({
       oefeningNaam: [this.oef.naam, [Validators.required, Validators.minLength(4)]],
-      oefeningBeschrijving: [this.oef.beschrijving, [Validators.required]]
+      oefeningBeschrijving: [this.oef.beschrijving, [Validators.required]],
     });
   }
 
   public toggleEditMode(): void {
     this.editMode = !this.editMode;
-    console.log(this.editMode);
   }
 
   checkGroep(result, nummer) {
@@ -66,7 +65,6 @@ export class OefeningComponent implements OnInit {
         this.selectedGroepnummers.splice(index, 1);
       }
     }
-    console.log(this.selectedGroepnummers.length);
   }
 
   oefeningVerwijderen() {
@@ -80,6 +78,12 @@ export class OefeningComponent implements OnInit {
     if (this.oefeningFormGroup.valid) {
       this.oef.naam = this.oefeningFormGroup.value.oefeningNaam;
       this.oef.beschrijving = this.oefeningFormGroup.value.oefeningBeschrijving;
+      let groepen = '';
+      this.selectedGroepnummers.forEach(element => {
+        groepen = groepen + element + ',';
+      });
+      groepen = groepen.slice(0, -1);
+      this.oef.groepen = groepen;
       // this.oef.file = this._file;
 
       this.dialogRef.close(this._oefDataService.updateOefening(this.oef));
@@ -95,5 +99,12 @@ export class OefeningComponent implements OnInit {
 
   openBestand() {
     window.open(globals.backendUrl + '/oefeningen/files/' + this.oef.fileName);
+  }
+
+  isChecked(oef: Oefening, nummer): boolean {
+    if (oef.groepen && oef.groepen.indexOf(nummer) > -1) {
+      return true;
+    }
+    return false;
   }
 }
