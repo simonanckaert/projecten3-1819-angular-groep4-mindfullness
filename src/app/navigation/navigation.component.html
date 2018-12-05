@@ -10,7 +10,7 @@
       <a mat-list-item routerLink="/sessies" routerLinkActive="active">Sessies</a>
       <a mat-list-item href="#">Aankondigingen</a>
       <a mat-list-item routerLink="/gebruikers" routerLinkActive="active">Gebruikers</a>
-      <a mat-list-item href="#">Berichten</a>
+      <a mat-list-item href="/berichten" routerLinkActive="active">Berichten</a>
       <br>
       <br>
       <button *ngIf="(isHandset$ | async)" (click)="logout(); drawer.toggle()" mat-raised-button class="basic-button-center">Afmelden</button>  
