@@ -50,7 +50,7 @@ export class GebruikersComponent implements OnInit {
 
   setGroepen(result: any[]) {
     result.forEach(gebruiker => {
-      if (this.groepNummers.indexOf(gebruiker.groepnr) === -1) {
+      if (gebruiker.groepnr !== undefined && this.groepNummers.indexOf(gebruiker.groepnr) === -1) {
         this.groepNummers.push(gebruiker.groepnr);
       }
     });
