@@ -5,7 +5,6 @@ import { OefeningComponent } from '../oefening/oefening.component';
 import { Oefening } from '../oefening/oefening.model';
 import { OefeningEmptyComponent } from '../oefening-empty/oefening-empty.component';
 import { OefeningDataService } from '../oefening-data.service';
-import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, Validators, FormBuilder } from '../../../node_modules/@angular/forms';
 import { SessieDataService } from '../sessie-data.service';
