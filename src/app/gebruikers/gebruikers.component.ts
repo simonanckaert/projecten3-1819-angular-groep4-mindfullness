@@ -6,7 +6,8 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
   MatDialogConfig,
-  MatDialog
+  MatDialog,
+  MatSnackBar
 } from '@angular/material';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { GebruikerDataService } from '../gebruiker-data.service';
@@ -37,7 +38,8 @@ export class GebruikersComponent implements OnInit {
     public afDb: AngularFireDatabase,
     public af: AngularFireAuth,
     public gService: GebruikerDataService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public snackbar: MatSnackBar
   ) {
     this._gebruikers = this.getItems();
     this._gebruikers.subscribe(result => {
@@ -125,15 +127,15 @@ export class GebruikersComponent implements OnInit {
       this.gService
         .updateUser(uid, updatedGebruiker)
         .subscribe(val => console.log(val));
-      //this.openSnackBar(updatedGebruiker.name, "ok");
+      this.showSnackBar(updatedGebruiker.name, 'ok');
     });
   }
 
-  /*openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
+  showSnackBar(naam: string, action: string) {
+    this.snackbar.open('Groepsnummer van ' + naam + ' succesvol gewijzigd!', action, {
       duration: 2000,
     });
-  }*/
+  }
 
   addGroup() {
     const n: number = +this.groepen[this.groepen.length - 1].value + 1;
@@ -154,8 +156,8 @@ export class GebruikersComponent implements OnInit {
         }
       });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
+      dialogRef.afterClosed().subscribe(r => {
+        if (r) {
           // REMOVE USER
           console.log('Not yet implemented');
         }
