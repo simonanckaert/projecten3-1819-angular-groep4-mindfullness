@@ -29,6 +29,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { RegistrerenComponent } from './registreren/registreren.component';
 import { GebruikersComponent } from './gebruikers/gebruikers.component';
+import { DialogAlert } from './gebruikers/gebruikers.component';
 
 
 /** test@test.com   123456 */
@@ -47,8 +48,9 @@ import { GebruikersComponent } from './gebruikers/gebruikers.component';
     LoginComponent,
     RegistrerenComponent,
     GebruikersComponent,
+    DialogAlert
   ],
-  entryComponents: [OefeningComponent, OefeningEmptyComponent, SessieEmptyComponent],
+  entryComponents: [OefeningComponent, OefeningEmptyComponent, SessieEmptyComponent, DialogAlert],
   imports: [
     BrowserModule,
     HttpClientModule,

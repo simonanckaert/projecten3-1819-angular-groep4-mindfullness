@@ -45,9 +45,16 @@ export class SessieDataService {
       );
   }
 
-  updateSessie(sessie: Sessie): Observable<Sessie> {
+  updateSessie(sessie: Sessie) {
     return this.http
       .put<Sessie>(globals.backendUrl + `/sessies`, sessie)
-      .pipe();
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log(err);
+        }
+      );
   }
 }
