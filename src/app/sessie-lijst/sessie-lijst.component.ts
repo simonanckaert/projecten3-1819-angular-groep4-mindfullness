@@ -4,8 +4,6 @@ import { SessieDataService } from '../sessie-data.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
 import { SessieEmptyComponent } from '../sessie-empty/sessie-empty.component';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FirebaseOptionsToken } from 'angularfire2';
 import { firebaseAndroidConfig } from 'src/environments/environment';
