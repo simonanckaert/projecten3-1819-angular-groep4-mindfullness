@@ -2,10 +2,8 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    height: 92%;
+    width: 99%;
 }
  
 .mat-drawer.mat-drawer-side {
@@ -20,6 +18,7 @@
 }
  
 .conversation-header h2, .conversation-header p {
+    padding: 5px 5px;
     align-items: center;
     display: flex;
 }
@@ -30,7 +29,7 @@
 }
  
 .conversation-history.mat-list {
-    height: calc(100% - 180px);
+    height: calc(100% - 150px);
     overflow-x: scroll;
     position: absolute;
     width: 100%;
@@ -60,19 +59,8 @@
     background-color: #fafafa;
 }
  
-section .mat-list .mat-list-avatar{
-    width: 25px;
-    height: 25px;
-}
  
-.mat-list-avatar {
-    margin: 0 5px;
-}
- 
-.right {
-    text-align: right;
-}
- 
+
 .full-width {
     width: 100%;
 }
@@ -82,6 +70,23 @@ section .mat-list .mat-list-avatar{
 }
  
 .berichtText {
-    font-size: 15pt;
+    font-size: 18pt;
 }
     
+.messageAdmin {
+text-align: right;
+width: 100%;
+}
+.messageClient{
+text-align: left;
+width: 100%;
+}
+.berichtText{
+    width: 100%;
+}
+.miniText{
+    font-size: 9pt;
+}
+.messageGeneral{
+    padding: 1%;
+}
