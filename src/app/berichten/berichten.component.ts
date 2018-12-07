@@ -20,6 +20,8 @@ export class BerichtenComponent implements OnInit {
   public klanten: ChatUser[] = [];
   public gekozenChatUser: ChatUser = null;
   public messagesfb: Observable<any>;
+  textChat:string = null;
+
 
   public messages: Message[] = null;
 
@@ -85,6 +87,8 @@ stuurBericht(tekst : String){
     this.db
       .list("Chat/" + this.gekozenChatUser.uid)
       .push({ content: tekst, messageTime, messageUser, admin });
+
+      this.textChat = '';
   }  
 }
 

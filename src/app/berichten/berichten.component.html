@@ -1,3 +1,4 @@
+
 <mat-sidenav-container class="berichten-container">
   <mat-sidenav mode="side" opened>
     <mat-card>
@@ -25,12 +26,12 @@
 
   <section *ngIf="gekozenChatUser">
     <div class="conversation-header" mat-typography>
-      {{ gekozenChatUser.naam }}
+      <h2>{{ gekozenChatUser.naam }}</h2>
     </div>
     <mat-divider></mat-divider>
     <mat-list dense class="conversation-history mat-typography">
-      <mat-list-item *ngFor="let message of messages">
-        <div class="messageadmin" *ngIf="message.admin" style="text-align: right;">
+      <mat-list-item class="messageGeneral" style="height: auto;" *ngFor="let message of messages">
+        <div class="messageAdmin" *ngIf="message.admin">
           <p class="berichtText">{{ message.content }}</p>
           <p class="miniText">-{{ message.messageTime | date: "short" }}</p>
         </div>
@@ -41,17 +42,26 @@
         </div>
       </mat-list-item>
     </mat-list>
+
+
     <div class="conversation-input">
       <mat-divider></mat-divider>
       <mat-form-field class="full-width">
-        <input
+        <!--input 
           matInput
           placeholder="Typ hier"
           name="text"
-          [(ngModel)]="text"
-          (keyup.enter)="stuurBericht(text)"
-        />
-        <mat-icon matSuffix (click)="stuurBericht(text)">send</mat-icon>
+          [(ngModel)]="textChat"
+          (keyup.enter)="stuurBericht(textChat)"
+        /-->
+         <textarea 
+          matInput
+          placeholder="Typ hier"
+          name="textChat"
+          [(ngModel)]="textChat"
+          oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+        ></textarea>
+        <mat-icon matSuffix (click)="stuurBericht(textChat)">send</mat-icon>
       </mat-form-field>
     </div>
   </section>
