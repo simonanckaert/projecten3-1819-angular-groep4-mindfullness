@@ -33,8 +33,9 @@ export class GebruikerDataService {
     return this.http.put<any>(url, user, httpOptions);
   }
 
+  // REMOVE USER -> NOT WORKING
   removeUser(uid: string) {
-    this.http.delete<any>(globals.backendUrl + '/users/' + uid).subscribe(result => {
+    this.http.delete(globals.backendUrl + '/users/' + uid).subscribe(result => {
       console.log(result);
     });
   }

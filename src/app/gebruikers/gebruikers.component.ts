@@ -158,8 +158,8 @@ export class GebruikersComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(r => {
         if (r) {
-          // REMOVE USER
-          console.log('Not yet implemented');
+          // REMOVE USER -> NOT WORKING
+          this.gService.removeUser(uid);
         }
       });
     });
