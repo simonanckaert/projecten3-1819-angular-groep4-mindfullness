@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Sessie } from './sessie.model';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { OefeningComponent } from '../oefening/oefening.component';
 import { Oefening } from '../oefening/oefening.model';
 import { OefeningEmptyComponent } from '../oefening-empty/oefening-empty.component';
@@ -26,7 +26,8 @@ export class SessieComponent implements OnInit, OnChanges {
     public dialog: MatDialog,
     private _oefDataService: OefeningDataService,
     private _sessieDataService: SessieDataService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public snackbar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -78,6 +79,12 @@ export class SessieComponent implements OnInit, OnChanges {
     });
   }
 
+  showSnackBar(message: string) {
+    this.snackbar.open(message, '', {
+      duration: 2000,
+    });
+  }
+
   toggleEditMode(): void {
     this.editMode = !this.editMode;
   }
@@ -106,6 +113,7 @@ export class SessieComponent implements OnInit, OnChanges {
       this.sessie.sessieCode = this.sessieFormGroup.value.sessieCode;
       this._sessieDataService.updateSessie(this.sessie);
       this.toggleEditMode();
+      this.showSnackBar('Sessie succesvol gewijzigd!');
     }
   }
 }

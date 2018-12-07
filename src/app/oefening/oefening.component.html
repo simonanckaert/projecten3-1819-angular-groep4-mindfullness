@@ -65,7 +65,7 @@
     </div>
   </div>
   <div mat-dialog-actions class="rightfloat">
-    <button mat-button (click)="onNoClick()">Annuleren</button>
-    <button mat-flat-button (click)="oefeningOpslaan()" tabindex=-1 disabled="{{!oefeningFormGroup.valid}}"><strong>Opslaan</strong></button>
+    <button mat-button (click)="onNoClick()" [mat-dialog-close]="false">Annuleren</button>
+    <button mat-flat-button (click)="oefeningOpslaan()" tabindex=-1 disabled="{{!oefeningFormGroup.valid}}" [mat-dialog-close]="true"><strong>Opslaan</strong></button>
   </div>
 </div>
