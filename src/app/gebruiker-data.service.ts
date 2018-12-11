@@ -32,4 +32,10 @@ export class GebruikerDataService {
     const url = globals.backendUrl + `/users/` + uid;
     return this.http.put<any>(url, user, httpOptions);
   }
+
+  removeUser(uid: string) {
+    this.http.delete<any>(globals.backendUrl + '/users/' + uid).subscribe(result => {
+      console.log(result);
+    });
+  }
 }

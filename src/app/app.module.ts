@@ -9,7 +9,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule } from '@angular/material';
 import { MatButtonToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatTableModule } from '@angular/material';
-import { MatSelectModule, MatCheckboxModule } from '@angular/material';
+import { MatSelectModule, MatCheckboxModule, MatSnackBarModule } from '@angular/material';
 import { HomeComponent } from './home/home.component';
 import { SessieLijstComponent } from './sessie-lijst/sessie-lijst.component';
 import { SessieComponent } from './sessie/sessie.component';
@@ -29,6 +29,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { RegistrerenComponent } from './registreren/registreren.component';
 import { GebruikersComponent } from './gebruikers/gebruikers.component';
+import { DialogAlert } from './gebruikers/gebruikers.component';
 
 
 /** test@test.com   123456 */
@@ -47,8 +48,9 @@ import { GebruikersComponent } from './gebruikers/gebruikers.component';
     LoginComponent,
     RegistrerenComponent,
     GebruikersComponent,
+    DialogAlert
   ],
-  entryComponents: [OefeningComponent, OefeningEmptyComponent, SessieEmptyComponent],
+  entryComponents: [OefeningComponent, OefeningEmptyComponent, SessieEmptyComponent, DialogAlert],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -69,6 +71,7 @@ import { GebruikersComponent } from './gebruikers/gebruikers.component';
     MatTableModule,
     MatSelectModule,
     MatCheckboxModule,
+    MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseAndroidConfig, 'angular'),
