@@ -1,13 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import {
-  AngularFireDatabase,
-  AngularFireList,
-  AngularFireObject
-} from "angularfire2/database";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import { Observable } from "rxjs";
-import { MatTableDataSource } from "@angular/material";
-import { map } from "rxjs/operators";
 import * as firebase from "firebase";
+import {
+  AngularFirestore,
+  AngularFirestoreDocument
+} from "@angular/fire/firestore";
+import { AngularFireAuth } from "@angular/fire/auth";
 
 @Component({
   selector: "app-berichten",
@@ -16,28 +15,67 @@ import * as firebase from "firebase";
 })
 export class BerichtenComponent implements OnInit {
   chatRef$: AngularFireList<any>;
-  items: Observable<any[]>;
   public klanten: ChatUser[] = [];
+  public ongelezen: number[] = [];
   public gekozenChatUser: ChatUser = null;
+  public items: Observable<any[]>;
   public messagesfb: Observable<any>;
-  textChat:string = null;
+  public gelezenMessages: Observable<any>;
+  public ongelezenMessages: Observable<any>;
 
-
+  public _name: string = "";
+  textChat: string = null;
+  private teller: number = 0;
   public messages: Message[] = null;
 
-  constructor(public db: AngularFireDatabase) {
+  constructor(
+    public db: AngularFireDatabase,
+    public af: AngularFireAuth,
+    private afs: AngularFirestore,
+    private cd: ChangeDetectorRef
+  ) {
     this.items = db.list("Chat").snapshotChanges();
+
     this.items.subscribe(actions => {
       this.klanten = [];
       actions.forEach(action => {
         this.zoekKlant(action.key).subscribe(value => {
-          let chatuser = new ChatUser();
-          chatuser.naam = value;
-          chatuser.uid = action.key;
-          chatuser.messages = action.payload.val();
-          this.klanten.push(chatuser);
+          let chatUser = new ChatUser();
+          chatUser.naam = value;
+          chatUser.uid = action.key;
+          this.klanten.push(chatUser);
         });
       });
+    });
+
+    this.items.subscribe(actions => {
+      this.ongelezen = [];
+      actions.forEach(action => {
+          this.geefWeerOngelezens(action.key).subscribe( value => {
+            let waarde: number = 0;
+            value.forEach( v => {
+              if(!v.gelezen){
+                waarde++;
+              }
+            })
+            this.ongelezen.push(waarde);
+          });
+      });
+    });
+
+    const cu = this.af.user.subscribe(au => {
+      if (au) {
+        const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+          `admins/${au.uid}`
+        );
+        const user = userRef.valueChanges();
+        if (user) {
+          user.subscribe(value => {
+            this._name = value.displayName;
+            // console.log(value.displayName);
+          });
+        }
+      }
     });
   }
 
@@ -56,15 +94,16 @@ export class BerichtenComponent implements OnInit {
   getGesprekken(user: ChatUser) {
     this.messages = [];
     this.messagesfb = this.db.list("Chat/" + user.uid).valueChanges();
+
     this.messagesfb.subscribe(actions => {
       this.messages = [];
-
       actions.forEach(a => {
         let message = new Message();
         message.content = a.content;
         message.messageTime = a.messageTime;
         message.messageUser = a.messageUser;
         message.admin = true;
+
         if (a.admin === undefined) {
           message.admin = false;
           message.messageUser = this.gekozenChatUser.naam;
@@ -72,26 +111,61 @@ export class BerichtenComponent implements OnInit {
         this.messages.push(message);
       });
     });
+    this.controleerGelezen();
   }
 
-stuurBericht(tekst : String){
-  if (tekst != "") {
-    //this.messages = [];
-    let messageTime = Date.now();
+  geefWeerOngelezens(uid: String): Observable<any> {
+    return  this.db.list("Chat/" + uid).valueChanges();
+  }
 
-    //TODO: Haal huidige admin op en vul hier in.
-    let messageUser = "Sarah";
 
-    //workaround omdat de database niet ingevuld is met messageUser uit de db op messages vanuit de android kant.
-    let admin = true;
-    this.db
+  geefWeerOngelezen(uid: String): number {
+    this.ongelezenMessages = this.db.list("Chat/" + uid).valueChanges();
+    this.ongelezenMessages.subscribe(actions => {
+      let teller;
+      actions.forEach(a => {
+        if (!a.gelezen) {
+          teller++;
+        }
+      });
+      console.log(teller);
+      this.teller = teller;
+    });
+    console.log(this.teller);
+    return this.teller;
+  }
+
+  controleerGelezen() {
+    this.gelezenMessages = this.db
       .list("Chat/" + this.gekozenChatUser.uid)
-      .push({ content: tekst, messageTime, messageUser, admin });
+      .snapshotChanges();
+    this.gelezenMessages.subscribe(actions => {
+      actions.forEach(a => {
+        this.db
+          .list("Chat/" + this.gekozenChatUser.uid)
+          .update(a.key, { gelezen: true });
+      });
+    });
+  }
 
-      this.textChat = '';
-  }  
-}
+  stuurBericht(tekst: String) {
+    if (tekst != "") {
+      //this.messages = [];
+      let messageTime = Date.now();
 
+      //TODO: Haal huidige admin op en vul hier in.
+      let messageUser = this._name;
+
+      //workaround omdat de database niet ingevuld is met messageUser uit de db op messages vanuit de android kant.
+      let admin = true;
+      let gelezen = true;
+      this.db
+        .list("Chat/" + this.gekozenChatUser.uid)
+        .push({ content: tekst, gelezen, messageTime, messageUser, admin });
+
+      this.textChat = "";
+    }
+  }
 }
 export class Message {
   content: String;
@@ -103,5 +177,5 @@ export class Message {
 export class ChatUser {
   naam: String;
   uid: String;
-  messages: Message[];
+  ongelezen: number;
 }

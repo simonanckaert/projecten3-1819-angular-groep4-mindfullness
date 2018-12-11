@@ -1,4 +1,4 @@
-<mat-card class="nav-card">
+<mat-card class="nav-card animated">
         <mat-card-header>
           <mat-card-title>
             <h1 class="animated fadeIn">{{berekenGroet}} {{name}}!</h1>
@@ -7,6 +7,6 @@
         </mat-card-header>
 
         <mat-card-actions>
-          <button mat-button><u class="animated fadeIn delay-2s">U hebt 1 nieuw bericht!</u></button>
+          <button mat-button routerLink="/berichten" routerLinkActive="active"><u class="animated fadeIn delay-2s">{{ongelezenBericht}}</u></button>
         </mat-card-actions>
 </mat-card>
