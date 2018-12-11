@@ -30,6 +30,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { RegistrerenComponent } from './registreren/registreren.component';
 import { GebruikersComponent } from './gebruikers/gebruikers.component';
 import { BerichtenComponent } from './berichten/berichten.component';
+import { DialogAlert } from './gebruikers/gebruikers.component';
+
 
 /** test@test.com   123456 */
 
@@ -48,8 +50,9 @@ import { BerichtenComponent } from './berichten/berichten.component';
     RegistrerenComponent,
     GebruikersComponent,
     BerichtenComponent,
+    DialogAlert
   ],
-  entryComponents: [OefeningComponent, OefeningEmptyComponent, SessieEmptyComponent],
+  entryComponents: [OefeningComponent, OefeningEmptyComponent, SessieEmptyComponent, DialogAlert],
   imports: [
     BrowserModule,
     HttpClientModule,
