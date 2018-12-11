@@ -33,9 +33,8 @@ export class GebruikerDataService {
     return this.http.put<any>(url, user, httpOptions);
   }
 
-  removeUser(uid: string) {
-    this.http.delete<any>(globals.backendUrl + '/users/' + uid).subscribe(result => {
-      console.log(result);
-    });
+
+  removeUser(uid: string): Observable<any> {
+    return this.http.delete(globals.backendUrl + '/users/' + uid)
   }
 }
