@@ -15,8 +15,9 @@
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 2;
   background-color: #AFDBCE;
+  width: 100%;
 }
 
 .mat-list-item {
