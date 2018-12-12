@@ -51,11 +51,9 @@
       </mat-form-field>
     </form>
 
-    <label for="sessieBestand">
+    <!--label for="sessieBestand">
       <input mat-raised-button type="file" class="form-control-file" value="{{oef.file}}" (change)="onFileChange($event)">
-    </label>
-    <br>
-    <br>
+    </label-->
     Zichtbaar voor volgende groepen:
     <div *ngFor='let nummer of groepNummers'>
       <mat-checkbox (change)="checkGroep($event, nummer)" [checked]="isChecked(oef, nummer)">

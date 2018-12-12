@@ -84,7 +84,7 @@ export class OefeningComponent implements OnInit {
       });
       groepen = groepen.slice(0, -1);
       this.oef.groepen = groepen;
-      // this.oef.file = this._file;
+      this.oef.file = this._file;
 
       this.dialogRef.close(this._oefDataService.updateOefening(this.oef));
     }
