@@ -1,7 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from "@angular/core";
+import { AngularFireAuth } from "angularfire2/auth";
+import {
+  AngularFirestore,
+  AngularFirestoreDocument
+} from "@angular/fire/firestore";
+import * as firebase from "firebase";
+import { Observable } from "rxjs";
+import { AngularFireDatabase } from "angularfire2/database";
+import { Message } from "../berichten/berichten.component";
 
 interface User {
   uid: string;
@@ -10,23 +16,30 @@ interface User {
 }
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"]
 })
 export class HomeComponent implements OnInit {
-
   private _datum: Date;
   private _uur: Number;
   private _name: Observable<String>;
+  private _onGelezenBericht: number = 0;
 
-  constructor(public af: AngularFireAuth, private afs: AngularFirestore) {
+  private dbChat: Observable<any>;
+  private dbMessages: Observable<any>;
+
+  constructor(public af: AngularFireAuth, private afs: AngularFirestore, private db: AngularFireDatabase) {
     this._datum = new Date();
     this._uur = this._datum.getHours();
 
+    this.controleerGelezen();
+
     const cu = this.af.user.subscribe(au => {
       if (au) {
-        const userRef: AngularFirestoreDocument<any> = this.afs.doc(`admins/${au.uid}`);
+        const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+          `admins/${au.uid}`
+        );
         const user = userRef.valueChanges();
         if (user) {
           user.subscribe(value => {
@@ -38,8 +51,27 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  controleerGelezen() {
+    this.dbChat = this.db.list("Chat/").snapshotChanges();
+    this.dbChat.subscribe(actions => {
+      console.log(actions)
+      actions.forEach(chat => {
+        this.dbMessages = this.db.list("Chat/" + chat.key).valueChanges();
+        this.dbMessages.subscribe(messages => {
+          this._onGelezenBericht = 0;
+          messages.forEach(m => {
+            if(!m.gelezen){
+              this._onGelezenBericht++
+            }
+          })
+        })
+       });
+    }); 
   }
+
+  
+
+  ngOnInit() {}
 
   /**
    * Geeft het uur van nu terug
@@ -51,25 +83,34 @@ export class HomeComponent implements OnInit {
   get name(): Observable<String> {
     return this._name;
   }
+  get ongelezenBericht(): String{
+    if(this._onGelezenBericht === 0){
+      return "U heeft geen nieuwe berichten."
+    } else if(this._onGelezenBericht === 1){
+      return "U heeft 1 nieuw bericht."
+    } else if(this._onGelezenBericht > 1){
+      return "U heeft " + this._onGelezenBericht + " berichten."
+    }
+  }
 
   /**
    * Geeft de begroetboodschap van nu terug
    */
   get berekenGroet(): string {
     if (this.uur < 6) {
-      return 'Goeienacht ';
+      return "Goeienacht ";
     } else if (this.uur < 12) {
-      return 'Goeiemorgen ';
+      return "Goeiemorgen ";
     } else if (this.uur < 14) {
-      return 'Goeiemiddag ';
+      return "Goeiemiddag ";
     } else if (this.uur < 18) {
-      return 'Goeienamiddag ';
+      return "Goeienamiddag ";
     } else if (this.uur < 22) {
-      return 'Goeieavond ';
+      return "Goeieavond ";
     } else if (this.uur < 24) {
-      return 'Goeienacht ';
+      return "Goeienacht ";
     } else {
-      return 'Goeiedag ';
+      return "Goeiedag ";
     }
   }
 }
