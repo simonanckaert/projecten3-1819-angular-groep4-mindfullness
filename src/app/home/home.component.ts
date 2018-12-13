@@ -7,7 +7,6 @@ import {
 import * as firebase from "firebase";
 import { Observable } from "rxjs";
 import { AngularFireDatabase } from "angularfire2/database";
-import { Message } from "../berichten/berichten.component";
 
 interface User {
   uid: string;
@@ -23,7 +22,7 @@ interface User {
 export class HomeComponent implements OnInit {
   private _datum: Date;
   private _uur: Number;
-  private _name: Observable<String>;
+  private name$: Observable<String>;
   private _onGelezenBericht: number = 0;
 
   private dbChat: Observable<any>;
@@ -43,7 +42,8 @@ export class HomeComponent implements OnInit {
         const user = userRef.valueChanges();
         if (user) {
           user.subscribe(value => {
-            this._name = value.displayName;
+            this.name$ = value.displayName;
+            // console.log(value.displayName);
           });
         }
       }
@@ -52,12 +52,15 @@ export class HomeComponent implements OnInit {
 
   controleerGelezen() {
     this.dbChat = this.db.list("Chat/").snapshotChanges();
+
     this.dbChat.subscribe(actions => {
-      console.log(actions)
+      //console.log(actions)
       actions.forEach(chat => {
         this.dbMessages = this.db.list("Chat/" + chat.key).valueChanges();
+        this._onGelezenBericht = 0;
+
         this.dbMessages.subscribe(messages => {
-          this._onGelezenBericht = 0;
+        //  this._onGelezenBericht = 0;
           messages.forEach(m => {
             if(!m.gelezen){
               this._onGelezenBericht++
@@ -80,7 +83,7 @@ export class HomeComponent implements OnInit {
   }
 
   get name(): Observable<String> {
-    return this._name;
+    return this.name$;
   }
   get ongelezenBericht(): String{
     if(this._onGelezenBericht === 0){

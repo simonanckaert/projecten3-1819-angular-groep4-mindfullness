@@ -18,7 +18,7 @@ export class BerichtenComponent implements OnInit {
   public klanten: ChatUser[] = [];
   public ongelezen: number[] = [];
   public gekozenChatUser: ChatUser = null;
-  public items: Observable<any[]>;
+  public chat$: Observable<any[]>;
   public messagesfb: Observable<any>;
   public gelezenMessages: Observable<any>;
   public ongelezenMessages: Observable<any>;
@@ -34,9 +34,9 @@ export class BerichtenComponent implements OnInit {
     private afs: AngularFirestore,
     private cd: ChangeDetectorRef
   ) {
-    this.items = db.list("Chat").snapshotChanges();
+    this.chat$ = db.list("Chat").snapshotChanges();
 
-    this.items.subscribe(actions => {
+    this.chat$.subscribe(actions => {
       this.klanten = [];
       actions.forEach(action => {
         this.zoekKlant(action.key).subscribe(value => {
@@ -48,10 +48,10 @@ export class BerichtenComponent implements OnInit {
       });
     });
 
-    this.items.subscribe(actions => {
+    this.chat$.subscribe(actions => {
       this.ongelezen = [];
       actions.forEach(action => {
-          this.geefWeerOngelezens(action.key).subscribe( value => {
+          this.geefWeerOngelezen(action.key).subscribe( value => {
             let waarde: number = 0;
             value.forEach( v => {
               if(!v.gelezen){
@@ -114,11 +114,11 @@ export class BerichtenComponent implements OnInit {
     this.controleerGelezen();
   }
 
-  geefWeerOngelezens(uid: String): Observable<any> {
+  geefWeerOngelezen(uid: String): Observable<any> {
     return  this.db.list("Chat/" + uid).valueChanges();
   }
 
-
+/*
   geefWeerOngelezen(uid: String): number {
     this.ongelezenMessages = this.db.list("Chat/" + uid).valueChanges();
     this.ongelezenMessages.subscribe(actions => {
@@ -133,7 +133,7 @@ export class BerichtenComponent implements OnInit {
     });
     console.log(this.teller);
     return this.teller;
-  }
+  }*/
 
   controleerGelezen() {
     this.gelezenMessages = this.db
