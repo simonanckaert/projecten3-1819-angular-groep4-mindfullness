@@ -7,8 +7,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatTabsModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule } from '@angular/material';
 import { MatButtonToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatTableModule } from '@angular/material';
+import { MatTabsModule } from '@angular/material';
 import { MatSelectModule, MatCheckboxModule, MatSnackBarModule } from '@angular/material';
 import { HomeComponent } from './home/home.component';
 import { SessieLijstComponent } from './sessie-lijst/sessie-lijst.component';
@@ -31,6 +32,8 @@ import { RegistrerenComponent } from './registreren/registreren.component';
 import { GebruikersComponent } from './gebruikers/gebruikers.component';
 import { BerichtenComponent } from './berichten/berichten.component';
 import { DialogAlert } from './gebruikers/gebruikers.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { ChartsModule } from 'ng2-charts';
 
 
 /** test@test.com   123456 */
@@ -50,7 +53,8 @@ import { DialogAlert } from './gebruikers/gebruikers.component';
     RegistrerenComponent,
     GebruikersComponent,
     BerichtenComponent,
-    DialogAlert
+    DialogAlert,
+    FeedbackComponent
   ],
   entryComponents: [OefeningComponent, OefeningEmptyComponent, SessieEmptyComponent, DialogAlert],
   imports: [
@@ -75,6 +79,7 @@ import { DialogAlert } from './gebruikers/gebruikers.component';
     MatSelectModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    ChartsModule,
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseAndroidConfig, 'angular'),
