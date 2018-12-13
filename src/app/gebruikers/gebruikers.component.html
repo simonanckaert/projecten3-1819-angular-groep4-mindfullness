@@ -72,5 +72,9 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <br>
+    <div style="float: right" *ngIf="dataSource.data.length > 1 || dataSource.data.length == 0"><b>{{dataSource.data.length}}</b> gebruikers</div>
+    <div style="float: right" *ngIf="dataSource.data.length == 1"><b>{{dataSource.data.length}}</b> gebruiker</div>
+    <br>
   </mat-card-content>
 </mat-card>

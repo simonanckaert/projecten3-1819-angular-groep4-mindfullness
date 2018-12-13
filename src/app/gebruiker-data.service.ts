@@ -33,7 +33,6 @@ export class GebruikerDataService {
     return this.http.put<any>(url, user, httpOptions);
   }
 
-
   removeUser(uid: string): Observable<any> {
     return this.http.delete(globals.backendUrl + '/users/' + uid)
   }
