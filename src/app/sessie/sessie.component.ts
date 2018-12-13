@@ -87,6 +87,11 @@ export class SessieComponent implements OnInit, OnChanges {
 
   toggleEditMode(): void {
     this.editMode = !this.editMode;
+    this.sessieFormGroup = this.fb.group({
+      sessieNaam: [this.sessie.naam, [Validators.required, Validators.minLength(4)]],
+      sessieBeschrijving: [this.sessie.beschrijving, [Validators.required]],
+      sessieCode: [this.sessie.sessieCode]
+    });
   }
 
   getOefeningen() {
