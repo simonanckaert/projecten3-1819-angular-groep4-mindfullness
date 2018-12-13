@@ -33,7 +33,9 @@ export class OefeningEmptyComponent implements OnInit {
   setGroepen(result: any[]) {
     result.forEach(gebruiker => {
       if (this.groepNummers.indexOf(gebruiker.groepnr) === -1) {
-        this.groepNummers.push(gebruiker.groepnr);
+        if (gebruiker.groepnr !== '0') {
+          this.groepNummers.push(gebruiker.groepnr);
+        }
       }
     });
     this.groepNummers.sort();
@@ -59,15 +61,19 @@ export class OefeningEmptyComponent implements OnInit {
         this.selectedGroepnummers.splice(index, 1);
       }
     }
-    console.log(this.selectedGroepnummers.length);
   }
 
   oefeningOpslaan() {
     if (this.oefeningFormGroup.valid) {
       const oefening = new Oefening(this.oefeningFormGroup.value.oefeningNaam,
         this.oefeningFormGroup.value.oefeningBeschrijving, this.data.sessieId);
+      let groepen = '';
+      this.selectedGroepnummers.forEach(element => {
+        groepen = groepen + element + ',';
+      });
+      groepen = groepen.slice(0, -1);
+      oefening.groepen = groepen;
       oefening.file = this._file;
-
       this.dialogRef.close(this._oefDataService.voegNieuweOefeningToe(oefening).subscribe());
     }
   }

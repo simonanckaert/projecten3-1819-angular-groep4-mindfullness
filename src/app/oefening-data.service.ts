@@ -29,6 +29,7 @@ export class OefeningDataService {
     fd.append('naam', oefening.naam);
     fd.append('beschrijving', oefening.beschrijving);
     fd.append('sessieId', oefening.sessieId.toString());
+    fd.append('groepen', oefening.groepen);
     fd.append('file', oefening.file);
 
     return this.http
