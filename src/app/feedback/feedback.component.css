@@ -3,7 +3,7 @@
   }
   
   .list-group-item.active {
-    z-index: 2;
+    z-index: 0;
     background-color: #87D37C;
     border: 1px solid darkgray;
   }
