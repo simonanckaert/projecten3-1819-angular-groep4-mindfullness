@@ -35,7 +35,9 @@ export class OefeningComponent implements OnInit {
   setGroepen(result: any[]) {
     result.forEach(gebruiker => {
       if (this.groepNummers.indexOf(gebruiker.groepnr) === -1) {
-        this.groepNummers.push(gebruiker.groepnr);
+        if (gebruiker.groepnr !== '0') {
+          this.groepNummers.push(gebruiker.groepnr);
+        }
       }
     });
     this.groepNummers.sort();
@@ -74,7 +76,7 @@ export class OefeningComponent implements OnInit {
     }
   }
 
-  oefeningOpslaan(): void {
+  oefeningOpslaan() {
     if (this.oefeningFormGroup.valid) {
       this.oef.naam = this.oefeningFormGroup.value.oefeningNaam;
       this.oef.beschrijving = this.oefeningFormGroup.value.oefeningBeschrijving;
@@ -84,7 +86,7 @@ export class OefeningComponent implements OnInit {
       });
       groepen = groepen.slice(0, -1);
       this.oef.groepen = groepen;
-      // this.oef.file = this._file;
+      this.oef.file = this._file;
 
       this.dialogRef.close(this._oefDataService.updateOefening(this.oef));
     }

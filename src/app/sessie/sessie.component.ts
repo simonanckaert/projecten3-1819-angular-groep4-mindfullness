@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Sessie } from './sessie.model';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { OefeningComponent } from '../oefening/oefening.component';
 import { Oefening } from '../oefening/oefening.model';
 import { OefeningEmptyComponent } from '../oefening-empty/oefening-empty.component';
 import { OefeningDataService } from '../oefening-data.service';
-import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, Validators, FormBuilder } from '../../../node_modules/@angular/forms';
 import { SessieDataService } from '../sessie-data.service';
@@ -27,7 +26,8 @@ export class SessieComponent implements OnInit, OnChanges {
     public dialog: MatDialog,
     private _oefDataService: OefeningDataService,
     private _sessieDataService: SessieDataService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public snackbar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -79,8 +79,19 @@ export class SessieComponent implements OnInit, OnChanges {
     });
   }
 
+  showSnackBar(message: string) {
+    this.snackbar.open(message, '', {
+      duration: 2000,
+    });
+  }
+
   toggleEditMode(): void {
     this.editMode = !this.editMode;
+    this.sessieFormGroup = this.fb.group({
+      sessieNaam: [this.sessie.naam, [Validators.required, Validators.minLength(4)]],
+      sessieBeschrijving: [this.sessie.beschrijving, [Validators.required]],
+      sessieCode: [this.sessie.sessieCode]
+    });
   }
 
   getOefeningen() {
@@ -107,6 +118,7 @@ export class SessieComponent implements OnInit, OnChanges {
       this.sessie.sessieCode = this.sessieFormGroup.value.sessieCode;
       this._sessieDataService.updateSessie(this.sessie);
       this.toggleEditMode();
+      this.showSnackBar('Sessie succesvol gewijzigd!');
     }
   }
 }

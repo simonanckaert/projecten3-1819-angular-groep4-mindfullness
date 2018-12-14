@@ -7,9 +7,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
+
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatDatepickerModule, } from '@angular/material';
 import { MatButtonToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatTableModule ,MatNativeDateModule,} from '@angular/material';
 import { MatSelectModule, MatCheckboxModule } from '@angular/material';
+import { MatTabsModule } from '@angular/material';
 import { HomeComponent } from './home/home.component';
 import { SessieLijstComponent } from './sessie-lijst/sessie-lijst.component';
 import { SessieComponent } from './sessie/sessie.component';
@@ -35,6 +37,11 @@ import { CommonModule } from '@angular/common';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { BerichtenComponent } from './berichten/berichten.component';
+import { DialogAlert } from './gebruikers/gebruikers.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { ChartsModule } from 'ng2-charts';
+
 
 /** test@test.com   123456 */
 
@@ -52,10 +59,15 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     RegistrerenComponent,
     GebruikersComponent,
+
     AankondigingenComponent,
     AankondigingenComponentDialog
+    BerichtenComponent,
+    DialogAlert,
+    FeedbackComponent
   ],
-  entryComponents: [OefeningComponent, OefeningEmptyComponent, SessieEmptyComponent, AankondigingenComponentDialog],
+  entryComponents: [OefeningComponent, OefeningEmptyComponent, SessieEmptyComponent, AankondigingenComponentDialog,DialogAlert],
+
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -66,6 +78,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
+    MatTabsModule,
     MatIconModule,
     MatListModule,
     MatCardModule,
@@ -77,6 +90,8 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     MatSelectModule,
     MatDatepickerModule,
     MatCheckboxModule,
+    MatSnackBarModule,
+    ChartsModule,
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseAndroidConfig, 'angular'),

@@ -7,11 +7,11 @@
   <mat-card-content>
 
     <button mat-button *ngFor='let groep of groepNummers' (click)="applyGroepFilter(groep)" class="sessies-card-groep mat-elevation-z2"
-    [class.active]="groep === selectedGroepNr">
-        {{groep}}
+      [class.active]="groep === selectedGroepNr">
+      {{groep}}
     </button>
     <button mat-button class="sessies-card-groep mat-elevation-z2" (click)="addGroup()">
-        +
+      +
     </button>
   </mat-card-content>
 </mat-card>
@@ -59,8 +59,22 @@
         </td>
       </ng-container>
 
+      <!-- Delete Column -->
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="removeUser(element.uid)" style="float: right">
+            <mat-icon class="remove-icon">delete_forever</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <br>
+    <div style="float: right" *ngIf="dataSource.data.length > 1 || dataSource.data.length == 0"><b>{{dataSource.data.length}}</b> gebruikers</div>
+    <div style="float: right" *ngIf="dataSource.data.length == 1"><b>{{dataSource.data.length}}</b> gebruiker</div>
+    <br>
   </mat-card-content>
 </mat-card>

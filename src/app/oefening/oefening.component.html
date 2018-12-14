@@ -51,11 +51,9 @@
       </mat-form-field>
     </form>
 
-    <label for="sessieBestand">
+    <!--label for="sessieBestand">
       <input mat-raised-button type="file" class="form-control-file" value="{{oef.file}}" (change)="onFileChange($event)">
-    </label>
-    <br>
-    <br>
+    </label-->
     Zichtbaar voor volgende groepen:
     <div *ngFor='let nummer of groepNummers'>
       <mat-checkbox (change)="checkGroep($event, nummer)" [checked]="isChecked(oef, nummer)">
@@ -65,7 +63,7 @@
     </div>
   </div>
   <div mat-dialog-actions class="rightfloat">
-    <button mat-button (click)="onNoClick()">Annuleren</button>
-    <button mat-flat-button (click)="oefeningOpslaan()" tabindex=-1 disabled="{{!oefeningFormGroup.valid}}"><strong>Opslaan</strong></button>
+    <button mat-button (click)="onNoClick()" [mat-dialog-close]="false">Annuleren</button>
+    <button mat-flat-button (click)="oefeningOpslaan()" tabindex=-1 disabled="{{!oefeningFormGroup.valid}}" [mat-dialog-close]="true"><strong>Opslaan</strong></button>
   </div>
 </div>

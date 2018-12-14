@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Sessie } from '../sessie/sessie.model';
 import { MatDialogRef } from '@angular/material';
 import { FormGroup, Validators, FormBuilder } from '../../../node_modules/@angular/forms';
