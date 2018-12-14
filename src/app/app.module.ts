@@ -10,7 +10,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatDatepickerModule, } from '@angular/material';
 import { MatButtonToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatTableModule ,MatNativeDateModule,} from '@angular/material';
-import { MatSelectModule, MatCheckboxModule } from '@angular/material';
+import { MatSelectModule, MatCheckboxModule,MatSnackBarModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material';
 import { HomeComponent } from './home/home.component';
 import { SessieLijstComponent } from './sessie-lijst/sessie-lijst.component';
@@ -61,7 +61,7 @@ import { ChartsModule } from 'ng2-charts';
     GebruikersComponent,
 
     AankondigingenComponent,
-    AankondigingenComponentDialog
+    AankondigingenComponentDialog,
     BerichtenComponent,
     DialogAlert,
     FeedbackComponent
