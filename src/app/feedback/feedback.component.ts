@@ -107,28 +107,6 @@ export class FeedbackComponent implements OnInit, OnChanges {
     });
   }
 
-  /*getOefeningen() {
-    return this._oefDataService
-      .getOefeningen()
-      .subscribe(oefeningen => {
-        (this._oefeningen = oefeningen);
-        oefeningen.forEach(oefening => {
-          this.barChartLabels.push(oefening.naam);
-          this.getFeedback(oefening).subscribe(f: Feedback[] => {
-            f.forEach(element => {
-              this.barChartData[0].data.push(element.score);
-            });
-          });
-        },
-          (error: HttpErrorResponse) => {
-            this.errorMsg = `Error ${
-              error.status
-              } while trying to retrieve oefeningen: ${error.error}`;
-          }
-        );
-      });
-  }*/
-
   oefeningGekozen(): boolean {
     if (this._oefening != null) {
       return true;
