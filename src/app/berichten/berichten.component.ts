@@ -1,69 +1,45 @@
-import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import * as firebase from "firebase";
 import {
   AngularFirestore,
   AngularFirestoreDocument
 } from "@angular/fire/firestore";
 import { AngularFireAuth } from "@angular/fire/auth";
+import { takeWhile } from "rxjs/operators";
 
 @Component({
   selector: "app-berichten",
   templateUrl: "./berichten.component.html",
   styleUrls: ["./berichten.component.css"]
 })
-export class BerichtenComponent implements OnInit {
+export class BerichtenComponent implements OnInit, OnDestroy {
   chatRef$: AngularFireList<any>;
   public klanten: ChatUser[] = [];
   public ongelezen: number[] = [];
   public gekozenChatUser: ChatUser = null;
   public chat$: Observable<any[]>;
-  public messagesfb: Observable<any>;
-  public gelezenMessages: Observable<any>;
-  public ongelezenMessages: Observable<any>;
+  public messagesfb$: Observable<any>;
+  public gelezenMessages$: Observable<any>;
+  private huidigeGebruikerSub: Subscription;
+  private gelezenChecker: Subscription;
+  private initieleSubscription: Subscription;
 
   public _name: string = "";
   textChat: string = null;
-  private teller: number = 0;
   public messages: Message[] = null;
 
   constructor(
     public db: AngularFireDatabase,
     public af: AngularFireAuth,
-    private afs: AngularFirestore,
-    private cd: ChangeDetectorRef
+    private afs: AngularFirestore
   ) {
     this.chat$ = db.list("Chat").snapshotChanges();
 
-    this.chat$.subscribe(actions => {
-      this.klanten = [];
-      actions.forEach(action => {
-        this.zoekKlant(action.key).subscribe(value => {
-          let chatUser = new ChatUser();
-          chatUser.naam = value;
-          chatUser.uid = action.key;
-          this.klanten.push(chatUser);
-        });
-      });
-    });
+    this.initieerLijsten();
 
-    this.chat$.subscribe(actions => {
-      this.ongelezen = [];
-      actions.forEach(action => {
-          this.geefWeerOngelezen(action.key).subscribe( value => {
-            let waarde: number = 0;
-            value.forEach( v => {
-              if(!v.gelezen){
-                waarde++;
-              }
-            })
-            this.ongelezen.push(waarde);
-          });
-      });
-    });
-
-    const cu = this.af.user.subscribe(au => {
+    this.af.user.subscribe(au => {
       if (au) {
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(
           `admins/${au.uid}`
@@ -72,7 +48,6 @@ export class BerichtenComponent implements OnInit {
         if (user) {
           user.subscribe(value => {
             this._name = value.displayName;
-            // console.log(value.displayName);
           });
         }
       }
@@ -81,21 +56,64 @@ export class BerichtenComponent implements OnInit {
 
   ngOnInit() {}
 
+  //sluit alle observables
+  ngOnDestroy() {
+    this.initieleSubscription.unsubscribe();
+    if (this.huidigeGebruikerSub) {
+      this.huidigeGebruikerSub.unsubscribe();
+    }
+    if (this.gelezenChecker) {
+      this.gelezenChecker.unsubscribe();
+    }
+  }
+
+  //vult observables in om de lijsten van chat weer te geven.
+  initieerLijsten() {
+    this.initieleSubscription = this.chat$.subscribe(actions => {
+      this.klanten = [];
+      this.ongelezen = [];
+      actions.forEach(action => {
+        this.zoekKlant(action.key).subscribe(value => {
+          let chatUser = new ChatUser();
+          chatUser.naam = value;
+          chatUser.uid = action.key;
+          this.klanten.push(chatUser);
+        });
+        this.geefWeerOngelezen(action.key).subscribe(value => {
+          let waarde: number = 0;
+          value.forEach(v => {
+            if (!v.gelezen) {
+              waarde++;
+            }
+          });
+          this.ongelezen.push(waarde);
+        });
+      });
+    });
+  }
+
   //haalt de naam van de klant op uit hun id die bij de chatberichten hoort en geeft deze terug als een observable.
   zoekKlant(id: String): Observable<any> {
     return this.db.object("Users/" + id + "/name").valueChanges();
   }
 
+  //Sluit huidige subscriptions en zet de huidig geselecteerde gebruiker, roept ook de getgesprekken methode op.
   kiesGesprek(user: ChatUser) {
+    if (this.huidigeGebruikerSub) {
+      this.huidigeGebruikerSub.unsubscribe();
+    }
+    if (this.gelezenChecker) {
+      this.gelezenChecker.unsubscribe();
+    }
     this.gekozenChatUser = user;
     this.getGesprekken(user);
   }
 
+  //verwijderd de chatmessageslijst en haalt de messages op uit firebase;
   getGesprekken(user: ChatUser) {
     this.messages = [];
-    this.messagesfb = this.db.list("Chat/" + user.uid).valueChanges();
-
-    this.messagesfb.subscribe(actions => {
+    this.messagesfb$ = this.db.list("Chat/" + user.uid).valueChanges();
+    this.huidigeGebruikerSub = this.messagesfb$.subscribe(actions => {
       this.messages = [];
       actions.forEach(a => {
         let message = new Message();
@@ -103,7 +121,7 @@ export class BerichtenComponent implements OnInit {
         message.messageTime = a.messageTime;
         message.messageUser = a.messageUser;
         message.admin = true;
-
+        //als er geen admin veldje bestaat, dan word de username van de messages opgehaald uit de db en ingesteld.
         if (a.admin === undefined) {
           message.admin = false;
           message.messageUser = this.gekozenChatUser.naam;
@@ -114,32 +132,19 @@ export class BerichtenComponent implements OnInit {
     this.controleerGelezen();
   }
 
+  //Geeft observable terug die overeenkomt met de lijst van messages van gebruiker adh van zijn uid.
   geefWeerOngelezen(uid: String): Observable<any> {
-    return  this.db.list("Chat/" + uid).valueChanges();
+    return this.db.list("Chat/" + uid).valueChanges();
   }
 
-/*
-  geefWeerOngelezen(uid: String): number {
-    this.ongelezenMessages = this.db.list("Chat/" + uid).valueChanges();
-    this.ongelezenMessages.subscribe(actions => {
-      let teller;
-      actions.forEach(a => {
-        if (!a.gelezen) {
-          teller++;
-        }
-      });
-      console.log(teller);
-      this.teller = teller;
-    });
-    console.log(this.teller);
-    return this.teller;
-  }*/
-
+  //steekt adh van de gekozen gebruiker alle veldjes gelezen op true.
   controleerGelezen() {
-    this.gelezenMessages = this.db
+    this.gelezenMessages$ = this.db
       .list("Chat/" + this.gekozenChatUser.uid)
       .snapshotChanges();
-    this.gelezenMessages.subscribe(actions => {
+    this.gelezenChecker = this.gelezenMessages$.subscribe(actions => {
+      //omdat dit een database operatie is triggert deze de observables die de lijsten onderhoud en dit kan problemen weergeven
+      this.initieleSubscription;
       actions.forEach(a => {
         this.db
           .list("Chat/" + this.gekozenChatUser.uid)
@@ -148,9 +153,9 @@ export class BerichtenComponent implements OnInit {
     });
   }
 
+  //Haalt de tekst op uit het inputveldje, controleerd of deze leeg is en stuurt een bericht naar firebase met de huidige datum, gebruiker en zet het inputveldje dan op leeg
   stuurBericht(tekst: String) {
     if (tekst != "") {
-      //this.messages = [];
       let messageTime = Date.now();
 
       //TODO: Haal huidige admin op en vul hier in.
@@ -167,6 +172,7 @@ export class BerichtenComponent implements OnInit {
     }
   }
 }
+
 export class Message {
   content: String;
   messageTime: String;
