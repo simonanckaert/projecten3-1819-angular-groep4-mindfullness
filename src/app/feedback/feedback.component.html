@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="column-01">
-    <mat-card class="oefeningen-card">
+    <mat-card class="oefeningen-card mat-elevation-z0">
       <mat-card-header>
         <mat-card-title>
           <h1 class="animated fadeIn">Oefeningen</h1>
@@ -21,12 +21,12 @@
   </div>
   <div class="column-02">
     <div *ngIf="!oefeningGekozen()">
-      <mat-card>
+      <mat-card class="mat-elevation-z0">
         <h4 style="display: flex; justify-content:center;">Kies aub een oefening.</h4>
       </mat-card>
     </div>
     <div *ngIf="oefeningGekozen()">
-      <mat-card>
+      <mat-card class="mat-elevation-z0">
         <h4 style="display: flex; justify-content:center;">{{oefening.naam}}</h4>
         <br>
         <h6 *ngIf="calculateFeedbackPercentage(feedback)">Gemiddelde score:
@@ -41,7 +41,7 @@
         </h6>
       </mat-card>
 
-      <mat-card style="margin-top:10px" *ngIf="calculateFeedbackPercentage(feedback)">
+      <mat-card style="margin-top:10px" *ngIf="calculateFeedbackPercentage(feedback)" class="mat-elevation-z0">
         <h6>Feedback:</h6>
         <mat-list>
           <mat-list-item *ngFor="let f of feedback">- {{f.beschrijving}}</mat-list-item>
@@ -52,7 +52,7 @@
 </div>
 
 <div class="" *ngIf="this.barChartLabels.length === this.barChartData[0].data.length">
-    <mat-card class="global-card">
+    <mat-card class="global-card mat-elevation-z0">
       <mat-card-content>
         <div>
           <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [colors]="barChartColors"

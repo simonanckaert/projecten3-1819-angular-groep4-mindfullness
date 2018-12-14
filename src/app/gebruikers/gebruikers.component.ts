@@ -33,6 +33,9 @@ export class GebruikersComponent implements OnInit {
   displayedColumns: string[] = ['name', 'email', 'group', 'delete'];
   dataSource: MatTableDataSource<any>;
 
+  displayedColumnsAdd: string[] = ['name', 'email', 'group', 'add'];
+  dataSourceAll: MatTableDataSource<any>;
+
   constructor(
     public afDb: AngularFireDatabase,
     public af: AngularFireAuth,
@@ -40,24 +43,23 @@ export class GebruikersComponent implements OnInit {
     public dialog: MatDialog,
     public snackbar: MatSnackBar
   ) {
-    this._gebruikers = this.getItems();
+    this._gebruikers = this.getUsers();
     this._gebruikers.subscribe(result => {
       this.setGroepen(result);
+      // Initial setup listdata
       this.dataSource = new MatTableDataSource(result);
-      console.log(this.dataSource.data);
+      this.dataSourceAll = new MatTableDataSource(result);
     });
-  }
-
-  getItems(): Observable<any[]> {
-    return this.gService.getUsers();
-  }
-
-  get items(): Observable<any[]> {
-    return this._gebruikers;
   }
 
   ngOnInit() {}
 
+  // Fetch all users from db
+  getUsers(): Observable<any[]> {
+    return this.gService.getUsers();
+  }
+
+  // Initial setup groups
   setGroepen(result: any[]) {
     result.forEach(gebruiker => {
       if (
@@ -75,7 +77,6 @@ export class GebruikersComponent implements OnInit {
     this.groepNummers = ['Ø'];
     this.groepNummers = this.groepNummers.concat(subList);
 
-
     this.groepNummers.forEach(nummer => {
       if (nummer !== 'Ø') {
         this.groepen.push({ value: nummer, viewValue: 'Groep ' + nummer });
@@ -85,13 +86,16 @@ export class GebruikersComponent implements OnInit {
     });
   }
 
+  // Filter list by name
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  // On group change
   applyGroepFilter(filterValue: string) {
     this._gebruikers.subscribe(result => {
       this.dataSource = new MatTableDataSource(result);
+      this.dataSourceAll = new MatTableDataSource(result);
       if (filterValue !== 'Ø') {
         const newData = [];
         this.dataSource.data.forEach(element => {
@@ -102,13 +106,46 @@ export class GebruikersComponent implements OnInit {
         this.dataSource = new MatTableDataSource(newData);
         this.selectedGroep = 'Groep ' + filterValue;
         this.selectedGroepNr = filterValue;
+        const newDataAll = [];
+        this.dataSourceAll.data.forEach(element => {
+          if (element.groepnr !== filterValue) {
+            newDataAll.push(element);
+          }
+        });
+        this.dataSourceAll = new MatTableDataSource(newDataAll);
       } else {
+        this.dataSource = this.dataSourceAll;
         this.selectedGroep = 'Alle gebruikers';
         this.selectedGroepNr = 'Ø';
       }
     });
   }
 
+  // Update list data when not showing all users ('Ø' page)
+  updateListData() {
+    if (this.selectedGroepNr !== 'Ø') {
+      this._gebruikers.subscribe(result => {
+        this.dataSource = new MatTableDataSource(result);
+        this.dataSourceAll = new MatTableDataSource(result);
+        const newData = [];
+        this.dataSource.data.forEach(element => {
+          if (element.groepnr === this.selectedGroepNr) {
+            newData.push(element);
+          }
+        });
+        this.dataSource = new MatTableDataSource(newData);
+        const newDataAll = [];
+        this.dataSourceAll.data.forEach(element => {
+          if (element.groepnr !== this.selectedGroepNr) {
+            newDataAll.push(element);
+          }
+        });
+        this.dataSourceAll = new MatTableDataSource(newDataAll);
+      });
+    }
+  }
+
+  // Change the groupnr of a user
   changeGroup(uid, nr) {
     const gebruiker = this.gService.getUserById(uid);
     gebruiker.subscribe(result => {
@@ -131,14 +168,17 @@ export class GebruikersComponent implements OnInit {
       };
       this.gService
         .updateUser(uid, updatedGebruiker)
-        .subscribe(val => console.log(val));
+        .subscribe();
       this.showSnackBar(updatedGebruiker.name, 'ok');
+
+      this.updateListData();
     });
   }
 
+  // Show snackbar on groupnr change
   showSnackBar(naam: string, action: string) {
     this.snackbar.open(
-      'Groepsnummer van ' + naam + ' succesvol gewijzigd!',
+      'Groep van ' + naam + ' succesvol gewijzigd!',
       action,
       {
         duration: 2000
@@ -146,6 +186,7 @@ export class GebruikersComponent implements OnInit {
     );
   }
 
+  // Add a new group
   addGroup() {
     const n: number = +this.groepen[this.groepen.length - 1].value + 1;
     console.log(n);
@@ -172,7 +213,7 @@ export class GebruikersComponent implements OnInit {
             console.log(res);
           });
 
-          this._gebruikers = this.getItems();
+          this._gebruikers = this.getUsers();
           this._gebruikers.subscribe(res => {
             this.setGroepen(res);
             this.dataSource = new MatTableDataSource(res);
@@ -192,7 +233,7 @@ export class DialogAlert {
   constructor(
     public dialogRef: MatDialogRef<DialogAlert>,
     @Inject(MAT_DIALOG_DATA) public data
-  ) {}
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close();
