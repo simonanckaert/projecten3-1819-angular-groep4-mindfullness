@@ -7,9 +7,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
-
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatDatepickerModule, } from '@angular/material';
-import { MatButtonToggleModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatTableModule ,MatNativeDateModule,} from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule,
+  MatIconModule, MatListModule, MatCardModule, MatDatepickerModule} from '@angular/material';
+import { MatButtonToggleModule, MatDialogModule, MatFormFieldModule,
+  MatInputModule, MatTableModule ,MatNativeDateModule} from '@angular/material';
 import { MatSelectModule, MatCheckboxModule,MatSnackBarModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material';
 import { HomeComponent } from './home/home.component';
@@ -31,16 +32,16 @@ import { AngularFireDatabaseModule  } from 'angularfire2/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { RegistrerenComponent } from './registreren/registreren.component';
 import { GebruikersComponent } from './gebruikers/gebruikers.component';
-import { AankondigingenComponentDialog } from "./aankondiging-empty/aankondigingdialog.component";
+import { AankondigingenComponentDialog } from './aankondiging-empty/aankondigingdialog.component';
 import { AankondigingenComponent} from './aankondiging/aankondigingen.component';
 import { CommonModule } from '@angular/common';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { BerichtenComponent } from './berichten/berichten.component';
-import { DialogAlert } from './gebruikers/gebruikers.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ChartsModule } from 'ng2-charts';
+import { VerwijderAlertComponent } from './verwijder-alert/verwijder-alert.component';
 
 
 /** test@test.com   123456 */
@@ -63,10 +64,11 @@ import { ChartsModule } from 'ng2-charts';
     AankondigingenComponent,
     AankondigingenComponentDialog,
     BerichtenComponent,
-    DialogAlert,
-    FeedbackComponent
+    FeedbackComponent,
+    VerwijderAlertComponent
   ],
-  entryComponents: [OefeningComponent, OefeningEmptyComponent, SessieEmptyComponent, AankondigingenComponentDialog,DialogAlert],
+  entryComponents: [OefeningComponent, OefeningEmptyComponent, SessieEmptyComponent,
+    AankondigingenComponentDialog, VerwijderAlertComponent],
 
   imports: [
     BrowserModule,
@@ -106,7 +108,6 @@ import { ChartsModule } from 'ng2-charts';
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
-    
   ],
   providers: [ AuthenticationService, AuthGuardService, OefeningDataService, SessieDataService ],
   bootstrap: [ AppComponent ]

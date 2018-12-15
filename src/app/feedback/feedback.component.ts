@@ -4,6 +4,8 @@ import { Oefening } from '../oefening/oefening.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Feedback } from './feedback.model';
 import { Observable } from 'rxjs/Observable';
+import { MatDialog } from '@angular/material';
+import { VerwijderAlertComponent } from '../verwijder-alert/verwijder-alert.component';
 
 export interface IBarChartData {
   data: string;
@@ -19,7 +21,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
 
   private _oefening: Oefening;
   private _oefeningen: Oefening[];
-  private _feedback: Feedback[];
+  private _feedback: Feedback[] = null;
 
   public errorMsg: string;
 
@@ -62,7 +64,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
     hoverBorderColor: '#AFDBCE'
   }];
 
-  constructor(private _oefDataService: OefeningDataService) { }
+  constructor(private _oefDataService: OefeningDataService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getOefeningen();
@@ -101,7 +103,6 @@ export class FeedbackComponent implements OnInit, OnChanges {
           if (feedback.length > 0) {
             this.barChartLabels.push(oefening.naam);
           }
-          console.log(this.barChartLabels.length + ' ' + this.barChartData[0].data.length);
         });
       });
     });
@@ -117,7 +118,13 @@ export class FeedbackComponent implements OnInit, OnChanges {
   toonOefeningFeedback(oefening: Oefening): Oefening {
     this.getFeedback(oefening)
       .subscribe(
-        feedback => (this._feedback = feedback),
+        feedback => {
+          if (feedback.length > 0) {
+            this._feedback = feedback;
+          } else {
+            this._feedback = null;
+          }
+        },
         (error: HttpErrorResponse) => {
           this.errorMsg = `Error ${
             error.status
@@ -147,6 +154,25 @@ export class FeedbackComponent implements OnInit, OnChanges {
     return null;
   }
 
+  verwijderFeedback() {
+    const dialogRef = this.dialog.open(VerwijderAlertComponent, {
+      minWidth: 300,
+      data: {
+        dataName: '',
+        dataSentence: 'Ben je zeker dat je alle feedback van deze oefening wilt verwijderen?',
+        dataId: this._oefening.oefeningId
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(r => {
+      if (r) {
+        this._feedback = null;
+        // Remove feedback
+        this._oefDataService.verwijderFeedbackOefening(this._oefening.oefeningId);
+      }
+    });
+  }
+
   // events
   public chartClicked(e: any): void {
     console.log(e);
@@ -155,28 +181,4 @@ export class FeedbackComponent implements OnInit, OnChanges {
   public chartHovered(e: any): void {
     console.log(e);
   }
-
-  /*getBarChartData() {
-    const barData = [];
-    this.oefeningen.forEach(oefening => {
-      this.getFeedback(oefening)
-        .subscribe(
-          feedback => {
-            barData.push(this.calculateFeedbackPercentage(feedback));
-          },
-          (error: HttpErrorResponse) => {
-            this.errorMsg = `Error ${
-              error.status
-              } while trying to retrieve feedback: ${error.error}`;
-          }
-        );
-    });
-
-
-    this.barChartData = [{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Gemiddelde score per oefening (%)' }];
-    console.log([{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Gemiddelde score per oefening (%)' }]);
-    console.log([{ data: barData, label: 'Gemiddelde score per oefening (%)' }]);
-
-    // return {data: [65, 59, 80, 81, 56, 55, 40], label: 'Gemiddelde score per oefening (%)'}
-  }*/
 }

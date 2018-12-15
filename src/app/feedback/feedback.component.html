@@ -29,19 +29,21 @@
       <mat-card class="mat-elevation-z0">
         <h4 style="display: flex; justify-content:center;">{{oefening.naam}}</h4>
         <br>
-        <h6 *ngIf="calculateFeedbackPercentage(feedback)">Gemiddelde score:
+        <h6 *ngIf="feedback != null">Gemiddelde score:
           <b>
             {{calculateFeedbackPercentage(feedback)}}%
           </b>
         </h6>
-        <h6 *ngIf="!calculateFeedbackPercentage(feedback)">
+        <h6 *ngIf="feedback == null">
           <b>
             geen feedback
           </b>
         </h6>
       </mat-card>
 
-      <mat-card style="margin-top:10px" *ngIf="calculateFeedbackPercentage(feedback)" class="mat-elevation-z0">
+      <mat-card style="margin-top:10px" *ngIf="feedback" class="mat-elevation-z0">
+        <button mat-flat-button [color]="'warn'" (click)="verwijderFeedback()" style="float: right">Feedback verwijderen</button>
+        <br>
         <h6>Feedback:</h6>
         <mat-list>
           <mat-list-item *ngFor="let f of feedback">- {{f.beschrijving}}</mat-list-item>
