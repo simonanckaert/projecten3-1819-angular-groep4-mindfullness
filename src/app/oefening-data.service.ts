@@ -69,4 +69,17 @@ export class OefeningDataService {
     .get<Feedback[]>(globals.backendUrl + `/oefeningen/oef/` + oefeningId + '/feedback')
     .pipe();
   }
+
+  verwijderFeedbackOefening(oefeningId: number) {
+    return this.http
+      .delete(globals.backendUrl + '/oefeningen/oef/' + oefeningId + '/feedback')
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+  }
 }

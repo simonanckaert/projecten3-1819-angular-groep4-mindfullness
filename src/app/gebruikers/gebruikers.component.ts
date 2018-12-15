@@ -3,13 +3,12 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import {
   MatTableDataSource,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
   MatDialog,
   MatSnackBar
 } from '@angular/material';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { GebruikerDataService } from '../gebruiker-data.service';
+import { VerwijderAlertComponent } from '../verwijder-alert/verwijder-alert.component';
 
 export interface Groep {
   value: string;
@@ -52,7 +51,7 @@ export class GebruikersComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   // Fetch all users from db
   getUsers(): Observable<any[]> {
@@ -204,11 +203,12 @@ export class GebruikersComponent implements OnInit {
   removeUser(uid): void {
     const gebruiker = this.gService.getUserById(uid);
     gebruiker.subscribe(result => {
-      const dialogRef = this.dialog.open(DialogAlert, {
+      const dialogRef = this.dialog.open(VerwijderAlertComponent, {
         minWidth: 300,
         data: {
           dataName: result.name,
-          dataUid: uid
+          dataSentence: 'Ben je zeker dat je deze gebruiker wilt verwijderen?',
+          dataId: uid
         }
       });
 
@@ -228,20 +228,5 @@ export class GebruikersComponent implements OnInit {
         }
       });
     });
-  }
-}
-
-@Component({
-  selector: 'app-dialog-alert',
-  templateUrl: './dialog.alert.html'
-})
-export class DialogAlert {
-  constructor(
-    public dialogRef: MatDialogRef<DialogAlert>,
-    @Inject(MAT_DIALOG_DATA) public data
-  ) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
   }
 }
