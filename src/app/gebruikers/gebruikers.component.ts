@@ -154,6 +154,11 @@ export class GebruikersComponent implements OnInit {
         telnr = result.telnr;
       }
 
+      let sessieid = '';
+      if (result.sessieid) {
+        sessieid = result.sessieid;
+      }
+
       let regio = '';
       if (result.regio) {
         regio = result.regio;
@@ -164,7 +169,8 @@ export class GebruikersComponent implements OnInit {
         groepnr: nr.value.toString(),
         name: result.name,
         telnr: telnr,
-        regio: regio
+        regio: regio,
+        sessieid: sessieid
       };
       this.gService
         .updateUser(uid, updatedGebruiker)

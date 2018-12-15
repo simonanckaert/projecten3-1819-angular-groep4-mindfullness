@@ -101,7 +101,6 @@ export class FeedbackComponent implements OnInit, OnChanges {
           if (feedback.length > 0) {
             this.barChartLabels.push(oefening.naam);
           }
-          console.log(this.barChartLabels.length + ' ' + this.barChartData[0].data.length);
         });
       });
     });
