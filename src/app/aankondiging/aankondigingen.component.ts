@@ -75,10 +75,7 @@ export class AankondigingenComponent implements OnInit {
      
 
   ngOnInit() {
-    this.announcementList = this.db.list('/Announcement');
-
-    this.items = this.db.list<Announcement>('/Announcement').valueChanges();
-
+   
     this.db.list<Announcement>('/Announcement')
     .valueChanges()
     .subscribe((res: Announcement[]) => {
@@ -115,7 +112,8 @@ export class AankondigingenComponent implements OnInit {
   }
 
   addAnnouncement(announcement:Announcement): void{
-   
+
+    
     this.events.push({
       title: announcement.text,
       start: startOfDay(announcement.date),
@@ -127,5 +125,7 @@ export class AankondigingenComponent implements OnInit {
       }
     });
     this.refresh.next();
+    this.announcementList.push(announcement)
   }
+  
 }
