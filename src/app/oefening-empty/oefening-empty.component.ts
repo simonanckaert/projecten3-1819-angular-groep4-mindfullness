@@ -15,10 +15,9 @@ import { GebruikerDataService } from '../gebruiker-data.service';
 })
 export class OefeningEmptyComponent implements OnInit {
   @Input() public sessie: Sessie;
-  public oefeningFormGroup: FormGroup;
-  public _file: File;
-
   private _gebruikers: Observable<any[]>;
+  private _file: File;
+  public oefeningFormGroup: FormGroup;
   public groepNummers = [];
   public selectedGroepnummers = [];
 
@@ -30,6 +29,7 @@ export class OefeningEmptyComponent implements OnInit {
     });
   }
 
+  // Set available groupnrs
   setGroepen(result: any[]) {
     result.forEach(gebruiker => {
       if (this.groepNummers.indexOf(gebruiker.groepnr) === -1) {
@@ -41,10 +41,12 @@ export class OefeningEmptyComponent implements OnInit {
     this.groepNummers.sort();
   }
 
+  // Close dialog after cancel
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  // Exercise validation
   ngOnInit() {
     this.oefeningFormGroup = this.fb.group({
       oefeningNaam: ['', [Validators.required, Validators.minLength(4)]],
@@ -52,6 +54,7 @@ export class OefeningEmptyComponent implements OnInit {
     });
   }
 
+  // Add to group (set checked)
   checkGroep(result, nummer) {
     if (result.checked) {
       this.selectedGroepnummers.push(nummer);
@@ -63,6 +66,7 @@ export class OefeningEmptyComponent implements OnInit {
     }
   }
 
+  // Save exercise
   oefeningOpslaan() {
     if (this.oefeningFormGroup.valid) {
       const oefening = new Oefening(this.oefeningFormGroup.value.oefeningNaam,
@@ -78,6 +82,7 @@ export class OefeningEmptyComponent implements OnInit {
     }
   }
 
+  // If file is uploaded set current _file
   onFileChange(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];

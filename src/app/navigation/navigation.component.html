@@ -31,7 +31,6 @@
       <span id="title"><img _ngcontent-c1="" src="assets/logo.png">Mindfulness</span> 
       <button *ngIf="!(isHandset$ | async) && aangemeld" (click)="logout()" mat-raised-button class="basic-button-right">Afmelden</button>  
     </mat-toolbar>
-    <!-- Add Content Here -->
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -56,7 +56,6 @@ export class FeedbackComponent implements OnInit, OnChanges {
   public barChartLabels: string[] = [];
   public barChartType = 'bar';
   public barChartLegend = true;
-
   public barChartColors = [{
     backgroundColor: '#AFDBCE',
     hoverBackgroundColor: '#A8D2C6',
@@ -86,10 +85,10 @@ export class FeedbackComponent implements OnInit, OnChanges {
     return this._feedback;
   }
 
+  // Gets all exercises
   getOefeningen() {
     return this._oefDataService.getOefeningen().subscribe(oefeningen => {
       this._oefeningen = oefeningen;
-
       oefeningen.forEach(oefening => {
         this.getFeedback(oefening).subscribe(feedback => {
           if (feedback.length > 0) {
@@ -108,6 +107,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
     });
   }
 
+  // Called when exercise is selected
   oefeningGekozen(): boolean {
     if (this._oefening != null) {
       return true;
@@ -115,6 +115,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
     return false;
   }
 
+  // Sets feedback to that from the selected exercise
   toonOefeningFeedback(oefening: Oefening): Oefening {
     this.getFeedback(oefening)
       .subscribe(
@@ -135,11 +136,13 @@ export class FeedbackComponent implements OnInit, OnChanges {
     return oefening;
   }
 
+  // HTTP request to get the feedback from an exercise
   getFeedback(oefening: Oefening): Observable<Feedback[]> {
     return this._oefDataService
       .getFeedbackFromOefening(oefening.oefeningId);
   }
 
+  // Calculate mean percentage of all feedback from an exercise
   calculateFeedbackPercentage(feedback: Feedback[]): number {
     let totalFeedback = 0;
     let totalScore = 0;
@@ -154,6 +157,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
     return null;
   }
 
+  // Remove all feedback (useful after exercise change or when view is too cluttered)
   verwijderFeedback() {
     const dialogRef = this.dialog.open(VerwijderAlertComponent, {
       minWidth: 300,
@@ -173,7 +177,7 @@ export class FeedbackComponent implements OnInit, OnChanges {
     });
   }
 
-  // events
+  // events on chart click
   public chartClicked(e: any): void {
     console.log(e);
   }

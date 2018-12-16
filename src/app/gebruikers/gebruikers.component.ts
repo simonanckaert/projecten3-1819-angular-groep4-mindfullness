@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import {
@@ -10,6 +10,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { GebruikerDataService } from '../gebruiker-data.service';
 import { VerwijderAlertComponent } from '../verwijder-alert/verwijder-alert.component';
 
+// Extra interface used for groups display
 export interface Groep {
   value: string;
   viewValue: string;
@@ -22,18 +23,14 @@ export interface Groep {
 })
 export class GebruikersComponent implements OnInit {
   private _gebruikers: Observable<any[]>;
-
   public groepen: Groep[] = [];
   public groepNummers = ['Ø'];
   public selectedGroepNr = 'Ø';
-
   public selectedGroep = 'Alle gebruikers';
-
-  displayedColumns: string[] = ['name', 'email', 'group', 'delete'];
-  dataSource: MatTableDataSource<any>;
-
-  displayedColumnsAdd: string[] = ['name', 'email', 'group', 'add'];
-  dataSourceAll: MatTableDataSource<any>;
+  public displayedColumns: string[] = ['name', 'email', 'group', 'delete'];
+  public dataSource: MatTableDataSource<any>;
+  public displayedColumnsAdd: string[] = ['name', 'email', 'group', 'add'];
+  public dataSourceAll: MatTableDataSource<any>;
 
   constructor(
     public afDb: AngularFireDatabase,
@@ -45,7 +42,7 @@ export class GebruikersComponent implements OnInit {
     this._gebruikers = this.getUsers();
     this._gebruikers.subscribe(result => {
       this.setGroepen(result);
-      // Initial setup listdata
+      // Initial setup data listviews
       this.dataSource = new MatTableDataSource(result);
       this.dataSourceAll = new MatTableDataSource(result);
     });
@@ -90,7 +87,7 @@ export class GebruikersComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  // On group change
+  // Apply filter on group change
   applyGroepFilter(filterValue: string) {
     this._gebruikers.subscribe(result => {
       this.dataSource = new MatTableDataSource(result);
@@ -214,11 +211,10 @@ export class GebruikersComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(r => {
         if (r) {
-          // REMOVE USER
+          // Remove user
           this.gService.removeUser(uid).subscribe(res => {
             console.log(res);
           });
-
           this._gebruikers = this.getUsers();
           this._gebruikers.subscribe(res => {
             this.setGroepen(res);

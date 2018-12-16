@@ -17,7 +17,6 @@ import { firebaseAndroidConfig } from 'src/environments/environment';
 export class SessieLijstComponent implements OnInit, OnChanges {
   private _sessie: Sessie;
   private _sessies: Sessie[];
-
   public errorMsg: string;
 
   constructor(public db: AngularFirestore, public dialog: MatDialog, private _sessieDataService: SessieDataService) {}
@@ -38,6 +37,7 @@ export class SessieLijstComponent implements OnInit, OnChanges {
     return this._sessie;
   }
 
+  // HTTP Get request to get all sessies
   getSessies() {
     return this._sessieDataService
       .getSessies()
@@ -51,14 +51,13 @@ export class SessieLijstComponent implements OnInit, OnChanges {
       );
   }
 
+  // Show sessie info view
   toonSessieInfo(sessie: Sessie): Sessie {
     this._sessie = sessie;
     return this._sessie;
   }
 
-  /**
-   * Geeft weer of er een sessie gekozen is of niet
-   */
+  // Checks if sessie is clicked
   sessieGekozen(): boolean {
     if (this._sessie != null) {
       return true;
@@ -66,6 +65,7 @@ export class SessieLijstComponent implements OnInit, OnChanges {
     return false;
   }
 
+  // Add new sessie
   openEmptyDialog(): void {
     const dialogRef = this.dialog.open(SessieEmptyComponent, {
       minWidth: 300,

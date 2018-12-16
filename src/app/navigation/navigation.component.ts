@@ -27,12 +27,12 @@ export class NavigationComponent implements OnInit {
     public af: AngularFireAuth,
     private router: Router,
     private afs: AngularFirestore
-  ) {}
+  ) { }
 
+  // If user is admin set logged in & enable navigation
   ngOnInit() {
     this.af.authState.subscribe(user => {
-
-      const cu = this.af.user.subscribe(au => {
+      this.af.user.subscribe(au => {
         if (au) {
           const userRef: AngularFirestoreDocument<any> = this.afs.doc(`admins/${au.uid}`);
           const usr = userRef.valueChanges();
@@ -52,11 +52,10 @@ export class NavigationComponent implements OnInit {
     });
   }
 
-  get aangemeld(): Boolean{
+  get aangemeld(): Boolean {
     let bool = false;
     if (this._aangemeld) {
       this._aangemeld.subscribe(value => {
-        // console.log(value);
         bool = value;
       });
     }
