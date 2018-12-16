@@ -33,9 +33,7 @@ export class OefeningEmptyComponent implements OnInit {
   setGroepen(result: any[]) {
     result.forEach(gebruiker => {
       if (this.groepNummers.indexOf(gebruiker.groepnr) === -1) {
-        if (gebruiker.groepnr !== '0') {
-          this.groepNummers.push(gebruiker.groepnr);
-        }
+        this.groepNummers.push(gebruiker.groepnr);
       }
     });
     this.groepNummers.sort();

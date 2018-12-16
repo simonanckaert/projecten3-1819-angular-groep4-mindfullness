@@ -30,23 +30,30 @@ export class OefeningComponent implements OnInit {
     this._gebruikers.subscribe(result => {
       this.setGroepen(result);
     });
+    this.setSelectedGroepen();
   }
 
+  // Set available groupnrs
   setGroepen(result: any[]) {
     result.forEach(gebruiker => {
       if (this.groepNummers.indexOf(gebruiker.groepnr) === -1) {
-        if (gebruiker.groepnr !== '0') {
           this.groepNummers.push(gebruiker.groepnr);
-        }
       }
     });
     this.groepNummers.sort();
   }
 
+  // Set groupnrs of selected exercise
+  setSelectedGroepen() {
+    this.selectedGroepnummers = this.oef.groepen.split(',');
+  }
+
+  // Close dialog after cancel
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  // Exercise validation
   ngOnInit() {
     this.oefeningFormGroup = this.fb.group({
       oefeningNaam: [this.oef.naam, [Validators.required, Validators.minLength(4)]],
@@ -54,10 +61,12 @@ export class OefeningComponent implements OnInit {
     });
   }
 
+  // Toggle editmode on/off
   public toggleEditMode(): void {
     this.editMode = !this.editMode;
   }
 
+  // Add to group (set checked)
   checkGroep(result, nummer) {
     if (result.checked) {
       this.selectedGroepnummers.push(nummer);
@@ -67,8 +76,11 @@ export class OefeningComponent implements OnInit {
         this.selectedGroepnummers.splice(index, 1);
       }
     }
+    this.selectedGroepnummers.sort();
+    console.log(this.selectedGroepnummers);
   }
 
+  // Remove exercise
   oefeningVerwijderen() {
     if (confirm('Ben je zeker dat je ' + this.oef.naam + ' wilt verwijderen?')) {
       this._oefDataService.verwijderOefening(this.oef);
@@ -76,6 +88,7 @@ export class OefeningComponent implements OnInit {
     }
   }
 
+  // Save exercise
   oefeningOpslaan() {
     if (this.oefeningFormGroup.valid) {
       this.oef.naam = this.oefeningFormGroup.value.oefeningNaam;
@@ -92,6 +105,7 @@ export class OefeningComponent implements OnInit {
     }
   }
 
+  // If file is uploaded set current _file
   onFileChange(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -99,6 +113,7 @@ export class OefeningComponent implements OnInit {
     }
   }
 
+  // Select a new file
   openBestand() {
     window.open(globals.backendUrl + '/oefeningen/files/' + this.oef.fileName);
   }
