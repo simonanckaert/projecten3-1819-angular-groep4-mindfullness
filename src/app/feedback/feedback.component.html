@@ -39,7 +39,8 @@
       </mat-card>
 
       <mat-card style="margin-top:10px" *ngIf="feedback" class="mat-elevation-z0">
-        <button mat-flat-button [color]="'warn'" (click)="verwijderFeedback()" style="float: right">Feedback verwijderen</button>
+        <button mat-flat-button [color]="'warn'" (click)="verwijderFeedback()" style="float: right">Feedback
+          verwijderen</button>
         <br>
         <h6>Feedback:</h6>
         <mat-list>
@@ -50,14 +51,12 @@
   </div>
 </div>
 
-<div class="" *ngIf="this.barChartLabels.length === this.barChartData[0].data.length">
-    <mat-card class="global-card mat-elevation-z0">
-      <mat-card-content>
-        <div>
-          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [colors]="barChartColors"
-            [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
-          </canvas>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+<mat-card class="global-card mat-elevation-z0" *ngIf="this.barChartLabels.length === this.barChartData[0].data.length">
+  <mat-card-content>
+    <div>
+      <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [colors]="barChartColors"
+        [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+      </canvas>
+    </div>
+  </mat-card-content>
+</mat-card>
