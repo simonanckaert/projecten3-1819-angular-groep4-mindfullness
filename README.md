@@ -6,7 +6,7 @@ This project is intended as a tool for Mindfulness psychologist Sarah and her co
 * Bram Huys
 * Jolan Taelman
 * Simon Anckaert
-* Stijn Der Raeve-Zenner
+* Stijn De Raeve-Zenner
 
 ## Features
 
