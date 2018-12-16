@@ -18,3 +18,7 @@ http://141.134.155.219:4200/
 ## Backend
 
 http://141.134.155.219:3000/
+
+## Test Account
+email: admin@admin.com
+pass: 123456789
