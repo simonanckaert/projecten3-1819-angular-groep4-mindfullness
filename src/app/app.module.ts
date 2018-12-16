@@ -34,7 +34,7 @@ import { RegistrerenComponent } from './registreren/registreren.component';
 import { GebruikersComponent } from './gebruikers/gebruikers.component';
 import { AankondigingenComponentDialog } from './aankondiging-empty/aankondigingdialog.component';
 import { AankondigingenComponent} from './aankondiging/aankondigingen.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
@@ -42,10 +42,11 @@ import { BerichtenComponent } from './berichten/berichten.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ChartsModule } from 'ng2-charts';
 import { VerwijderAlertComponent } from './verwijder-alert/verwijder-alert.component';
-
+import localeNl from '@angular/common/locales/nl-BE';
 
 /** test@test.com   123456 */
 
+registerLocaleData(localeNl);
 
 @NgModule({
   declarations: [
