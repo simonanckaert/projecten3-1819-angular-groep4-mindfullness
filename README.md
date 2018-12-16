@@ -1,6 +1,12 @@
-# Mindfulness -- Angular Webapplication
+# Projecten III - Mindfulness - Angular Webapplication
 
-This project is intended as a tool for Mindfulness psychologist Sarah and her colleagues to manage the Android application.
+This project is intended as a tool for Mindfulness psychologist Sarah and her colleagues to manage the Android application and is developed by the following people:
+* Arno Coorevits
+* Angelo Carly
+* Bram Huys
+* Jolan Taelman
+* Simon Anckaert
+* Stijn Der Raeve-Zenner
 
 ## Features
 
