@@ -33,7 +33,7 @@ export class AankondigingenComponent implements OnInit {
  
    CalendarView = CalendarView;
    announcementList: AngularFireList<Announcement> = null;
-   
+   locale: string = 'nl-BE';
    public _announcements : Announcement[];
    items: Observable<any>;
    item: Observable<any>;
