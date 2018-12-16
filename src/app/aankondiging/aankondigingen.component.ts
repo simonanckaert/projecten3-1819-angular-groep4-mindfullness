@@ -15,6 +15,7 @@ import { AngularFireDatabase,AngularFireList } from "@angular/fire/database";
 import { Announcement } from './aankondiging';
 import { AankondigingenComponentDialog } from '../aankondiging-empty/aankondigingdialog.component';
 import { Observable } from 'rxjs';
+import { DebugContext } from '@angular/core/src/view';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class AankondigingenComponent implements OnInit {
  
    CalendarView = CalendarView;
    announcementList: AngularFireList<Announcement> = null;
+   announcementfirebase: AngularFireList<Announcement> ;
    locale: string = 'nl-BE';
    public _announcements : Announcement[];
    items: Observable<any>;
@@ -69,13 +71,12 @@ export class AankondigingenComponent implements OnInit {
 
  constructor(private modal: NgbModal,private dialog: MatDialog, private db :AngularFireDatabase )
      {
-       
+     
     }
       
      
 
   ngOnInit() {
-   
     this.db.list<Announcement>('/Announcement')
     .valueChanges()
     .subscribe((res: Announcement[]) => {
@@ -112,20 +113,9 @@ export class AankondigingenComponent implements OnInit {
   }
 
   addAnnouncement(announcement:Announcement): void{
-
+    this.db.list<Announcement>('/Announcement').push(announcement)
+    window.location.reload();
     
-    this.events.push({
-      title: announcement.text,
-      start: startOfDay(announcement.date),
-      groep: announcement.group,
-      draggable: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      }
-    });
-    this.refresh.next();
-    this.announcementList.push(announcement)
   }
   
 }
