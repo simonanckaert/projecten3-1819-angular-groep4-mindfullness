@@ -217,7 +217,7 @@ export class GebruikersComponent implements OnInit {
           });
           this._gebruikers = this.getUsers();
           this._gebruikers.subscribe(res => {
-            this.setGroepen(res);
+            // this.setGroepen(res);
             this.dataSource = new MatTableDataSource(res);
             console.log(this.dataSource.data);
           });
