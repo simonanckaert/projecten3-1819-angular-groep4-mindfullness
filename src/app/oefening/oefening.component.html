@@ -30,7 +30,6 @@
     <h4>Zichtbaar voor volgende groepen:</h4>
     <p *ngIf="oef.groepen === null">geen groepen geselecteerd</p>
     <p>{{oef.groepen}}</p>
-
   </div>
   <div mat-dialog-actions class="rightfloat">
     <button mat-button (click)="onNoClick()" tabindex=-1>Annuleren</button>
@@ -50,10 +49,6 @@
           matAutosizeMaxRows="5" value="{{oef.beschrijving}}" formControlName="oefeningBeschrijving" id="oefeningBeschrijving"></textarea>
       </mat-form-field>
     </form>
-
-    <!--label for="sessieBestand">
-      <input mat-raised-button type="file" class="form-control-file" value="{{oef.file}}" (change)="onFileChange($event)">
-    </label-->
     Zichtbaar voor volgende groepen:
     <div *ngFor='let nummer of groepNummers'>
       <mat-checkbox (change)="checkGroep($event, nummer)" [checked]="isChecked(oef, nummer)">

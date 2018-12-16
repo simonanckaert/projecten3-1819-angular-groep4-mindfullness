@@ -16,8 +16,7 @@ import { SessieDataService } from '../sessie-data.service';
 })
 export class SessieComponent implements OnInit, OnChanges {
   @Input() public sessie: Sessie;
-  public _oefeningen: Oefening[];
-
+  private _oefeningen: Oefening[];
   public editMode = false;
   public errorMsg: string;
   public sessieFormGroup: FormGroup;
@@ -30,6 +29,7 @@ export class SessieComponent implements OnInit, OnChanges {
     public snackbar: MatSnackBar
   ) { }
 
+  // Sessie form validation
   ngOnInit() {
     this.sessieFormGroup = this.fb.group({
       sessieNaam: [this.sessie.naam, [Validators.required, Validators.minLength(4)]],
@@ -50,6 +50,7 @@ export class SessieComponent implements OnInit, OnChanges {
     return this._oefeningen;
   }
 
+  // Open new dialog to edit exercise
   openDialog(oef: Oefening): void {
     const dialogRef = this.dialog.open(OefeningComponent, {
       minWidth: 300,
@@ -62,7 +63,7 @@ export class SessieComponent implements OnInit, OnChanges {
       }, 200);
     });
   }
-
+  // Open new dialog to add exercise
   openEmptyDialog(): void {
     const dialogRef = this.dialog.open(OefeningEmptyComponent, {
       minWidth: 300,
@@ -85,6 +86,7 @@ export class SessieComponent implements OnInit, OnChanges {
     });
   }
 
+  // Go into edit mode
   toggleEditMode(): void {
     this.editMode = !this.editMode;
     this.sessieFormGroup = this.fb.group({

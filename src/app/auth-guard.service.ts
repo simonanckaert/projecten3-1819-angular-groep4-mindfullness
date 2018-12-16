@@ -11,6 +11,7 @@ export class AuthGuardService implements CanActivate {
 
   constructor(private authService: AuthenticationService, private router: Router, private af: AngularFireAuth) { }
 
+  // Check if enough privileges to use all navigation
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (localStorage.getItem('user')) {
       return true;

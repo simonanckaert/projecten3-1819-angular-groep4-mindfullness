@@ -15,5 +15,4 @@ export class VerwijderAlertComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }

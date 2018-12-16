@@ -23,6 +23,7 @@ export class RegistrerenComponent implements OnInit {
 
   constructor(public af: AngularFireAuth, private router: Router, private fb: FormBuilder, private afs: AngularFirestore ) { }
 
+  // Register validation
   ngOnInit() {
     this.loginForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -31,6 +32,7 @@ export class RegistrerenComponent implements OnInit {
     });
   }
 
+  // Register
   onSubmit() {
     if (this.loginForm.valid) {
       this.af.auth.createUserWithEmailAndPassword(this.loginForm.value.email, this.loginForm.value.password)
@@ -47,16 +49,15 @@ export class RegistrerenComponent implements OnInit {
     }
   }
 
+  // Update user in database (set admin to true)
   private updateUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`admins/${user.uid}`);
-
     const data: User = {
       uid: user.uid,
       email: user.email,
       displayName: this.loginForm.value.name,
       admin: true
     };
-
     return userRef.set(data, { merge: true });
   }
 }

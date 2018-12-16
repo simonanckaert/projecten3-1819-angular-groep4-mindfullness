@@ -20,7 +20,7 @@
     <h4>Zichtbaar voor volgende groepen:</h4>
     <div *ngFor='let nummer of groepNummers'>
       <mat-checkbox (change)="checkGroep($event, nummer)">
-        {{ nummer }}
+        {{nummer}}
       </mat-checkbox>
       <br>
     </div>

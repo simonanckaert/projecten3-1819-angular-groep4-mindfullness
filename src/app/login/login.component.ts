@@ -26,12 +26,14 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Login form validation
     this.loginForm = this.fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
   }
 
+  // On login
   onSubmit() {
     if (this.loginForm.valid) {
       this.af.auth
@@ -49,6 +51,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  // Check if user is admin & route to homepage
   validateAdmin(userCredential: User) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`admins/${userCredential.uid}`);
     const user = userRef.valueChanges();

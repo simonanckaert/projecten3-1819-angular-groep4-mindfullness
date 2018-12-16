@@ -22,7 +22,6 @@ export class GebruikerDataService {
     return this.http.get<any[]>(globals.backendUrl + `/users/` + uid);
   }
 
-  /** NOT WORKING! */
   updateUser(uid: string, user): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({

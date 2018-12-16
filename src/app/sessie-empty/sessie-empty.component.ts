@@ -18,15 +18,16 @@ export class SessieEmptyComponent implements OnInit {
     private fb: FormBuilder
   ) { }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
+  // Sessie form validation
   ngOnInit() {
     this.sessieFormGroup = this.fb.group({
       sessieNaam: ['', [Validators.required, Validators.minLength(4)]],
       sessieBeschrijving: ['', [Validators.required]]
     });
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
   sessieOpslaan() {
