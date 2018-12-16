@@ -15,13 +15,17 @@ import { takeWhile } from "rxjs/operators";
   styleUrls: ["./berichten.component.css"]
 })
 export class BerichtenComponent implements OnInit, OnDestroy {
+  
   chatRef$: AngularFireList<any>;
   public klanten: ChatUser[] = [];
   public ongelezen: number[] = [];
+
   public gekozenChatUser: ChatUser = null;
+
   public chat$: Observable<any[]>;
   public messagesfb$: Observable<any>;
   public gelezenMessages$: Observable<any>;
+
   private huidigeGebruikerSub: Subscription;
   private gelezenChecker: Subscription;
   private initieleSubscription: Subscription;
@@ -74,10 +78,14 @@ export class BerichtenComponent implements OnInit, OnDestroy {
       this.ongelezen = [];
       actions.forEach(action => {
         this.zoekKlant(action.key).subscribe(value => {
+          
           let chatUser = new ChatUser();
           chatUser.naam = value;
           chatUser.uid = action.key;
+        if(!this.klanten.find(a => a.uid === chatUser.uid)){
           this.klanten.push(chatUser);
+
+        }
         });
         this.geefWeerOngelezen(action.key).subscribe(value => {
           let waarde: number = 0;
@@ -106,11 +114,6 @@ export class BerichtenComponent implements OnInit, OnDestroy {
       this.gelezenChecker.unsubscribe();
     }
     this.gekozenChatUser = user;
-    this.getGesprekken(user);
-  }
-
-  //verwijderd de chatmessageslijst en haalt de messages op uit firebase;
-  getGesprekken(user: ChatUser) {
     this.messages = [];
     this.messagesfb$ = this.db.list("Chat/" + user.uid).valueChanges();
     this.huidigeGebruikerSub = this.messagesfb$.subscribe(actions => {
@@ -143,7 +146,6 @@ export class BerichtenComponent implements OnInit, OnDestroy {
       .list("Chat/" + this.gekozenChatUser.uid)
       .snapshotChanges();
     this.gelezenChecker = this.gelezenMessages$.subscribe(actions => {
-      //omdat dit een database operatie is triggert deze de observables die de lijsten onderhoud en dit kan problemen weergeven
       this.initieleSubscription;
       actions.forEach(a => {
         this.db
