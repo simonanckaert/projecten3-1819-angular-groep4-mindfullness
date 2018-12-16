@@ -1,4 +1,4 @@
-# Mindfulness -- Angular Webapplicaiton
+# Mindfulness -- Angular Webapplication
 
 This project is intended as a tool for Mindfulness psychologist Sarah and her colleagues to manage the Android application.
 
