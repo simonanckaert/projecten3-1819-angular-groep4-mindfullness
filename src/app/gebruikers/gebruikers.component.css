@@ -3,22 +3,38 @@ table {
   width: 100%;
 }
 
+.mat-header-row,
+.mat-row {
+  display: table-row;
+  padding: 0;
+  border: none;
+}
+
+.mat-header-cell,
+.mat-cell {
+  display: table-cell;
+  height: 48px;
+  vertical-align: middle;
+  width: 1%
+}
+
 .mat-form-field {
   font-size: 14px;
   width: 100%;
 }
 
-.sessies-card{
+.sessies-card {
   margin: 15px;
 }
 
-.sessies-card-groep{
+.sessies-card-groep {
   margin: 5px;
   display: inline-block;
   width: auto;
 }
 
-.active, .btn:hover {
+.active,
+.btn:hover {
   background-color: #0069D9;
   color: white;
 }

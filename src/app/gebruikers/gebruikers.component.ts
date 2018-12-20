@@ -27,9 +27,9 @@ export class GebruikersComponent implements OnInit {
   public groepNummers = ['Ø'];
   public selectedGroepNr = 'Ø';
   public selectedGroep = 'Alle gebruikers';
-  public displayedColumns: string[] = ['name', 'email', 'group', 'delete'];
+  public displayedColumns: string[] = ['name', 'email', 'regio', 'telephone', 'group', 'delete'];
   public dataSource: MatTableDataSource<any>;
-  public displayedColumnsAdd: string[] = ['name', 'email', 'group', 'add'];
+  public displayedColumnsAdd: string[] = ['name', 'email', 'regio', 'telephone', 'group', 'add'];
   public dataSourceAll: MatTableDataSource<any>;
 
   constructor(
