@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy , ViewChild,TemplateRef , Injectable} from '@angular/core';
 import {
-  startOfDay,
   isSameDay,
   isSameMonth,
 } from 'date-fns';
@@ -11,12 +10,14 @@ import {
 } from 'angular-calendar';
 import {CalendarEvent} from'./calendarUtils';
 import { MatDialog} from '@angular/material/dialog';
-import { AngularFireDatabase,AngularFireList } from "@angular/fire/database";
-import { Announcement } from './aankondiging';
+import { AngularFireList } from "@angular/fire/database";
+import { Aankondiging } from './aankondiging';
 import { AankondigingenComponentDialog } from '../aankondiging-empty/aankondigingdialog.component';
 import { Observable } from 'rxjs';
-import { DebugContext } from '@angular/core/src/view';
-
+import { DataService } from '../data.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import * as moment from 'moment';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-aankondigingen',
@@ -27,16 +28,16 @@ import { DebugContext } from '@angular/core/src/view';
 @Injectable()
 export class AankondigingenComponent implements OnInit {
 
-  @ViewChild('modalContent')
+  @ViewChild('modalContent',null)
   modalContent: TemplateRef<any>;
 
    view: CalendarView = CalendarView.Month;
  
    CalendarView = CalendarView;
-   announcementList: AngularFireList<Announcement> = null;
-   announcementfirebase: AngularFireList<Announcement> ;
+   announcementList: AngularFireList<Aankondiging> = null;
+   announcementfirebase: AngularFireList<Aankondiging> ;
    locale: string = 'nl-BE';
-   public _announcements : Announcement[];
+   aankondigingen : Aankondiging[];
    items: Observable<any>;
    item: Observable<any>;
    viewDate: Date = new Date();
@@ -50,7 +51,61 @@ export class AankondigingenComponent implements OnInit {
 
   events: CalendarEvent[]  = [];
 
-  activeDayIsOpen: boolean = true;
+  activeDayIsOpen: boolean = true; 
+
+  constructor(private modal: NgbModal,private dialog: MatDialog, private dataService : DataService, public snackbar: MatSnackBar ) {}
+      
+  ngOnInit() {  
+    this.getAankondigingen()  
+  }
+
+  ngOnChanged() {
+    //this.getAankondigingen()
+  }
+
+  getAankondigingen() {
+    this.dataService.getAankondigingen().subscribe(
+      data => {
+        this.aankondigingen = data.map(e => {
+          return new Aankondiging(e['id'],
+          e['title'],
+          new Date(e['start']),
+          e['groep'],
+        );
+        
+      },
+      (error: HttpErrorResponse) => {
+        /*this.errorMsg = `Error ${
+          error.status
+          } while trying to retrieve sessies: ${error.error}`;*/
+      }), 
+      this.aankondigingen.sort((a, b) => {
+        return a.start.getTime() - b.start.getTime();
+      });
+      this.aankondigingen.forEach(aankondiging => this.checkAlsDatumGepasseerdIs(aankondiging));
+      this.aankondigingen.forEach(aankondiging => this.events.push(aankondiging));
+    }   
+    )
+  }
+
+  private checkAlsDatumGepasseerdIs(aankondiging: Aankondiging) {
+    let vandaag = new Date();
+    vandaag.setHours(0,0,0,0)
+    if(moment(aankondiging.start).isBefore(vandaag)) {
+      this.verwijderAankondiging(aankondiging.id)
+    }
+  }
+
+  private verwijderAankondiging(id: string) {
+    this.dataService.verwijderAankondiging(id)
+  }
+
+  private bevestigVerwijderenAankondiging(aankondiging: Aankondiging) {
+    if(confirm(`Zeker dat u ${aankondiging.title} wilt verwijderen?`)) {
+      this.verwijderAankondiging(aankondiging.id);
+    }
+    this.snackbar.open('Aankondiging is verwijderd')
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -65,57 +120,17 @@ export class AankondigingenComponent implements OnInit {
       }
     }
   }
-
-  
-
-
- constructor(private modal: NgbModal,private dialog: MatDialog, private db :AngularFireDatabase )
-     {
-     
-    }
-      
-     
-
-  ngOnInit() {
-    this.db.list<Announcement>('/Announcement')
-    .valueChanges()
-    .subscribe((res: Announcement[]) => {
-        res.forEach((item) => {
-
-        this.events.push({
-          title: item._text,
-          start: startOfDay(item._date),
-          groep: item._group,
-          draggable: true,
-          resizable: {
-            beforeStart: true,
-            afterEnd: true
-          }
-        });
-        this.refresh.next();
-        });
-      });
-  }
-
  
   openDialog(): void{
-
-    const dialogConfig = this.dialog.open(AankondigingenComponentDialog, {
+    this.dialog.open(AankondigingenComponentDialog, {
       minWidth: 300,
       maxHeight: 300
+    }); 
+  }
+
+  showSnackBar(message: string) {
+    this.snackbar.open(message, '', {
+      duration: 200,
     });
-    var d = new Date();
-    dialogConfig.afterClosed().subscribe(
-
-        data =>  this.addAnnouncement(new Announcement(String(d.getTime()),data.aankondiging,data.date.getTime(),data.groep))
-    );  
- 
   }
-
-  addAnnouncement(announcement:Announcement): void{
-    this.db.list<Announcement>('/Announcement').push(announcement)
-    window.location.reload();
-    
-  }
-  
 }

@@ -1,12 +1,12 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Oefening } from '../oefening/oefening.model';
 import { Sessie } from '../sessie/sessie.model';
 import { MatDialogRef } from '@angular/material';
-import { OefeningDataService } from '../oefening-data.service';
 import { FormGroup, Validators, FormBuilder } from '../../../node_modules/@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material';
-import { Observable } from 'rxjs';
-import { GebruikerDataService } from '../gebruiker-data.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-oefening-empty',
@@ -14,17 +14,18 @@ import { GebruikerDataService } from '../gebruiker-data.service';
   styleUrls: ['./oefening-empty.component.css']
 })
 export class OefeningEmptyComponent implements OnInit {
-  @Input() public sessie: Sessie;
-  private _gebruikers: Observable<any[]>;
-  private _file: File;
+
+  public loading = false;
   public oefeningFormGroup: FormGroup;
   public groepNummers = [];
   public selectedGroepnummers = [];
 
-  constructor(public dialogRef: MatDialogRef<OefeningEmptyComponent>, @Inject(MAT_DIALOG_DATA) public data: Sessie,
-    private _oefDataService: OefeningDataService, public gService: GebruikerDataService, private fb: FormBuilder) {
-    this._gebruikers = this.gService.getUsers();
-    this._gebruikers.subscribe(result => {
+  private file: File;
+
+  constructor(public dialogRef: MatDialogRef<OefeningEmptyComponent>, @Inject(MAT_DIALOG_DATA) public sessie: Sessie,
+    public dataService: DataService, private fb: FormBuilder, private ngxService: NgxUiLoaderService, 
+    private firebaseStorage: AngularFireStorage) {
+    this.dataService.getGebruikers().subscribe(result => {
       this.setGroepen(result);
     });
   }
@@ -36,7 +37,16 @@ export class OefeningEmptyComponent implements OnInit {
         this.groepNummers.push(gebruiker.groepnr);
       }
     });
+    this.voegOvergeslagenNummersToe();
     this.groepNummers.sort();
+  }
+
+  voegOvergeslagenNummersToe() {
+    for(let index = 0; index < this.groepNummers.length; index++) {
+      if(!this.groepNummers.includes(index)) {
+        this.groepNummers.push(index);
+      }
+    }
   }
 
   // Close dialog after cancel
@@ -67,24 +77,40 @@ export class OefeningEmptyComponent implements OnInit {
   // Save exercise
   oefeningOpslaan() {
     if (this.oefeningFormGroup.valid) {
+      this.ngxService.start();
       const oefening = new Oefening(this.oefeningFormGroup.value.oefeningNaam,
-        this.oefeningFormGroup.value.oefeningBeschrijving, this.data.sessieId);
+      this.oefeningFormGroup.value.oefeningBeschrijving, this.sessie.id);
       let groepen = '';
       this.selectedGroepnummers.forEach(element => {
         groepen = groepen + element + ',';
       });
       groepen = groepen.slice(0, -1);
-      oefening.groepen = groepen;
-      oefening.file = this._file;
-      this.dialogRef.close(this._oefDataService.voegNieuweOefeningToe(oefening).subscribe());
+
+      //uploaden bestand, daarna pas de oefening
+      var storageRef = this.firebaseStorage.ref(this.file.name)
+      storageRef.put(this.file).then(() => {     
+        this.firebaseStorage.ref(this.file.name).getDownloadURL().toPromise().then(result => {
+          oefening.oefeningId = this.sessie.oefeningen.length
+          oefening.url = result
+          oefening.groepen = groepen;
+          oefening.file = this.file;
+          oefening.fileMimetype = this.file.type;
+          oefening.fileName = this.file.name;
+          oefening.fileOriginalName = this.file.name;
+          oefening.fileSize = this.file.size;
+          this.sessie.addOefening(oefening);
+          this.dialogRef.close(this.dataService.uploadSessie(this.sessie));
+        }).finally(() => this.ngxService.stop())
+      })
+
+
     }
   }
 
   // If file is uploaded set current _file
   onFileChange(event) {
     if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this._file = file;
+      this.file = event.target.files[0];
     }
   }
 }

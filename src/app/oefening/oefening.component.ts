@@ -2,11 +2,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Oefening } from './oefening.model';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { MatDialogRef } from '@angular/material';
-import { OefeningDataService } from '../oefening-data.service';
 import { FormGroup, Validators, FormBuilder } from '../../../node_modules/@angular/forms';
-import * as globals from '../../globals/globals';
-import { GebruikerDataService } from '../gebruiker-data.service';
 import { Observable } from 'rxjs';
+import { DataService } from '../data.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Sessie } from '../sessie/sessie.model';
 
 
 @Component({
@@ -15,22 +15,20 @@ import { Observable } from 'rxjs';
   styleUrls: ['./oefening.component.css']
 })
 export class OefeningComponent implements OnInit {
-  public editMode = false;
-  public oefeningFormGroup: FormGroup;
-  public _file: File;
+  editMode = false;
+  oefeningFormGroup: FormGroup;
+  file: File;
+  groepNummers = [];
+  selectedGroepnummers = [];
+  url: string = 'test';
 
-  private _gebruikers: Observable<any[]>;
-  public groepNummers = [];
-  public selectedGroepnummers = [];
-
-  constructor(private _oefDataService: OefeningDataService, public gService: GebruikerDataService,
-    public dialogRef: MatDialogRef<OefeningComponent>,
-    @Inject(MAT_DIALOG_DATA) public oef: Oefening, private fb: FormBuilder) {
-    this._gebruikers = this.gService.getUsers();
-    this._gebruikers.subscribe(result => {
+  constructor(public dialogRef: MatDialogRef<OefeningComponent>,
+              @Inject(MAT_DIALOG_DATA) public oef: Oefening, private fb: FormBuilder,
+              private dataService: DataService) {
+    this.dataService.getGebruikers().subscribe(result => {
       this.setGroepen(result);
+      this.setSelectedGroepen()
     });
-    this.setSelectedGroepen();
   }
 
   // Set available groupnrs
@@ -40,7 +38,16 @@ export class OefeningComponent implements OnInit {
           this.groepNummers.push(gebruiker.groepnr);
       }
     });
+    this.voegOvergeslagenNummersToe();
     this.groepNummers.sort();
+  }
+
+  voegOvergeslagenNummersToe() {
+    for(let index = 0; index < this.groepNummers.length; index++) {
+      if(!this.groepNummers.includes(index)) {
+        this.groepNummers.push(index);
+      }
+    }
   }
 
   // Set groupnrs of selected exercise
@@ -71,19 +78,28 @@ export class OefeningComponent implements OnInit {
     if (result.checked) {
       this.selectedGroepnummers.push(nummer);
     } else {
-      const index: number = this.selectedGroepnummers.indexOf(nummer);
+      const index: number = this.selectedGroepnummers.indexOf(nummer.toString());
       if (index !== -1) {
         this.selectedGroepnummers.splice(index, 1);
       }
     }
     this.selectedGroepnummers.sort();
-    console.log(this.selectedGroepnummers);
   }
 
   // Remove exercise
   oefeningVerwijderen() {
     if (confirm('Ben je zeker dat je ' + this.oef.naam + ' wilt verwijderen?')) {
-      this._oefDataService.verwijderOefening(this.oef);
+      var sessieObservable = this.dataService.getSessie(this.oef.sessieId);
+      sessieObservable.subscribe(
+        data => {
+          const index : number = data.oefeningen.map(oefening => oefening.oefeningId).indexOf(this.oef.oefeningId);
+          data.oefeningen.splice(index, 1);
+          this.dataService.verwijderOefening(data, this.oef);
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error);
+        }
+      );
       this.dialogRef.close();
     }
   }
@@ -99,9 +115,26 @@ export class OefeningComponent implements OnInit {
       });
       groepen = groepen.slice(0, -1);
       this.oef.groepen = groepen;
-      this.oef.file = this._file;
+      this.oef.file = this.file;
 
-      this.dialogRef.close(this._oefDataService.updateOefening(this.oef));
+      this.dataService.getSessie(this.oef.sessieId).subscribe(
+        data => {
+          data = new Sessie(data['id'],
+          data['naam'],
+          data['beschrijving'],
+          data['sessieCode'],
+          data['oefeningen'] !=  undefined ? data['oefeningen'].map(oef => Oefening.fromJSON(oef)) : [])
+          var index = data.oefeningen.map(oef => oef.oefeningId).indexOf(this.oef.oefeningId)
+          if(index !== -1) {
+            data.oefeningen[index] = this.oef
+            this.dataService.uploadSessie(data);
+          }
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error);
+        }
+      );
+      this.dialogRef.close();
     }
   }
 
@@ -109,13 +142,13 @@ export class OefeningComponent implements OnInit {
   onFileChange(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this._file = file;
+      this.file = file;
     }
   }
 
   // Select a new file
   openBestand() {
-    window.open(globals.backendUrl + '/oefeningen/files/' + this.oef.fileName);
+    window.open(this.oef.url);
   }
 
   isChecked(oef: Oefening, nummer): boolean {

@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { AngularFireAuth } from '@angular/fire/auth';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 

@@ -1,12 +1,14 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { Sessie } from '../sessie/sessie.model';
-import { SessieDataService } from '../sessie-data.service';
+import { DataService } from '../data.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
 import { SessieEmptyComponent } from '../sessie-empty/sessie-empty.component';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { FirebaseOptionsToken } from 'angularfire2';
+import { FirebaseOptionsToken } from '@angular/fire';
 import { firebaseAndroidConfig } from 'src/environments/environment';
+import { Oefening } from '../oefening/oefening.model';
+import { List } from 'lodash';
 
 @Component({
   selector: 'app-sessie-lijst',
@@ -15,11 +17,11 @@ import { firebaseAndroidConfig } from 'src/environments/environment';
   providers: [{ provide: FirebaseOptionsToken, useValue: firebaseAndroidConfig }]
 })
 export class SessieLijstComponent implements OnInit, OnChanges {
-  private _sessie: Sessie;
-  private _sessies: Sessie[];
+  sessie: Sessie;
+  sessies: List<Sessie>;
   public errorMsg: string;
 
-  constructor(public db: AngularFirestore, public dialog: MatDialog, private _sessieDataService: SessieDataService) {}
+  constructor(public db: AngularFirestore, public dialog: MatDialog, private sessieDataService: DataService) {}
 
   ngOnInit() {
     this.getSessies();
@@ -29,37 +31,34 @@ export class SessieLijstComponent implements OnInit, OnChanges {
     this.getSessies();
   }
 
-  get sessies(): Sessie[] {
-    return this._sessies;
-  }
-
-  get sessie(): Sessie {
-    return this._sessie;
-  }
-
-  // HTTP Get request to get all sessies
   getSessies() {
-    return this._sessieDataService
-      .getSessies()
-      .subscribe(
-        sessies => (this._sessies = sessies),
-        (error: HttpErrorResponse) => {
-          this.errorMsg = `Error ${
-            error.status
-            } while trying to retrieve sessies: ${error.error}`;
-        }
-      );
+    this.sessieDataService.getSessies().subscribe(
+      data => {
+        this.sessies = data.map(e => {
+          return new Sessie(e['id'],
+          e['naam'],
+          e['beschrijving'],
+          e['sessieCode'],
+          e['oefeningen'] !=  undefined ? e['oefeningen'].map(oef => Oefening.fromJSON(oef)) : [])
+        });
+      },
+      (error: HttpErrorResponse) => {
+        this.errorMsg = `Error ${
+          error.status
+          } while trying to retrieve sessies: ${error.error}`;
+      }
+    )
   }
 
   // Show sessie info view
   toonSessieInfo(sessie: Sessie): Sessie {
-    this._sessie = sessie;
-    return this._sessie;
+    this.sessie = sessie;
+    return this.sessie;
   }
 
   // Checks if sessie is clicked
   sessieGekozen(): boolean {
-    if (this._sessie != null) {
+    if (this.sessie != null) {
       return true;
     }
     return false;
@@ -69,13 +68,10 @@ export class SessieLijstComponent implements OnInit, OnChanges {
   openEmptyDialog(): void {
     const dialogRef = this.dialog.open(SessieEmptyComponent, {
       minWidth: 300,
-      data: this.sessie
+      data: this.sessies == undefined? 1: this.sessies.length+1
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this._sessies.push(result);
-      }
       setTimeout(() => {
         this.getSessies();
       }, 200);

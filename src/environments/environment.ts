@@ -7,10 +7,11 @@ export const environment = {
 };
 
 export const firebaseAndroidConfig = {
-  apiKey: 'AIzaSyB6yKdGduZc5o7goCReFEFn2BwNjVTPoa4',
-  authDomain: 'projecten3-1819-android-groep4.firebaseapp.com',
-  databaseURL: 'https://projecten3-1819-android-groep4.firebaseio.com',
-  projectId: 'projecten3-1819-android-groep4',
-  storageBucket: 'projecten3-1819-android-groep4.appspot.com',
-  messagingSenderId: '1084064931254'
+  apiKey: "AIzaSyAoUpd0bYbgH1RTVOU3i_hNljPMasFWxBs",
+    authDomain: "herexamenproject3.firebaseapp.com",
+    databaseURL: "https://herexamenproject3.firebaseio.com",
+    projectId: "herexamenproject3",
+    storageBucket: "herexamenproject3.appspot.com",
+    messagingSenderId: "402442978658",
+    appId: "1:402442978658:web:56a442a3123196fd"
 };

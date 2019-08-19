@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import {
   AngularFirestore,
   AngularFirestoreDocument
@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
           this.validateAdmin(success.user);
         })
         .catch(err => {
-          console.log(err);
           this.error = err;
         });
     }

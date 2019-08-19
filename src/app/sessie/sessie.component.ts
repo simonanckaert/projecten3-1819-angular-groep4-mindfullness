@@ -4,10 +4,8 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { OefeningComponent } from '../oefening/oefening.component';
 import { Oefening } from '../oefening/oefening.model';
 import { OefeningEmptyComponent } from '../oefening-empty/oefening-empty.component';
-import { OefeningDataService } from '../oefening-data.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, Validators, FormBuilder } from '../../../node_modules/@angular/forms';
-import { SessieDataService } from '../sessie-data.service';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-sessie',
@@ -16,18 +14,17 @@ import { SessieDataService } from '../sessie-data.service';
 })
 export class SessieComponent implements OnInit, OnChanges {
   @Input() public sessie: Sessie;
-  private _oefeningen: Oefening[];
+  public oefeningen: Oefening[] = [];
   public editMode = false;
   public errorMsg: string;
   public sessieFormGroup: FormGroup;
 
   constructor(
     public dialog: MatDialog,
-    private _oefDataService: OefeningDataService,
-    private _sessieDataService: SessieDataService,
+    private sessieDataService: DataService,
     private fb: FormBuilder,
     public snackbar: MatSnackBar
-  ) { }
+  ) {}
 
   // Sessie form validation
   ngOnInit() {
@@ -36,33 +33,22 @@ export class SessieComponent implements OnInit, OnChanges {
       sessieBeschrijving: [this.sessie.beschrijving, [Validators.required]],
       sessieCode: [this.sessie.sessieCode]
     });
-    this.getOefeningen();
   }
 
   ngOnChanges() {
-    this.getOefeningen();
     if (this.editMode) {
       this.toggleEditMode();
     }
   }
 
-  get oefeningen(): Oefening[] {
-    return this._oefeningen;
-  }
-
   // Open new dialog to edit exercise
   openDialog(oef: Oefening): void {
-    const dialogRef = this.dialog.open(OefeningComponent, {
+    this.dialog.open(OefeningComponent, {
       minWidth: 300,
       data: oef
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      setTimeout(() => {
-        this.getOefeningen();
-      }, 200);
-    });
   }
+
   // Open new dialog to add exercise
   openEmptyDialog(): void {
     const dialogRef = this.dialog.open(OefeningEmptyComponent, {
@@ -72,11 +58,8 @@ export class SessieComponent implements OnInit, OnChanges {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this._oefeningen.push(result);
+        this.oefeningen.push(result);
       }
-      setTimeout(() => {
-        this.getOefeningen();
-      }, 2000);
     });
   }
 
@@ -96,19 +79,6 @@ export class SessieComponent implements OnInit, OnChanges {
     });
   }
 
-  getOefeningen() {
-    return this._oefDataService
-      .getOefeningenFromSessie(this.sessie.sessieId)
-      .subscribe(
-        oefs => (this._oefeningen = oefs),
-        (error: HttpErrorResponse) => {
-          this.errorMsg = `Error ${
-            error.status
-            } while trying to retrieve oefeningen: ${error.error}`;
-        }
-      );
-  }
-
   onNoClick(): void {
     this.toggleEditMode();
   }
@@ -118,9 +88,16 @@ export class SessieComponent implements OnInit, OnChanges {
       this.sessie.naam = this.sessieFormGroup.value.sessieNaam;
       this.sessie.beschrijving = this.sessieFormGroup.value.sessieBeschrijving;
       this.sessie.sessieCode = this.sessieFormGroup.value.sessieCode;
-      this._sessieDataService.updateSessie(this.sessie);
+      this.sessieDataService.uploadSessie(this.sessie);
       this.toggleEditMode();
       this.showSnackBar('Sessie succesvol gewijzigd!');
+    }
+  }
+
+  verwijderSessie() {
+    if (confirm('Ben je zeker dat je ' + this.sessie.naam + ' wilt verwijderen?')) {
+      this.sessieDataService.verwijderSessie(this.sessie.id);
+      this.showSnackBar('Sessie succesvol verwijderd! Gelieve een andere sessie te selecteren.')
     }
   }
 }

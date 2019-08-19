@@ -13,7 +13,7 @@
     <h4>Bestand:</h4>
     <!-- AUDIO -->
     <audio controls *ngIf="oef.fileMimetype.startsWith('audio')">
-      <source src="http://141.134.155.219:3000/oefeningen/files/{{oef.fileName}}" type="audio/ogg">
+      <source src="{{oef.url}}" type="audio/ogg">
       Your browser does not support the audio element.
     </audio>
     <!-- PDF -->
@@ -22,7 +22,7 @@
     </button>
     <!-- VIDEO -->
     <video *ngIf="oef.fileMimetype.startsWith('video/mp4')" width="320" height="240" controls>
-      <source src="http://141.134.155.219:3000/oefeningen/files/{{oef.fileName}}" type="video/mp4">
+      <source src="{{oef.url}}" type="video/mp4">
       Your browser does not support this video.
     </video>
     <br>

@@ -4,7 +4,6 @@ export interface Roles {
 
   export class Admin {
     email:    string;
-    photoURL: string;
     roles:    Roles;
 
     constructor(authData) {

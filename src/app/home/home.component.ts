@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import {
   AngularFirestore,
   AngularFirestoreDocument
 } from '@angular/fire/firestore';
-import * as firebase from 'firebase';
+//import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
-import { AngularFireDatabase } from 'angularfire2/database';
 
 interface User {
   uid: string;
@@ -28,13 +27,14 @@ export class HomeComponent implements OnInit {
   private dbChat: Observable<any>;
   private dbMessages: Observable<any>;
 
-  constructor(public af: AngularFireAuth, private afs: AngularFirestore, private db: AngularFireDatabase) {
+  constructor(public af: AngularFireAuth, private afs: AngularFirestore) {
     this._datum = new Date();
     this._uur = this._datum.getHours();
 
     this.controleerGelezen();
 
-    const cu = this.af.user.subscribe(au => {
+
+    this.af.user.subscribe(au => {
       if (au) {
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(
           `admins/${au.uid}`
@@ -43,7 +43,6 @@ export class HomeComponent implements OnInit {
         if (user) {
           user.subscribe(value => {
             this.name$ = value.displayName;
-            // console.log(value.displayName);
           });
         }
       }
@@ -51,11 +50,11 @@ export class HomeComponent implements OnInit {
   }
 
   controleerGelezen() {
-    this.dbChat = this.db.list('Chat/').snapshotChanges();
+    this.dbChat = this.afs.collection("chat").snapshotChanges();
 
     this.dbChat.subscribe(actions => {
       actions.forEach(chat => {
-        this.dbMessages = this.db.list('Chat/' + chat.key).valueChanges();
+        this.dbMessages = this.afs.collection("chat").doc(chat.payload.doc.id).collection("messages").valueChanges();
         this._onGelezenBericht = 0;
 
         this.dbMessages.subscribe(messages => {
@@ -81,7 +80,7 @@ export class HomeComponent implements OnInit {
   get name(): Observable<String> {
     return this.name$;
   }
-  get ongelezenBericht(): String {
+  ongelezenBericht(): String {
     if (this._onGelezenBericht === 0) {
       return 'U heeft geen nieuwe berichten.';
     } else if (this._onGelezenBericht === 1) {
@@ -94,7 +93,7 @@ export class HomeComponent implements OnInit {
   /**
    * Geeft de begroetboodschap van nu terug
    */
-  get berekenGroet(): string {
+  berekenGroet(): string {
     if (this.uur < 6) {
       return 'Goeienacht ';
     } else if (this.uur < 12) {

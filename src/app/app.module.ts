@@ -18,18 +18,17 @@ import { SessieLijstComponent } from './sessie-lijst/sessie-lijst.component';
 import { SessieComponent } from './sessie/sessie.component';
 import { OefeningComponent } from './oefening/oefening.component';
 import { OefeningEmptyComponent } from './oefening-empty/oefening-empty.component';
-import { OefeningDataService } from './oefening-data.service';
-import { SessieDataService } from './sessie-data.service';
+import { DataService } from './data.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SessieEmptyComponent } from './sessie-empty/sessie-empty.component';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { firebaseAndroidConfig } from 'src/environments/environment';
-import { AngularFireDatabaseModule  } from 'angularfire2/database';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireDatabaseModule  } from '@angular/fire/database';
+import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore';
 import { RegistrerenComponent } from './registreren/registreren.component';
 import { GebruikersComponent } from './gebruikers/gebruikers.component';
 import { AankondigingenComponentDialog } from './aankondiging-empty/aankondigingdialog.component';
@@ -41,10 +40,9 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { BerichtenComponent } from './berichten/berichten.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ChartsModule } from 'ng2-charts';
-import { VerwijderAlertComponent } from './verwijder-alert/verwijder-alert.component';
 import localeNl from '@angular/common/locales/nl-BE';
-
-/** test@test.com   123456 */
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 registerLocaleData(localeNl);
 
@@ -61,15 +59,13 @@ registerLocaleData(localeNl);
     LoginComponent,
     RegistrerenComponent,
     GebruikersComponent,
-
     AankondigingenComponent,
     AankondigingenComponentDialog,
     BerichtenComponent,
     FeedbackComponent,
-    VerwijderAlertComponent
   ],
   entryComponents: [OefeningComponent, OefeningEmptyComponent, SessieEmptyComponent,
-    AankondigingenComponentDialog, VerwijderAlertComponent],
+    AankondigingenComponentDialog],
 
   imports: [
     BrowserModule,
@@ -95,6 +91,7 @@ registerLocaleData(localeNl);
     MatCheckboxModule,
     MatSnackBarModule,
     ChartsModule,
+    //NgxLoadingModule.forRoot({}),
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseAndroidConfig, 'angular'),
@@ -103,6 +100,8 @@ registerLocaleData(localeNl);
     AngularFireDatabaseModule,
     MatNativeDateModule,
     CommonModule,
+    //NgxSpinnerModule,
+    NgxUiLoaderModule,
     FormsModule,
     NgbModalModule,
     CalendarModule.forRoot({
@@ -110,7 +109,7 @@ registerLocaleData(localeNl);
       useFactory: adapterFactory
     }),
   ],
-  providers: [ AuthenticationService, AuthGuardService, OefeningDataService, SessieDataService ],
+  providers: [ AuthenticationService, AuthGuardService, DataService, AngularFireStorage ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

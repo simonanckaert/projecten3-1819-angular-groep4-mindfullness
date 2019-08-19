@@ -16,19 +16,19 @@
         </mat-list>
       </mat-card-content>
       <mat-card-actions>
-        <!--button mat-raised-button color="primary" style="background-color: #0069D9; width: 100%" (click)="openEmptyDialog()">
+        <button mat-raised-button color="primary" style="background-color: #0069D9; width: 100%" (click)="openEmptyDialog()">
           SESSIE TOEVOEGEN
-        </button-->
+        </button>
       </mat-card-actions>
     </mat-card>
   </div>
   <div class="column-02">
-    <div *ngIf="!sessieGekozen()">
+    <div *ngIf="!sessie">
         <mat-card class="sessie-card mat-elevation-z0">
             <h4 style="display: flex; justify-content:center;">Kies aub een sessie.</h4>
         </mat-card>
     </div>
-    <div *ngIf="sessieGekozen()">
+    <div *ngIf="sessie">
       <app-sessie [sessie]="sessie"></app-sessie>
     </div>
   </div>
