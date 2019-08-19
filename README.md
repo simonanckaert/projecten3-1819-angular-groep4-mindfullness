@@ -10,6 +10,8 @@ This project is intended as a tool for Mindfulness psychologist Sarah and her co
 
 And this project is finished by Simon Anckaert during August.
 
+I worked on this project in the githubproject https://github.com/simonanckaert/Project3Angular. I committed the last version in this fork.
+
 ## Features
 
 * Overview of sessions with their corresponding exercises.
